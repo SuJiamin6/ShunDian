@@ -8,6 +8,15 @@ public class GoodsType {
     private Integer aId;
     private String aName;
     private Integer parentId;
+    private Integer type;
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
     public Integer getaId() {
         return aId;
@@ -43,6 +52,7 @@ public class GoodsType {
                 "aId=" + aId +
                 ", aName='" + aName + '\'' +
                 ", parentId=" + parentId +
+                ", type=" + type +
                 '}';
     }
 }

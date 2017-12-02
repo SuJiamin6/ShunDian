@@ -8,9 +8,14 @@
 		<id column="aId" property="aId" javaType="int" />
 		<result column="aName" property="aName" jdbcType="VARCHAR" />
 		<result column="parent_id" property="parentId" javaType="int" />
+		<result column="type" property="type" javaType="int" />
 	</resultMap>
-	<select id="findGoodsType" resultMap="typeResult" >
-		select * from allGoodsType
+	<select id="find9Goods3Type" resultMap="typeResult" >
+		select * from allGoodsType where type = 3 limit 0,9;
+	</select>
+
+	<select id="findGoods1Type" resultMap="typeResult" >
+		select * from allGoodsType where type = 1;
 	</select>
   
 </mapper>
