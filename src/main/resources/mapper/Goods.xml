@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.GoodsTypeMapper">
+
+	<resultMap type="Goods" id="typeResult">
+		<id column="GoodsId" property="gId" javaType="int" />
+		<result column="GoodsName" property="gName" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" javaType="int" />
+	</resultMap>
+	<select id="find9Goods" resultMap="Result" >
+		select * from allGoodsType
+	</select>
+  
+</mapper>
