@@ -2,15 +2,19 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lanou.dao.GoodsTypeMapper">
+<mapper namespace="com.lanou.dao.GoodsMapper">
 
-	<resultMap type="Goods" id="typeResult">
+	<resultMap type="Goods" id="9GoodsResult">
 		<id column="GoodsId" property="gId" javaType="int" />
 		<result column="GoodsName" property="gName" jdbcType="VARCHAR" />
-		<result column="parent_id" property="parentId" javaType="int" />
+		<result column="GoodsPrice" property="gPrice" javaType="Double" />
+		<result column="GoodsImageUrl" property="gUrl" jdbcType="VARCHAR" />
+		<result column="GoodsDescribe" property="gDescribe" jdbcType="VARCHAR" />
+		<result column="All_id" property="all_id" javaType="int" />
+
 	</resultMap>
-	<select id="find9Goods" resultMap="Result" >
-		select * from allGoodsType
+	<select id="find9Goods" resultMap="9GoodsResult" >
+		select GoodsId,GoodsName from Goods limit 0,9;
 	</select>
   
 </mapper>
