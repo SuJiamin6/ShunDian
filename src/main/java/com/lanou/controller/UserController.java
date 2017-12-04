@@ -3,6 +3,7 @@ package com.lanou.controller;
 import com.lanou.entity.User;
 import com.lanou.service.UserService;
 import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
+import org.apache.commons.fileupload.servlet.ServletRequestContext;
 import org.apache.ibatis.logging.stdout.StdOutImpl;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -24,12 +27,12 @@ public class UserController {
 	//登录
 	@RequestMapping("/login.do")
 	@ResponseBody
-	public boolean login(User user1){
+	public boolean login(User user1, HttpServletRequest request){
 		User users=userService.finduNameAndPwd(user1);
 		System.out.println(users);
 		boolean result=false;
 		if (users!=null){
-
+			request.setAttribute("users",users);
 			return true;
 		}
 		System.out.println(result);
@@ -62,11 +65,11 @@ public class UserController {
 		return false;
 	}
 	//修改密码
-	@RequestMapping("/updatePwd.do")
+	@RequestMapping("/findPwdByuName.do")
 	@ResponseBody
 	public String findPwdByuNmae(User user){
 		User user1= userService.finduPasswordByuName(user);
-		Number num=0;
+
 		if (user1.getuPassword().equals(user.getuPassword())){
 			return "OK";
 		}
@@ -74,4 +77,14 @@ public class UserController {
 		return "NO";
 	}
 
+	@RequestMapping("updatePwdByuName.do")
+	@ResponseBody
+	public boolean updatePwdByuName(User user,HttpServletRequest request){
+		boolean result=false;
+		request.getAttribute("users");
+		if (userService.updateUser(user)){
+			return true;
+		}
+		return false;
+	}
 }
