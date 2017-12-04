@@ -1,6 +1,7 @@
 package com.lanou.controller;
 
 import com.lanou.entity.Floor;
+import com.lanou.entity.FloorImage;
 import com.lanou.entity.Goods;
 import com.lanou.entity.GoodsType;
 import com.lanou.service.GoodsTypeService;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -38,6 +40,30 @@ public class GoodsTypeController {
 		map.put("si",goodsList);
 
 		return map;
+	}
+
+	@RequestMapping("/indexFloor")
+	@ResponseBody
+	//这里接收对应楼层的id
+	public Map<String,Object> finds(int id){
+
+		//根据id请求对应楼层的ajax
+		List<FloorImage> floorImages = new ArrayList<FloorImage>();
+		List<Goods> goodsList = new ArrayList<Goods>();
+		Map<String,Object> map = new HashMap<String,Object>();
+
+		if(id>=2&&id<=5){
+
+			floorImages = goodsTypeService.findFloorImage(id);
+			map.put("data",floorImages);
+
+		} else if(id==6){
+			goodsList = goodsTypeService.find8Goods();
+			map.put("data",goodsList);
+		}
+
+		return map;
+
 	}
 
 //	public List<GoodsType> finds() {

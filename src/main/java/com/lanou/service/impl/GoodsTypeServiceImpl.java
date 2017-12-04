@@ -2,6 +2,7 @@ package com.lanou.service.impl;
 
 import com.lanou.dao.GoodsTypeMapper;
 import com.lanou.entity.Floor;
+import com.lanou.entity.FloorImage;
 import com.lanou.entity.Goods;
 import com.lanou.entity.GoodsType;
 import com.lanou.service.GoodsTypeService;
@@ -30,5 +31,10 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 
 	public List<Goods> find8Goods() {
 		return goodsTypeMapper.find8Goods();
+	}
+
+	//对应楼层的实现方法
+	public List<FloorImage> findFloorImage(int id) {
+		return goodsTypeMapper.findFloorImage(id);
 	}
 }
