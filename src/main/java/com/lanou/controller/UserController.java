@@ -40,18 +40,28 @@ public class UserController {
 	}
 
 	//注册
-	@RequestMapping("/reg.do")
+	@RequestMapping("/shijiao.do")
 	@ResponseBody
-	public boolean reg(User user){
+	public boolean shijiao(User user){
 		User user1= userService.finduName(user);
 		boolean result=false;
 		if (user1==null){
-			result=userService.adduNameAndPwd(user);
+
 			return true;
 		}
+		System.out.println(user1);
 		return result;
 	}
 
+	@RequestMapping("/reg.do")
+	@ResponseBody
+	public boolean reg(User user){
+		boolean result=false;
+		if (userService.adduNameAndPwd(user)){
+			return  true;
+		}
+		return result;
+	}
 	//修改个人信息
 	@RequestMapping("/update.do")
 	@ResponseBody
