@@ -11,4 +11,6 @@ public interface UserMapper {
 	public User finduNameAndPwd(User user);
 	public User finduName(User user);
 	public  boolean adduNameAndPwd(User user);
+	public  boolean updateUser(User user);
+	public User finduPasswordByuName(User user);
 }

@@ -29,4 +29,12 @@ public class UserServiceImpl implements UserService{
 
 		return userMapper.adduNameAndPwd(user);
 	}
+	public  boolean updateUser(User user){
+
+		return userMapper.updateUser(user);
+	}
+	public User finduPasswordByuName(User user){
+
+		return userMapper.finduPasswordByuName(user);
+	}
 }
