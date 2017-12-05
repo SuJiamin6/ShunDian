@@ -1,5 +1,7 @@
 package com.lanou.entity;
 
+import java.util.List;
+
 /**
  * Created by lanou on 2017/12/2.
  */
@@ -9,6 +11,16 @@ public class GoodsType {
     private String aName;
     private Integer parentId;
     private Integer type;
+
+    private List<GoodsType> goodsTypes;
+
+    public List<GoodsType> getGoodsTypes() {
+        return goodsTypes;
+    }
+
+    public void setGoodsTypes(List<GoodsType> goodsTypes) {
+        this.goodsTypes = goodsTypes;
+    }
 
     public Integer getType() {
         return type;
@@ -53,6 +65,7 @@ public class GoodsType {
                 ", aName='" + aName + '\'' +
                 ", parentId=" + parentId +
                 ", type=" + type +
+                ", goodsTypes=" + goodsTypes +
                 '}';
     }
 }

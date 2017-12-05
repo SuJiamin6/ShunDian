@@ -17,5 +17,33 @@
 	<select id="findGoods1Type" resultMap="typeResult" >
 		select * from allGoodsType where type = 1;
 	</select>
+
+
+
+
+	 <select id="Judge" parameterType="int" resultType="int">
+        select type from allGoodsType where  aId = #{all_id};
+    </select>
+
+    <select id="findsan1" parameterType="int" resultMap="typeResult">
+        select aName from allGoodsType where parent_id=#{all_id};
+    </select>
+
+    <select id="finder1" parameterType="int" resultMap="typeResult">
+        select aName from allGoodsType where parent_id=#{all_id};
+    </select>
+    <select id="findfenlei" parameterType="int" resultMap="typeResult">
+        select * from allGoodsType where parent_id = #{aId};
+    </select>
+
+
+	<!--<select id="selectGoodsTypeChildrenByParentId" resultMap="typeResult">-->
+		<!--select * from allGoodsType where parent_id = #{aId}-->
+	<!--</select>-->
+
+	<!--<select id="selectByPrimaryKey" resultMap="typeResult">-->
+		<!--select * from allGoodsType where aId = #{aId}-->
+	<!--</select>-->
+
   
 </mapper>

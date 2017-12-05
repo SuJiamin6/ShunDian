@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lanou.dao.GoodsTypeMapper">
 
-	<resultMap type="Goods" id="8goodsResult">
+	<resultMap type="Goods" id="goodsResult">
 		<id column="GoodsId" property="gId" javaType="int" />
 		<result column="GoodsName" property="gName" jdbcType="VARCHAR" />
 		<result column="GoodsPrice" property="gPrice" jdbcType="DOUBLE" />
@@ -13,9 +13,26 @@
 		<result column="All_id" property="all_id" javaType="int" />
 	</resultMap>
 
-	<select id="find8Goods" resultMap="8goodsResult" >
+	<select id="find8Goods" resultMap="goodsResult" >
 		select * from Goods order by rand() limit 8;
 	</select>
 
-  
+	<!--<select id="findGoodsById" resultMap="goodsResult" >-->
+		<!--select * from Goods where GoodsId = #{GoodsId};-->
+	<!--</select>-->
+
+<!--=================================================-->
+	<resultMap type="Goods" id="findgoodsResult">
+		<id column="GoodsId" property="gId" javaType="int" />
+		<result column="GoodsName" property="gName" jdbcType="VARCHAR" />
+		<result column="GoodsPrice" property="gPrice" jdbcType="DOUBLE" />
+		<result column="GoodsDescribe" property="gDescribe" jdbcType="VARCHAR" />
+		<result column="GoodsImageUrl" property="gUrl" jdbcType="VARCHAR" />
+		<result column="All_id" property="all_id" javaType="int" />
+	</resultMap>
+
+	<select id="findGoodss" resultMap="findgoodsResult" >
+		select * from Goods where All_id = #{all_id}
+	</select>
+
 </mapper>

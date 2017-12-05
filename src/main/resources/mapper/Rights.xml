@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.GoodsTypeMapper">
+
+	<resultMap type="Rights" id="findRightResult">
+		<id column="right_id" property="right_id" javaType="int" />
+		<result column="left_id" property="left_id" javaType="int" />
+		<result column="right_name" property="right_name" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="findright" parameterType="int" resultMap="findRightResult" >
+		select * from Rights where left_id = #{leftId};
+	</select>
+
+  
+</mapper>
