@@ -15,6 +15,11 @@
 		<result column="email" property="email" jdbcType="VARCHAR"/>
 		<result column="address" property="address" jdbcType="VARCHAR"/>
 	</resultMap>
+
+	<!--查找用户所有信息-->
+	<select id="findUser" parameterType="User" resultMap="UserResult">
+		SELECT * FROM  USER where uName=#{uName}
+	</select>
 	<!--//根据用户名查找密码-->
 	<select id="finduPasswordByuName" parameterType="User" resultMap="UserResult">
 		SELECT  uPassword FROM  User where uName=#{uName}

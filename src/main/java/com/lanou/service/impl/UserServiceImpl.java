@@ -37,4 +37,7 @@ public class UserServiceImpl implements UserService{
 
 		return userMapper.finduPasswordByuName(user);
 	}
+	public  List<User> findUser(User user){
+		return userMapper.findUser(user);
+	}
 }

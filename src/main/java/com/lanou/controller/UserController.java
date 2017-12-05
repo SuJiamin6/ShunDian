@@ -62,12 +62,12 @@ public class UserController {
 		}
 		return result;
 	}
-	//修改个人信息
+	//根据用户名修改个人信息
 	@RequestMapping("/update.do")
 	@ResponseBody
-	public boolean updateUser(User user){
+	public boolean updateUser(User user,HttpServletRequest request){
 		boolean result=false;
-
+		request.getSession().getAttribute("users");
 		 if (userService.updateUser(user)){
 		 	return true;
 		 }
@@ -81,20 +81,27 @@ public class UserController {
 		User user1= userService.finduPasswordByuName(user);
 
 		if (user1.getuPassword().equals(user.getuPassword())){
-			return "OK";
+			return "OK"; //旧密码输入正确
 		}
 		System.out.println(user1);
-		return "NO";
+		return "NO"; //旧密码输入错误
 	}
-
+	//修改密码
 	@RequestMapping("updatePwdByuName.do")
 	@ResponseBody
 	public boolean updatePwdByuName(User user,HttpServletRequest request){
 		boolean result=false;
-		request.getAttribute("users");
+
 		if (userService.updateUser(user)){
-			return true;
+			return true; //新密码修改密码成功
 		}
-		return false;
+		return false;  //新密码修改失败
+	}
+	//查询用户所有信息
+	@RequestMapping("/findUser.do")
+	@ResponseBody
+	public List<User> findUser(User user){
+		List<User> user1= userService.findUser(user);
+		return user1;
 	}
 }

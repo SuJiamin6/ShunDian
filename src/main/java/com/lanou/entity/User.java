@@ -1,5 +1,8 @@
 package com.lanou.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -13,6 +16,7 @@ public class User {
     private  String uPhone;
     private  String xName;
     private  String gender;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
     private String QQ;
     private String email;
@@ -66,6 +70,7 @@ public class User {
         this.gender = gender;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd ",timezone = "GMT+8")
     public Date getBirthday() {
         return birthday;
     }
