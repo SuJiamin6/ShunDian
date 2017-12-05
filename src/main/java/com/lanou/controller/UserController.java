@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.net.InetAddress;
 import java.util.List;
 
 @Controller
@@ -101,6 +102,7 @@ public class UserController {
 	@RequestMapping("/findUser.do")
 	@ResponseBody
 	public List<User> findUser(User user){
+
 		List<User> user1= userService.findUser(user);
 		return user1;
 	}
