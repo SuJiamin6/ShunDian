@@ -1,5 +1,7 @@
 package com.lanou.entity;
 
+import java.util.List;
+
 /**
  * Created by lanou on 2017/12/2.
  */
@@ -11,6 +13,15 @@ public class Goods {
     private String gDescribe;
     private String gUrl;
     private Integer all_id;
+    private List<User> userList;
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
 
     public Integer getgId() {
         return gId;
@@ -73,6 +84,7 @@ public class Goods {
                 ", gDescribe='" + gDescribe + '\'' +
                 ", gUrl='" + gUrl + '\'' +
                 ", all_id=" + all_id +
+                ", userList=" + userList +
                 '}';
     }
 }

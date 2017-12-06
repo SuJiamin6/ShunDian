@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.net.InetAddress;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/")
@@ -29,84 +30,78 @@ public class UserController {
 
 	//登录
 	@RequestMapping("/login.do")
-	@ResponseBody
-	public boolean login(User user1, HttpServletRequest request){
+	public void login(User user1, HttpServletRequest request, HttpServletResponse response){
 		User users=userService.finduNameAndPwd(user1);
 		System.out.println(users);
 		boolean result=false;
 		if (users!=null){
-			request.setAttribute("users",users);
-			return true;
+			request.getSession().setAttribute("users",users);
+			result=true;
 		}
 		System.out.println(result);
-		return false;
+		FastJson_All.toJson(result,response);
 	}
 
 	//注册
 	@RequestMapping("/shijiao.do")
-	@ResponseBody
-	public boolean shijiao(User user){
+	public void shijiao(User user,HttpServletResponse response){
 		User user1= userService.finduName(user);
 		boolean result=false;
 		if (user1==null){
 
-			return true;
+			result=true;
 		}
 		System.out.println(user1);
-		return result;
+		FastJson_All.toJson(result,response);
 	}
 
 	@RequestMapping("/reg.do")
-	@ResponseBody
-	public boolean reg(User user){
+	public void reg(User user,HttpServletResponse response){
 		boolean result=false;
 		if (userService.adduNameAndPwd(user)){
-			return  true;
+			result=true;
 		}
-		return result;
+		FastJson_All.toJson(result,response);
 	}
 	//根据用户名修改个人信息
 	@RequestMapping("/update.do")
-	@ResponseBody
-	public boolean updateUser(User user,HttpServletRequest request){
+	public void updateUser(User user,HttpServletRequest request,HttpServletResponse response){
 		boolean result=false;
 		request.getSession().getAttribute("users");
 		 if (userService.updateUser(user)){
-		 	return true;
+		 	result=true;
 		 }
 
-		return false;
+		FastJson_All.toJson(result,response);
 	}
 	//修改密码
 	@RequestMapping("/findPwdByuName.do")
-	@ResponseBody
-	public String findPwdByuNmae(User user){
+	public void findPwdByuNmae(User user,HttpServletResponse response){
 		User user1= userService.finduPasswordByuName(user);
-
+			String result="NO";
 		if (user1.getuPassword().equals(user.getuPassword())){
-			return "OK"; //旧密码输入正确
+			result ="OK"; //旧密码输入正确
 		}
 		System.out.println(user1);
-		return "NO"; //旧密码输入错误
+		FastJson_All.toJson(result,response); //旧密码输入错误
 	}
 	//修改密码
 	@RequestMapping("updatePwdByuName.do")
-	@ResponseBody
-	public boolean updatePwdByuName(User user,HttpServletRequest request){
+	public void updatePwdByuName(User user,HttpServletResponse response){
 		boolean result=false;
 
 		if (userService.updateUser(user)){
-			return true; //新密码修改密码成功
+			result=true; //新密码修改密码成功
 		}
-		return false;  //新密码修改失败
+		FastJson_All.toJson(result,response); //新密码修改失败
 	}
 	//查询用户所有信息
 	@RequestMapping("/findUser.do")
-	//@ResponseBody
-	public void findUser(User user,HttpServletResponse response){
+	@ResponseBody
+	public List<User> findUser(User user){
 
 		List<User> user1= userService.findUser(user);
-		//return user1;
-		FastJson_All.toJson(user1,response);
+		return user1;
+
 	}
 }
