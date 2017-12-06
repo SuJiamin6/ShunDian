@@ -8,5 +8,4 @@ import java.util.List;
 public interface DiZhiMapper {
 
 	public  List<DiZhi> findDiZhi(DiZhi diZhi);
-
 }
