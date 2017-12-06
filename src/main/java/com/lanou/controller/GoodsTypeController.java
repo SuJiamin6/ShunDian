@@ -24,7 +24,7 @@ public class GoodsTypeController {
 
 	@RequestMapping("/index")
 	@ResponseBody
-	public void finds(HttpServletResponse response,GoodsType good1 , Integer aId){
+	public void finds(HttpServletResponse response){
 
 		Map<String,Object> map = new HashMap<String,Object>();
 
@@ -33,29 +33,40 @@ public class GoodsTypeController {
 		List<GoodsType> goodsTypeList1 = goodsTypeService.findGoods1Type();
 		List<Floor> floorList = goodsTypeService.findFloor();
 		List<Goods> goodsList = goodsTypeService.find8Goods();
-		List<GoodsType> goods = find1(good1,aId);
-		System.out.println(goods);
+		//List<GoodsType> goods = find1(good1,aId);
+		//System.out.println(goods);
 
 		//map传出
         map.put("yi", goodsTypeList);//发现随机的九个三级标签
         map.put("er", goodsTypeList1);//所有的一级标签
         map.put("san", floorList);//各个楼层的文字
         map.put("si", goodsList);//推荐楼层中的八个商品
-		map.put("wu",goods);//无限极查询
+		//map.put("wu",goods);//无限极查询
 
 		//return map;
         FastJson_All.toJson(map,response);
 	}
+	
 
 	// ============================================================无限级查询的方法
-	 public List<GoodsType> find1(GoodsType good1 , Integer aId){
-        List<GoodsType> goods =goodsTypeService.findfenlei(aId);
-        for (GoodsType good : goods) {
-           good.setGoodsTypes(find1(good1, good.getaId()));
-        }
-        System.out.println(goods);
-        return goods;
-    }
+	@RequestMapping("/index1")
+	@ResponseBody
+	public void findfl(HttpServletResponse response,GoodsType good1 , Integer aId){
+		List<GoodsType> goods = find1(good1,aId);
+		FastJson_All.toJson(goods,response);
+	}
+
+
+	public List<GoodsType> find1(GoodsType good1 , Integer aId){
+		List<GoodsType> goods =goodsTypeService.findfenlei(aId);
+		for (GoodsType good : goods) {
+			good.setGoodsTypes(find1(good1, good.getaId()));
+		}
+		System.out.println(goods);
+		return goods;
+	}
+
+
 //    ===========================================================
 	@RequestMapping("/indexFloor")
 	@ResponseBody

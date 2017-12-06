@@ -67,7 +67,8 @@ public class GoodsInfo {
             names.get(i).replace(names.get(i),names.get(names.size()-i-1));
             names.get(names.size()-i-1).replace(names.get(names.size()-i-1),t);
         }
-        System.out.println("路径为："+names);
+        //第六部分是当前商品的评论
+
 
         map.put("main",goodsList);
         map.put("xiao",goodsImages);
