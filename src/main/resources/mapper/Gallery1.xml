@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.GalleryMapper">
+	<!--=================================================-->
+	<resultMap type="Goods" id="findgoodsResult">
+		<id column="GoodsId" property="gId" javaType="int" />
+		<result column="GoodsName" property="gName" jdbcType="VARCHAR" />
+		<result column="GoodsPrice" property="gPrice" jdbcType="DOUBLE" />
+		<result column="GoodsDescribe" property="gDescribe" jdbcType="VARCHAR" />
+		<result column="GoodsImageUrl" property="gUrl" jdbcType="VARCHAR" />
+		<result column="All_id" property="all_id" javaType="int" />
+	</resultMap>
+
+	<select id="findGoodss" resultMap="findgoodsResult" >
+		select * from Goods where All_id = #{all_id}
+	</select>
+
+	<select id="findByPrice" resultMap="findgoodsResult">
+		select * from Goods where GoodsPrice between #{0} and #{1};
+	</select>
+
+</mapper>
