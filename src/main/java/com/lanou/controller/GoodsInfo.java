@@ -1,5 +1,6 @@
 package com.lanou.controller;
 
+import com.lanou.Util.FastJson_All;
 import com.lanou.entity.Goods;
 import com.lanou.entity.GoodsImage;
 import com.lanou.entity.GoodsType;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +29,7 @@ public class GoodsInfo {
     //==================================商品详情功能=====================================
     @RequestMapping("/product")
     @ResponseBody
-    public Map<String,Object> findsId(int id){//请求点击商品跳转到商品详情页，需要接收商品的id
+    public void findsId(int id, HttpServletResponse response){//请求点击商品跳转到商品详情页，需要接收商品的id
 
         //根据id请求找到对应的商品
 
@@ -72,7 +74,8 @@ public class GoodsInfo {
         map.put("left",goodsList1);
         map.put("right",goodsImages1);
         map.put("road",names);
-        return map;
+        FastJson_All.toJson(map,response);
+        //return map;
 
     }
     //========================================================================

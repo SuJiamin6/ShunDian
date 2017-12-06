@@ -34,13 +34,14 @@ public class GoodsTypeController {
 		List<Floor> floorList = goodsTypeService.findFloor();
 		List<Goods> goodsList = goodsTypeService.find8Goods();
 		List<GoodsType> goods = find1(good1,aId);
+		System.out.println(goods);
 
 		//map传出
         map.put("yi", goodsTypeList);//发现随机的九个三级标签
         map.put("er", goodsTypeList1);//所有的一级标签
         map.put("san", floorList);//各个楼层的文字
         map.put("si", goodsList);//推荐楼层中的八个商品
-        map.put("wu",goods);//根据你传入的aId来找出下面的二三级标题
+		map.put("wu",goods);//无限极查询
 
 		//return map;
         FastJson_All.toJson(map,response);
@@ -55,103 +56,11 @@ public class GoodsTypeController {
         System.out.println(goods);
         return goods;
     }
-    // ==============================================================
-    // gallery
-    @RequestMapping("/gallery")
-    @ResponseBody
-    public void findss(HttpServletResponse response , Integer id) {
-
-        Map<String, Object> map = new HashMap<String, Object>();
-        int leftId = 0;
-        //请求商品分类页部分数据
-        String leftName = null;
-        String rightName = null;
-        int type = goodsTypeService.Judge(id);
-        System.out.println(type);
-        if (type == 1){
-            List<Lefts>  finder = goodsTypeService.finder();
-            List<GoodsType> finder1 = goodsTypeService.finder1(id);
-            List findleftandright1 = new ArrayList();
-            List<Goods> findgoodss = goodsTypeService.findGoodss(6);
-            for(int i=0;i<finder.size();i++){
-                leftName = finder.get(i).getLeftName();
-                findleftandright1.add(leftName);
-                System.out.println(findleftandright1);
-                if (i==0){
-                    for (int j=0;j<finder1.size();j++){
-                        rightName = finder1.get(j).getaName();
-                        findleftandright1.add(rightName);
-                        System.out.println("sdasadasdasd"+findleftandright1);
-                    }
-                }
-                if(i==1){
-                    for (int j=0;j<goodsTypeService.findright(2).size();j++){
-                        rightName = goodsTypeService.findright(2).get(j).getRight_name();
-                        findleftandright1.add(rightName);
-                    }
-                }
-
-            }
-            map.put("leftandright",findleftandright1);
-            map.put("goods", findgoodss);
-        }
-        if (type == 2){
-            List<Lefts>  findsan = goodsTypeService.findsan();
-            List<GoodsType> findsan1 = goodsTypeService.findsan1(id);
-            List findleftandright2 = new ArrayList();
-            List<Goods> findgoodss = goodsTypeService.findGoodss(6);
-             for(int i=0;i<findsan.size();i++){
-                 leftName = findsan.get(i).getLeftName();
-                 findleftandright2.add(leftName);
-                 System.out.println(findleftandright2);
-                 if (i==0){
-                     for (int j=0;j<findsan1.size();j++){
-                         rightName = findsan1.get(j).getaName();
-                         findleftandright2.add(rightName);
-                         System.out.println("sdasadasdasd"+findleftandright2);
-                     }
-                 }
-                 if(i==1){
-                     for (int j=0;j<goodsTypeService.findright(2).size();j++){
-                         rightName = goodsTypeService.findright(2).get(j).getRight_name();
-                         findleftandright2.add(rightName);
-                     }
-                 }
-
-             }
-            map.put("leftandright",findleftandright2);
-            map.put("goods", findgoodss);
-        }
-        if (type == 3){
-            List<All_Left> findAllLeft = goodsTypeService.findleft1(id);
-            List findleftandright = new ArrayList();
-            List<Goods> findgoodss = goodsTypeService.findGoodss(id);
-            for (int i = 0; i < findAllLeft.size(); i++) {
-
-                leftId = findAllLeft.get(i).getLeft_id();
-                leftName = goodsTypeService.findleft2(leftId).get(0).getLeftName();
-                System.out.println(leftName);
-                findleftandright.add(leftName);
-                for (int j = 0; j < goodsTypeService.findright(leftId).size(); j++) {
-                    rightName = goodsTypeService.findright(leftId).get(j).getRight_name();
-                    findleftandright.add(rightName);
-                    System.out.println(rightName);
-
-                }
-            }
-            map.put("leftandright",findleftandright);
-            map.put("goods", findgoodss);
-        }
-//            return  map;
-        FastJson_All.toJson(map,response);
-    }
-
-    // ==============================================================
-
+//    ===========================================================
 	@RequestMapping("/indexFloor")
 	@ResponseBody
 	//这里接收对应楼层的id
-	public Map<String,Object> finds(int id){
+	public void finds(int id,HttpServletResponse response){
 
 		//根据id请求对应楼层的ajax
 		List<FloorImage> floorImages = new ArrayList<FloorImage>();
@@ -167,8 +76,8 @@ public class GoodsTypeController {
 			goodsList = goodsTypeService.find8Goods();
 			map.put("data",goodsList);
 		}
-
-		return map;
+        FastJson_All.toJson(map,response);
+		//return map;
 
 	}
 

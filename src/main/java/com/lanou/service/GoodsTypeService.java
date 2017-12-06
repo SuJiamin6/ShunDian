@@ -30,19 +30,6 @@ public interface GoodsTypeService {
 	//查询aId
 	public List<GoodsType> findfenlei(Integer aId);
 
-    //判断
-	public int  Judge(int all_id);
-	//	 查询一级标题获得信息
-	public List<Lefts> finder();
-	public List<GoodsType> finder1(Integer all_id);
-	//	查询二级标题
-	public List<Lefts> findsan();
-	public List<GoodsType> findsan1(Integer all_id);
-    //查询三级标题
-	public List<All_Left> findleft1(Integer all_id);
-	public List<Lefts> findleft2(Integer leftId);
-	public List<Rights> findright(Integer leftId);
-	public List<Goods> findGoodss(Integer all_id);
 
 
 }
