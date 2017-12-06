@@ -1,5 +1,6 @@
 package com.lanou.controller;
 
+import com.lanou.Util.FastJson_All;
 import com.lanou.entity.User;
 import com.lanou.service.UserService;
 import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.net.InetAddress;
 import java.util.List;
@@ -100,10 +102,11 @@ public class UserController {
 	}
 	//查询用户所有信息
 	@RequestMapping("/findUser.do")
-	@ResponseBody
-	public List<User> findUser(User user){
+	//@ResponseBody
+	public void findUser(User user,HttpServletResponse response){
 
 		List<User> user1= userService.findUser(user);
-		return user1;
+		//return user1;
+		FastJson_All.toJson(user1,response);
 	}
 }

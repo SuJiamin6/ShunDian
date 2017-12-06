@@ -18,6 +18,10 @@
 		select * from allGoodsType where type = 1;
 	</select>
 
+	<select id="findGoodsType" resultMap="typeResult" >
+		select * from allGoodsType where aId = #{aId};
+	</select>
+
 
 
 

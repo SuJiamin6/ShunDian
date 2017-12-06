@@ -14,8 +14,6 @@ public class UserServiceImpl implements UserService{
 	private UserMapper userMapper;
 	
 
-
-
 	public User finduNameAndPwd(User user){
 		return userMapper.finduNameAndPwd(user);
 	}

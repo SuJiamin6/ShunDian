@@ -30,6 +30,10 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 		return goodsTypeMapper.find8Goods();
 	}
 
+	public List<GoodsType> findGoodsType(int aId) {
+		return goodsTypeMapper.findGoodsType(aId);
+	}
+
 	//对应楼层的实现方法
 	public List<FloorImage> findFloorImage(int id) {
 		return goodsTypeMapper.findFloorImage(id);
@@ -37,11 +41,23 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 
 	//商品详情页
 
-//	public List<Goods> findGoodsById(int id) {
-//		return goodsTypeMapper.findGoodsById(id);
-//	}
+	public List<Goods> findGoodsById(int id) {
+		return goodsTypeMapper.findGoodsById(id);
+	}
 
-	public List<GoodsType> find1(Goods good1 ,Integer aId){
+	public List<GoodsImage> findGoodsImage(int id) {
+		return goodsTypeMapper.findGoodsImage(id);
+	}
+
+	public List<Goods> findGoodsByAll_id(int All_id) {
+		return goodsTypeMapper.findGoodsByAll_id(All_id);
+	}
+
+	public List<GoodsImage> findGoodsImage1(int id) {
+		return goodsTypeMapper.findGoodsImage1(id);
+	}
+
+	public List<GoodsType> find1(Goods good1 , Integer aId){
 		return goodsTypeMapper.find1(good1,aId);
 	}
 	//查询aId

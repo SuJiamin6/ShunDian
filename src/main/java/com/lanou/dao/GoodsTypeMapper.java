@@ -9,12 +9,16 @@ public interface GoodsTypeMapper {
 	public List<GoodsType> findGoods1Type();
 	public List<Floor> findFloor();
 	public List<Goods> find8Goods();
+	public List<GoodsType> findGoodsType(int aId);
 
 	//楼层数据
 	public List<FloorImage> findFloorImage(int id);
 
 	//商品详情页
-//	public List<Goods> findGoodsById(int id);
+	public List<Goods> findGoodsById(int id);
+	public List<GoodsImage> findGoodsImage(int id);
+	public List<Goods> findGoodsByAll_id(int All_id);
+	public List<GoodsImage> findGoodsImage1(int id);
 
 //	==========================================
 //	无限极查询

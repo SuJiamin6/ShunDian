@@ -1,5 +1,6 @@
 package com.lanou.controller;
 
+import com.lanou.Util.FastJson_All;
 import com.lanou.dao.GoodsTypeMapper;
 import com.lanou.entity.*;
 import com.lanou.service.GoodsTypeService;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +24,7 @@ public class GoodsTypeController {
 
 	@RequestMapping("/index")
 	@ResponseBody
-	public Map<String,Object> finds(){
+	public void finds(HttpServletResponse response,GoodsType good1 , Integer aId){
 
 		Map<String,Object> map = new HashMap<String,Object>();
 
@@ -31,20 +33,20 @@ public class GoodsTypeController {
 		List<GoodsType> goodsTypeList1 = goodsTypeService.findGoods1Type();
 		List<Floor> floorList = goodsTypeService.findFloor();
 		List<Goods> goodsList = goodsTypeService.find8Goods();
+		List<GoodsType> goods = find1(good1,aId);
 
 		//map传出
         map.put("yi", goodsTypeList);//发现随机的九个三级标签
         map.put("er", goodsTypeList1);//所有的一级标签
         map.put("san", floorList);//各个楼层的文字
-        map.put("si", goodsList);//推介楼层中的八个商品
-        //map.put("wu",goods1);//根据你传入的aId来找出下面的二三级标题
+        map.put("si", goodsList);//推荐楼层中的八个商品
+        map.put("wu",goods);//根据你传入的aId来找出下面的二三级标题
 
-		return map;
+		//return map;
+        FastJson_All.toJson(map,response);
 	}
 
 	// ============================================================无限级查询的方法
-    @RequestMapping("/index1")
-    @ResponseBody
 	 public List<GoodsType> find1(GoodsType good1 , Integer aId){
         List<GoodsType> goods =goodsTypeService.findfenlei(aId);
         for (GoodsType good : goods) {
@@ -55,9 +57,9 @@ public class GoodsTypeController {
     }
     // ==============================================================
     // gallery
-     @RequestMapping("/gallery")
+    @RequestMapping("/gallery")
     @ResponseBody
-    public Map<String, Object> findss(Integer id) {
+    public void findss(HttpServletResponse response , Integer id) {
 
         Map<String, Object> map = new HashMap<String, Object>();
         int leftId = 0;
@@ -140,8 +142,8 @@ public class GoodsTypeController {
             map.put("leftandright",findleftandright);
             map.put("goods", findgoodss);
         }
-
-        return map;
+//            return  map;
+        FastJson_All.toJson(map,response);
     }
 
     // ==============================================================
@@ -170,61 +172,5 @@ public class GoodsTypeController {
 
 	}
 
-	@RequestMapping("/product")
-	@ResponseBody
-	//请求点击商品跳转到商品详情页，需要接收商品的id
-	public Map<String,Object> findsId(int id){
-
-		//根据id请求找到对应的商品
-		List<FloorImage> floorImages = new ArrayList<FloorImage>();
-		List<Goods> goodsList = new ArrayList<Goods>();
-
-		Map<String,Object> map = new HashMap<String,Object>();
-
-		//第一部分是商品的主要信息，在Goods表中
-//		goodsList = goodsTypeService.findGoodsById(id);
-//		//第二部分是商品的多个图片
-
-		map.put("main",goodsList.get(0));
-		return map;
-
-	}
-
-
-
-//	//无限级查询
-//	@RequestMapping("/select")
-//	@ResponseBody
-//	//通过查找当前传送过来的Id，查找对应的信息
-//	public Map<String,Object> selectGoodsTypeAndChildren(Integer aId){
-//		//定义一个map容器
-//		Map<String,Object> map = new HashMap<String,Object>();
-//		//先查找到对应Id的所有信息
-//		GoodsType goodsType = goodsTypeService.selectByPrimaryKey(aId);
-//		//如果当前查找的Id不存在，则返回一个值为空
-//		if(goodsType == null){
-//			return null;
-//		}
-//		//否则表示已经查找到当前id的信息，然后执行findChildGoodsType方法
-//		//将goodsType和主键id作为形参传送过去
-//		goodsType.setGoodsTypes(findChildGoodsType(goodsType,aId));
-//		map.put("data",goodsType);
-//		return map;
-//	}
-//
-//	//私有方法，接收goodsType和主键id
-//	private List<GoodsType> findChildGoodsType(GoodsType goodsTypeRes,Integer aId){
-//		//通过主键的id，查找表中所有parent_id和Id匹配的，放入一个goodsTypeList集合中
-//		List<GoodsType> goodsTypeList = goodsTypeService.selectGoodsTypeChildrenByParentId(aId);
-//		//对这个集合进行遍历
-//		for (GoodsType goodsTypeItem:goodsTypeList ) {
-//			//这里运用到循环嵌套调用
-//			//如果当前商品，根据他的主键还能查找到parent_id与之对应的话，就嵌套调用
-//			//如果已经查找不到parent_id等于主键的时候，就说明集合中的参数为空，就不会再执行了
-//			//最终在当前集合的goodsType中放入当前属于他子集的所有参数，完成无限极查询的功能
-//			goodsTypeItem.setGoodsTypes(findChildGoodsType(goodsTypeRes,goodsTypeItem.getaId()));
-//		}
-//		return goodsTypeList;
-//	}
 
 }

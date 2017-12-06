@@ -17,9 +17,15 @@
 		select * from Goods order by rand() limit 8;
 	</select>
 
-	<!--<select id="findGoodsById" resultMap="goodsResult" >-->
-		<!--select * from Goods where GoodsId = #{GoodsId};-->
-	<!--</select>-->
+	<select id="findGoodsById" resultMap="goodsResult" >
+		select * from Goods where GoodsId = #{GoodsId};
+	</select>
+
+	<!--根据All_id查找到他的同类商品-->
+	<select id="findGoodsByAll_id" resultMap="goodsResult" >
+		select * from Goods where All_id = #{All_id};
+	</select>
+
 
 <!--=================================================-->
 	<resultMap type="Goods" id="findgoodsResult">
