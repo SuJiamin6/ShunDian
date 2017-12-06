@@ -1,9 +1,8 @@
 package com.lanou.controller;
 
 import com.lanou.Util.FastJson_All;
-import com.lanou.entity.Goods;
-import com.lanou.entity.GoodsImage;
-import com.lanou.entity.GoodsType;
+import com.lanou.dao.GoodsTypeMapper;
+import com.lanou.entity.*;
 import com.lanou.service.GoodsTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +37,8 @@ public class GoodsInfo {
         List<Goods> goodsList1 = new ArrayList<Goods>();
         List<GoodsImage> goodsImages1 = new ArrayList<GoodsImage>();
         List<String> names = new ArrayList<String>();
-
+        List<Comments> commentsList = new ArrayList<Comments>();
+        List<Comments_Info> comments_infos = new ArrayList<Comments_Info>();
         Map<String,Object> map = new HashMap<String,Object>();
 
         //第一部分是商品的主要信息，在Goods表中
@@ -68,7 +68,18 @@ public class GoodsInfo {
             names.get(names.size()-i-1).replace(names.get(names.size()-i-1),t);
         }
         //第六部分是当前商品的评论
-
+        //找到了所有的评论
+        commentsList = goodsTypeService.findComments(id);
+        for(int i=0;i<commentsList.size();i++){
+           int uId =  commentsList.get(i).getUser_id();
+           List<User_Info> user_info = goodsTypeService.findUser_Info(uId);
+           Comments_Info comments_info = new Comments_Info();
+           comments_info.setuName(user_info.get(0).getuName());
+           comments_info.setcContent(commentsList.get(i).getContent());
+           comments_infos.add(comments_info);
+        }
+        System.out.println(comments_infos);
+        map.put("content",comments_infos);
 
         map.put("main",goodsList);
         map.put("xiao",goodsImages);

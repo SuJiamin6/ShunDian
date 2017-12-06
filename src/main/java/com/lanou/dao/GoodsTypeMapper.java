@@ -19,7 +19,8 @@ public interface GoodsTypeMapper {
 	public List<GoodsImage> findGoodsImage(int id);
 	public List<Goods> findGoodsByAll_id(int All_id);
 	public List<GoodsImage> findGoodsImage1(int id);
-
+	public List<Comments> findComments(int gId);
+	public List<User_Info> findUser_Info(int uId);
 //	==========================================
 //	无限极查询
 	public List<GoodsType> find1(Goods good1 ,Integer aId);

@@ -24,6 +24,10 @@ public interface GoodsTypeService {
 	public List<Goods> findGoodsByAll_id(int All_id);
 	//第四部分
 	public List<GoodsImage> findGoodsImage1(int id);
+	//第五部分
+	public List<Comments> findComments(int gId);
+	//第六部分
+	public List<User_Info> findUser_Info(int uId);
 
 	//	无限级查询
 	public List<GoodsType> find1(Goods good1 ,Integer aId);

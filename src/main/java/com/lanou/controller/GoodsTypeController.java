@@ -46,7 +46,7 @@ public class GoodsTypeController {
 		//return map;
         FastJson_All.toJson(map,response);
 	}
-	
+
 
 	// ============================================================无限级查询的方法
 	@RequestMapping("/index1")

@@ -60,6 +60,15 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 	public List<GoodsType> find1(Goods good1 , Integer aId){
 		return goodsTypeMapper.find1(good1,aId);
 	}
+
+	public List<Comments> findComments(int gId) {
+		return goodsTypeMapper.findComments(gId);
+	}
+
+	public List<User_Info> findUser_Info(int uId) {
+		return goodsTypeMapper.findUser_Info(uId);
+	}
+
 	//查询aId
 	public List<GoodsType> findfenlei(Integer aId){
 		return  goodsTypeMapper.findfenlei(aId);
