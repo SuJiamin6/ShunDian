@@ -13,7 +13,7 @@ public interface GoodsTypeService {
 	public List<GoodsType> findGoodsType(int aId);
 
 	//对应楼层的id找到集合FloorImage
-	public List<FloorImage> findFloorImage(int id);
+	public List<FloorImage> findFloorImage();
 
 	//商品详情页
 	//第一部分

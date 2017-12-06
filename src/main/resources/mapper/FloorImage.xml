@@ -11,7 +11,7 @@
 	</resultMap>
 
 	<select id="findFloorImage" resultMap="floorsResult" >
-		select * from FloorImage where floor_id = #{floor_id};
+		select * from FloorImage;
 	</select>
 
   

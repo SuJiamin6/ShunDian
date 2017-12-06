@@ -12,7 +12,7 @@ public interface GoodsTypeMapper {
 	public List<GoodsType> findGoodsType(int aId);
 
 	//楼层数据
-	public List<FloorImage> findFloorImage(int id);
+	public List<FloorImage> findFloorImage();
 
 	//商品详情页
 	public List<Goods> findGoodsById(int id);

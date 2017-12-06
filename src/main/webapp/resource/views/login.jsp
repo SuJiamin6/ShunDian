@@ -19,9 +19,8 @@
 <body>
 
     <h1>登录</h1>
-        <form action="<%=basePath %>login.do">
-            <input type="text" name="uName">
-            <input type="text" name="uPassword">
+        <form action="<%=basePath %>findDiZhi.do">
+            <input type="text" name="parentid">
 
             <input type="submit" value="提交">
         </form>

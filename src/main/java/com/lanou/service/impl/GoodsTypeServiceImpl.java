@@ -35,8 +35,8 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 	}
 
 	//对应楼层的实现方法
-	public List<FloorImage> findFloorImage(int id) {
-		return goodsTypeMapper.findFloorImage(id);
+	public List<FloorImage> findFloorImage() {
+		return goodsTypeMapper.findFloorImage();
 	}
 
 	//商品详情页
