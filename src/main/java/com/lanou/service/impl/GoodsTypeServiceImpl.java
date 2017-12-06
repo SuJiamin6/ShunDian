@@ -69,6 +69,15 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 		return goodsTypeMapper.findUser_Info(uId);
 	}
 
+	//地址三级联动模块
+	public DiZhi_Info findDiZhicityid(int cityid) {
+		return goodsTypeMapper.findDiZhicityid(cityid);
+	}
+
+	public List<DiZhi_Info> selectDiZhiChildrenByParentId(int cityid) {
+		return goodsTypeMapper.selectDiZhiChildrenByParentId(cityid);
+	}
+
 	//查询aId
 	public List<GoodsType> findfenlei(Integer aId){
 		return  goodsTypeMapper.findfenlei(aId);

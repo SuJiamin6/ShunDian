@@ -21,6 +21,10 @@ public interface GoodsTypeMapper {
 	public List<GoodsImage> findGoodsImage1(int id);
 	public List<Comments> findComments(int gId);
 	public List<User_Info> findUser_Info(int uId);
+	//三级联动模块
+	public DiZhi_Info findDiZhicityid(int cityid);
+	public List<DiZhi_Info> selectDiZhiChildrenByParentId(int cityid);
+
 //	==========================================
 //	无限极查询
 	public List<GoodsType> find1(Goods good1 ,Integer aId);

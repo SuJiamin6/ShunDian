@@ -29,6 +29,11 @@ public interface GoodsTypeService {
 	//第六部分
 	public List<User_Info> findUser_Info(int uId);
 
+
+	//地址三级联动模块
+	public DiZhi_Info findDiZhicityid(int cityid);
+	public List<DiZhi_Info> selectDiZhiChildrenByParentId(int cityid);
+
 	//	无限级查询
 	public List<GoodsType> find1(Goods good1 ,Integer aId);
 	//查询aId

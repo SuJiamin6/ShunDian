@@ -3,6 +3,7 @@ package com.lanou.controller;
 import com.lanou.Util.FastJson_All;
 import com.lanou.dao.GoodsTypeMapper;
 import com.lanou.entity.*;
+import com.lanou.service.DiZhiService;
 import com.lanou.service.GoodsTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,10 +21,13 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/")
-public class GoodsInfo {
+public class GoodsInfoController {
 
     @Autowired
     private GoodsTypeService goodsTypeService;
+
+    @Autowired
+    private DiZhiService diZhiService;
 
     //==================================商品详情功能=====================================
     @RequestMapping("/product")
@@ -79,16 +83,48 @@ public class GoodsInfo {
            comments_infos.add(comments_info);
         }
         System.out.println(comments_infos);
-        map.put("content",comments_infos);
 
+        DiZhi_Info diZhi_info = new DiZhi_Info();
+        diZhi_info = goodsTypeService.findDiZhicityid(2);
+
+        List<DiZhi_Info> diZhi_infos = new ArrayList<DiZhi_Info>();
+        diZhi_infos.add(goodsTypeService.findDiZhicityid(35)) ;
+
+        diZhi_infos.get(0).setDiZhi_infos(findChildDiZhi_Info(diZhi_infos.get(0),35));
+        diZhi_info.setDiZhi_infos(diZhi_infos);
+
+        System.out.println(diZhi_info);
+
+        map.put("content",comments_infos);
         map.put("main",goodsList);
         map.put("xiao",goodsImages);
         map.put("left",goodsList1);
         map.put("right",goodsImages1);
         map.put("road",names);
+        map.put("address",diZhi_info);
         FastJson_All.toJson(map,response);
         //return map;
 
+    }
+    //========================================================================
+
+    //=======================三级联动地址功能模块=============================
+    @RequestMapping("/select")
+    public void selectDiZhiAndChildren(Integer cityid,HttpServletResponse response){
+        //先查找到对应id的所有信息
+        DiZhi_Info diZhi_info = goodsTypeService.findDiZhicityid(cityid);
+        System.out.println(diZhi_info);
+        diZhi_info.setDiZhi_infos(findChildDiZhi_Info(diZhi_info,cityid));
+        FastJson_All.toJson(diZhi_info,response);
+    }
+
+    private List<DiZhi_Info> findChildDiZhi_Info(DiZhi_Info diZhi_info,int cityid){
+        //通过主键的id，查找表中所有parent_id和Id匹配的，放入一个goodsTypeList集合中
+		List<DiZhi_Info> diZhi_infos = goodsTypeService.selectDiZhiChildrenByParentId(cityid);
+        for (DiZhi_Info diZhiInfoItem:diZhi_infos) {
+            diZhiInfoItem.setDiZhi_infos(findChildDiZhi_Info(diZhi_info,diZhiInfoItem.getCityid()));
+        }
+        return diZhi_infos;
     }
     //========================================================================
 
