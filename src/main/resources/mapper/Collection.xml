@@ -23,4 +23,8 @@
 		<insert id="addCollGoods" parameterType="Integer" >
 			INSERT into Collection(user_id,goods_id) VALUES(#{0},#{1})
 		</insert>
+		<!--删除收藏-->
+		<delete id="deleteCollection" parameterType="Integer">
+			DELETE from Collection where user_id=#{0} and goods_id=#{1}
+		</delete>
 </mapper>

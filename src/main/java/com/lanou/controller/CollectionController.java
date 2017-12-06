@@ -61,7 +61,17 @@ public class CollectionController {
     public  void  addCollGoods(Integer user_id,Integer goods_id,HttpServletResponse response){
         boolean result=false;
         if (collectionService.addCollGoods(user_id,goods_id)){
-            result=true;
+            result=true;  //收藏成功返回true
+        }
+        //收藏失败 false
+        FastJson_All.toJson(result,response);
+    }
+    //删除收藏
+    @RequestMapping("deleteCollection.do")
+    public void deleteCollection(Integer user_id,Integer goods_id,HttpServletResponse response){
+        boolean result=false;
+        if (collectionService.deleteCollection(user_id,goods_id)){
+            result =true;
         }
         FastJson_All.toJson(result,response);
     }

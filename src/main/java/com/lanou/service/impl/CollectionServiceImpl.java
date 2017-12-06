@@ -30,4 +30,7 @@ public class CollectionServiceImpl implements CollectionService{
     public boolean addCollGoods(Integer user_id,Integer goods_id){
         return collectionMapper.addCollGoods(user_id,goods_id);
     }
+    public  boolean deleteCollection(Integer user_id,Integer goods_id){
+        return collectionMapper.deleteCollection(user_id,goods_id);
+    }
 }
