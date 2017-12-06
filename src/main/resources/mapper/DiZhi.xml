@@ -9,11 +9,7 @@
 		<result column="parentid" property="parentid" jdbcType="INTEGER"></result>
 	</resultMap>
 	<select id="findDiZhi" resultMap="DiZhiResult" parameterType="DiZhi">
-		SELECT * FROM  DiZhi where parentid=#{parentid}
+		SELECT * FROM  DiZhi where parentid=#{parentid} or parentid = #{cityid}
 	</select>
 
-	<!--//先查找当前主键cityid的对象-->
-	<!--<select id="findDiZhicityid" resultMap="DiZhiResult">-->
-		<!--select * from DiZhi where cityid = #{cityid};-->
-	<!--</select>-->
 </mapper>
