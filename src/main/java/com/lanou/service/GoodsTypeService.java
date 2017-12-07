@@ -38,7 +38,16 @@ public interface GoodsTypeService {
 	public List<GoodsType> find1(Goods good1 ,Integer aId);
 	//查询aId
 	public List<GoodsType> findfenlei(Integer aId);
+	//=====
+	public List findLun();
+	//	找到三张图
+	public List findIndexSan(Integer aId);
 
+
+	//购物车模块
+	//添加商品
+	public ShopCar findShopCargoods_id(Integer goods_id);
+	public void updateShopCar(int gId,String gName,Double price,int count,Double sum);
 
 
 }

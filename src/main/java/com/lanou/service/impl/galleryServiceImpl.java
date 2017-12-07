@@ -11,25 +11,34 @@ import java.util.List;
 @Service("galleryService")
 public class galleryServiceImpl implements GalleryService{
     @Autowired
-    private GalleryMapper   galleryMapper;
+    private GalleryMapper galleryMapper;
+
     public int  Judge(int all_id){
         return  galleryMapper.Judge(all_id);
     }
-    public List<Lefts> finder(){
+    public List finder(){
         return  galleryMapper.finder();
     }
     public List<GoodsType> finder1(Integer all_id){
         return galleryMapper.finder1(all_id);
     }
-    public List<Lefts> findsan(){
+    public List findsan(){
         return  galleryMapper.findsan();
     }
-    public List<GoodsType> findsan1(Integer all_id){
+    public List findsan1(Integer all_id){
         return  galleryMapper.findsan1(all_id);
     }
 
 
-
+    public  List<GoodsType> AllYiJi(Integer id){
+        return  galleryMapper.AllYiJi(id);
+    }
+    public  List<GoodsType> AllErJi(Integer id,Integer pid){
+        return  galleryMapper.AllErJi(id,pid);
+    }
+    public  List<GoodsType> AllSanJi(Integer pid,Integer id){
+          return  galleryMapper.AllSanJi(pid,id);
+    }
     public List<All_Left> findleft1(Integer all_id){
         return galleryMapper.findleft1(all_id);
     }
@@ -39,13 +48,15 @@ public class galleryServiceImpl implements GalleryService{
     public List<Rights> findright(Integer leftId){
         return galleryMapper.findright(leftId);
     }
-    public List<Goods> findGoodss(Integer all_id){
+    public List<Gallery1> findGoodss(Integer all_id){
         return galleryMapper.findGoodss(all_id);
     }
-
+    public List findFenLeiBiao (Integer a ,Integer b){
+        return  galleryMapper.findFenLeiBiao(a , b);
+    }
 
     //商品分类
-    public String chazhao1(Integer all_id){
+    public List<GoodsType> chazhao1(Integer all_id){
         return  galleryMapper.chazhao1(all_id);
     }
 
@@ -62,6 +73,9 @@ public class galleryServiceImpl implements GalleryService{
     }
 
     //	价格区间
+    public List rightPrice(){
+        return galleryMapper.rightPrice();
+    }
     public List<Goods> findByPrice(Integer firstPrice , Integer secondPrice){
         return  galleryMapper.findByPrice(firstPrice , secondPrice);
     }

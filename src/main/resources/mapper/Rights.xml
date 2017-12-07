@@ -13,5 +13,12 @@
 		select * from Rights where left_id = #{leftId};
 	</select>
 
-  
+	<select id="rightPrice" parameterType="int" resultType="String" >
+		select right_name from Rights where left_id = 3;
+	</select>
+
+	<select id="findFenLeiBiao" parameterType="int"  resultType="String">
+		select right_name from Rights where left_id = #{0} or left_id = #{1};
+	</select>
+
 </mapper>

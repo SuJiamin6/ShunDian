@@ -57,10 +57,6 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 		return goodsTypeMapper.findGoodsImage1(id);
 	}
 
-	public List<GoodsType> find1(Goods good1 , Integer aId){
-		return goodsTypeMapper.find1(good1,aId);
-	}
-
 	public List<Comments> findComments(int gId) {
 		return goodsTypeMapper.findComments(gId);
 	}
@@ -78,15 +74,33 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 		return goodsTypeMapper.selectDiZhiChildrenByParentId(cityid);
 	}
 
+
+	public List<GoodsType> find1(Goods good1 ,Integer aId){
+		return goodsTypeMapper.find1(good1,aId);
+	}
 	//查询aId
 	public List<GoodsType> findfenlei(Integer aId){
 		return  goodsTypeMapper.findfenlei(aId);
 	}
 
+	//	=====
+	public List findLun(){
+		return  goodsTypeMapper.findLun();
+	}
+	//	找到三张图
+	public List findIndexSan(Integer aId){
+		return  goodsTypeMapper.findIndexSan(aId);
+	}
 
 
+	//购物车模块
 
+	public ShopCar findShopCargoods_id(Integer goods_id) {
+		return goodsTypeMapper.findShopCargoods_id(goods_id);
+	}
 
-
-
+	//添加商品
+	public void updateShopCar(int gId, String gName, Double price, int count, Double sum) {
+		goodsTypeMapper.updateShopCar(gId,gName,price,count,sum);
+	}
 }

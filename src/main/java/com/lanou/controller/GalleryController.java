@@ -1,9 +1,7 @@
 package com.lanou.controller;
 
-import com.lanou.entity.All_Left;
-import com.lanou.entity.Goods;
-import com.lanou.entity.GoodsType;
-import com.lanou.entity.Lefts;
+import com.lanou.Util.FastJson_All;
+import com.lanou.entity.*;
 import com.lanou.service.GalleryService;
 import com.lanou.service.GoodsTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,24 +9,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-/**
- * Created by lanou on 2017/12/6.
- */
 @Controller
 @RequestMapping("/")
 public class GalleryController {
     @Autowired
     private GalleryService galleryService;
+
     // ==============================================================
     // gallery
     @RequestMapping("/gallery")
-    @ResponseBody
-    public Map<String, Object> findss(Integer id) {
+    //@ResponseBody
+    public void findss(Integer id, HttpServletResponse response) {
 
         Map<String, Object> map = new HashMap<String, Object>();
         int leftId = 0;
@@ -36,106 +32,142 @@ public class GalleryController {
         String leftName = null;
         String rightName = null;
         int type = galleryService.Judge(id);
-        if (type == 1){
+        List price = galleryService.rightPrice();
+        if (type == 1) {
             //     找一级标题
-            String OneName = galleryService.chazhao1(id);
+            List<GoodsType> OneName = galleryService.chazhao1(id);
             // ==============================================
-            List<Lefts> finder = galleryService.finder();
-            List<GoodsType> finder1 = galleryService.finder1(id);
-            List<Goods> findgoodss = galleryService.findGoodss(6);
-            for(int i=0;i<finder.size();i++){
+            List<GoodsType> allYiJi = galleryService.AllYiJi(id);
+            List finder = galleryService.finder();
+            List finder1 = galleryService.finder1(id);
+            OneName.get(0).setGoodsTypes(allYiJi);
+            List<Gallery1> findgoodss = galleryService.findGoodss(6);
+            for (int i = 0; i < finder.size(); i++) {
                 List findleftandright = new ArrayList();
-                leftName = finder.get(i).getLeftName();
-                findleftandright.add(leftName);
-                if (i==0){
-                    for (int j=0;j<finder1.size();j++){
-                        rightName = finder1.get(j).getaName();
+                if (i == 0) {
+                    for (int j = 0; j < finder1.size(); j++) {
+                        rightName = (String) finder1.get(j);
                         findleftandright.add(rightName);
                     }
                 }
-                if(i==1){
-                    for (int j=0;j<galleryService.findright(21).size();j++){
+                if (i == 1) {
+                    for (int j = 0; j < galleryService.findright(21).size(); j++) {
                         rightName = galleryService.findright(21).get(j).getRight_name();
                         findleftandright.add(rightName);
                     }
                 }
-                map.put("一级"+i,findleftandright);
+                map.put("One" + i, findleftandright);
 
             }
-            map.put("一级",OneName);
+            map.put("OneBiao", OneName);
             map.put("goods", findgoodss);
+            map.put("price", price);
         }
-        if (type == 2){
+        if (type == 2) {
             //找二级标题以及它的一级标题
-            int  pid = galleryService.chazhao2(id);
-            System.out.println(pid);
-            List<GoodsType> names = galleryService.chazhao3(pid,id);
-            System.out.println(names);
-            // ==============================================
-            List<Lefts>  findsan = galleryService.findsan();
-            List<GoodsType> findsan1 = galleryService.findsan1(id);
+//            上一级的aId
 
-            List<Goods> findgoodss = galleryService.findGoodss(6);
-            for(int i=0;i<findsan.size();i++){
+            int pid = galleryService.chazhao2(id);
+            List<GoodsType> AllYiJi = galleryService.AllYiJi(pid);
+            List<GoodsType> AllErJi = galleryService.AllErJi(pid, id);
+            List<GoodsType> names = galleryService.chazhao3(pid, id);
+             List<GoodsType> list = new ArrayList<GoodsType>();
+               names.get(0).setGoodsTypes(AllYiJi);
+               names.get(1).setGoodsTypes(AllErJi);
+            // ==============================================
+            List findsan = galleryService.findsan();
+
+            List findAllErJi = galleryService.findsan1(pid);
+
+            List<Gallery1> findgoodss = galleryService.findGoodss(6);
+            for (int i = 0; i < findsan.size(); i++) {
                 List findleftandright = new ArrayList();
-                leftName = findsan.get(i).getLeftName();
-                System.out.println(findleftandright);
-                if (i==0){
-                    for (int j=0;j<findsan1.size();j++){
-                        rightName = findsan1.get(j).getaName();
+                if (i == 0) {
+                    for (int j = 0; j < findsan.size(); j++) {
+                        rightName = (String) findsan.get(j);
                         findleftandright.add(rightName);
                     }
                 }
-                if(i==1){
-                    for (int j=0;j<galleryService.findright(21).size();j++){
+                if (i == 1) {
+                    for (int j = 0; j < galleryService.findright(21).size(); j++) {
                         rightName = galleryService.findright(21).get(j).getRight_name();
                         findleftandright.add(rightName);
                     }
                 }
-                map.put("二级"+i,findleftandright);
+                map.put("One" + i, findleftandright);
             }
-            map.put("二级+一级",names);
+            map.put("OneBiao", names);
             map.put("goods", findgoodss);
+            map.put("price", price);
+
         }
-        if (type == 3){
+        if (type == 3) {
             //找三级标题以及它的一，二级标题
-            int  pid = galleryService.chazhao2(id);
-            int  ppid = galleryService.chazhao2(pid);
-            List<GoodsType> namess = galleryService.chazhao4(ppid,pid,id);
+            //            上一级的aId
+            int pid = galleryService.chazhao2(id);
+            //            上上一级的aId
+            int ppid = galleryService.chazhao2(pid);
+            List<GoodsType> AllYiJi = galleryService.AllYiJi(ppid);
+            List<GoodsType> AllErJi = galleryService.AllErJi(ppid, pid);
+            List<GoodsType> AllSanJi = galleryService.AllSanJi(pid, id);
+            List<GoodsType> namess = galleryService.chazhao4(ppid, pid, id);
+            namess.get(0).setGoodsTypes(AllYiJi);
+            namess.get(1).setGoodsTypes(AllErJi);
+            namess.get(2).setGoodsTypes(AllSanJi);
             // ==============================================
-            List<All_Left> findAllLeft = galleryService.findleft1(id);
-            List findleftandright = new ArrayList();
-            List<Goods> findgoodss =galleryService.findGoodss(id);
-            for (int i = 0; i < findAllLeft.size(); i++) {
+            List<Gallery1> findgoodss = galleryService.findGoodss(id);
+//            for (int i = 0; i < findAllLeft.size(); i++) {
+//                leftId = findAllLeft.get(i).getLeft_id();
+//                for (int j = 0; j < galleryService.findright(leftId).size(); j++) {
+//                    rightName = galleryService.findright(leftId).get(j).getRight_name();
+//                    findleftandright.add(rightName);
+//                    System.out.println(rightName);
+//
+//                }
+//            }
 
-                leftId = findAllLeft.get(i).getLeft_id();
-                leftName = galleryService.findleft2(leftId).get(0).getLeftName();
-                System.out.println(leftName);
-                findleftandright.add(leftName);
-                for (int j = 0; j < galleryService.findright(leftId).size(); j++) {
-                    rightName = galleryService.findright(leftId).get(j).getRight_name();
-                    findleftandright.add(rightName);
-                    System.out.println(rightName);
-
+            int a = (int) Math.random() + 5;
+            int b = (int) Math.random() + 5;
+            List random = galleryService.findFenLeiBiao(a, b);
+            for (int i = 0; i < 2; i++) {
+                List findleftandright = new ArrayList();
+                if (i == 0) {
+                    for (int j = 0; j < random.size(); j++) {
+                        rightName = (String) random.get(j);
+                        findleftandright.add(rightName);
+                    }
                 }
+                if (i == 1) {
+                    for (int j = 0; j < galleryService.findright(2).size(); j++) {
+                        rightName = galleryService.findright(2).get(j).getRight_name();
+                        findleftandright.add(rightName);
+                    }
+                }
+                map.put("One" + i, findleftandright);
+
             }
-            map.put("leftandright",findleftandright);
-            map.put("三级+二级+一级",namess);
+            map.put("OneBiao", namess);
             map.put("goods", findgoodss);
+            map.put("price", price);
+
         }
-        return map;
+        FastJson_All.toJson(map,response);
+        //return map;
     }
 
-    //    ==============================================================
+        //    ==============================================================
 //    查找价格区间
-    @RequestMapping("/price")
-    @ResponseBody
-    public Map<String, Object> findPrice(Integer firstPrice , Integer secondPrice) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        List<Goods> findByPrice = galleryService.findByPrice(firstPrice, secondPrice);
-        map.put("ByPrice", findByPrice);
-        return  map;
+        @RequestMapping("/price")
+       // @ResponseBody
+        public void findPrice (Integer firstPrice, Integer secondPrice,HttpServletResponse response){
+            Map<String, Object> map = new HashMap<String, Object>();
+            List<Goods> findByPrice = galleryService.findByPrice(firstPrice, secondPrice);
+            map.put("ByPrice", findByPrice);
+
+            FastJson_All.toJson(map,response);
+            //return map;
 
     }
-    // ==============================================================
+        // ==============================================================
 }
+

@@ -8,9 +8,7 @@
 		<id column="GoodsId" property="gId" javaType="int" />
 		<result column="GoodsName" property="gName" jdbcType="VARCHAR" />
 		<result column="GoodsPrice" property="gPrice" jdbcType="DOUBLE" />
-		<result column="GoodsDescribe" property="gDescribe" jdbcType="VARCHAR" />
 		<result column="GoodsImageUrl" property="gUrl" jdbcType="VARCHAR" />
-		<result column="All_id" property="all_id" javaType="int" />
 	</resultMap>
 
 	<select id="findGoodss" resultMap="findgoodsResult" >

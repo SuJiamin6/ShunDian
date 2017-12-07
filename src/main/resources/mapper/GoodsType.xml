@@ -22,9 +22,9 @@
 		select * from allGoodsType where aId = #{aId};
 	</select>
 
-    <select id="findfenlei" parameterType="int" resultMap="typeResult">
-        select * from allGoodsType where parent_id = #{aId};
-    </select>
+	<select id="findfenlei" parameterType="int" resultMap="typeResult">
+		select * from allGoodsType where parent_id = #{aId};
+	</select>
 
 
 	<!--<select id="selectGoodsTypeChildrenByParentId" resultMap="typeResult">-->

@@ -25,10 +25,21 @@ public interface GoodsTypeMapper {
 	public DiZhi_Info findDiZhicityid(int cityid);
 	public List<DiZhi_Info> selectDiZhiChildrenByParentId(int cityid);
 
-//	==========================================
-//	无限极查询
+	//	==========================================
+	// 无限极查询
 	public List<GoodsType> find1(Goods good1 ,Integer aId);
-//查询aId
+	//查询aId
 	public List<GoodsType> findfenlei(Integer aId);
-//	==========================================
+	//	==========================================
+	//找到轮播图
+	public List findLun();
+	//	找到三张图
+	public List findIndexSan(Integer aId);
+
+
+	//购物车模块
+	public ShopCar findShopCargoods_id(Integer goods_id);
+
+	//添加功能
+	public void updateShopCar(Integer gId,String gName,Double price,Integer count,Double sum);
 }

@@ -14,20 +14,27 @@
         select type from allGoodsType where  aId = #{all_id};
     </select>
 
-    <select id="findsan1" parameterType="int" resultMap="typeResult">
+	<select id="AllYiJi" parameterType="int" resultMap="typeResult">
+		select * from allGoodsType where parent_id= 0 and aId != #{id};
+	</select>
+	<select id="AllErJi" parameterType="int" resultMap="typeResult">
+		select * from allGoodsType where parent_id= #{0} and aId != #{1};
+	</select>
+	<select id="AllSanJi" parameterType="int" resultMap="typeResult">
+		select * from allGoodsType where parent_id= #{0} and aId != #{1};
+	</select>
+
+    <select id="findsan1" parameterType="int" resultType="String">
         select aName from allGoodsType where parent_id=#{all_id};
     </select>
 
-    <select id="finder1" parameterType="int" resultMap="typeResult">
+    <select id="finder1" parameterType="int" resultType="String">
         select aName from allGoodsType where parent_id=#{all_id};
     </select>
-    <select id="findfenlei" parameterType="int" resultMap="typeResult">
-        select * from allGoodsType where parent_id = #{aId};
-    </select>
 
 
-	<select id="chazhao1" parameterType="int"  resultType="String">
-		select aName from allGoodsType where aId= #{all_id};
+	<select id="chazhao1" parameterType="int"  resultMap="typeResult">
+		select * from allGoodsType where aId= #{all_id};
 	</select>
 
 	<select id="chazhao2" parameterType="int" resultType="int">
@@ -35,11 +42,11 @@
 	</select>
 
 	<select id="chazhao3"  resultMap="typeResult">
-		select aName from allGoodsType where aId = #{0}  or aId = #{1} ;
+		select * from allGoodsType where aId = #{0}  or aId = #{1} ;
 	</select>
 
 	<select id="chazhao4"  resultMap="typeResult">
-		select aName from allGoodsType where aId = #{0}  or aId = #{1} or aId=#{2};
+		select * from allGoodsType where aId = #{0}  or aId = #{1} or aId=#{2};
 	</select>
 
 

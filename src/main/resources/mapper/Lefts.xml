@@ -11,12 +11,11 @@
 	<select id="findleft2" parameterType="int" resultMap="findLeftResult2" >
 		select * from Lefts where leftId = #{leftId};
 	</select>
-	<select id="finder" resultMap="findLeftResult2">
+	<select id="finder" resultType="String">
 		select leftName from Lefts where  leftId = 1 or leftId  = 2 ;
 	</select>
-	<select id="findsan" resultMap="findLeftResult2">
+	<select id="findsan" resultType="String">
 		select leftName from Lefts where  leftId = 1 or leftId  = 2 ;
 	</select>
 
-  
 </mapper>
