@@ -94,6 +94,9 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 
 
 	//购物车模块
+	public void updateShopCar1(int cout,Double sum,int goods_id){
+		goodsTypeMapper.updateShopCar1(cout,sum,goods_id);
+	}
 
 	public ShopCar findShopCargoods_id(Integer goods_id) {
 		return goodsTypeMapper.findShopCargoods_id(goods_id);
@@ -102,5 +105,16 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 	//添加商品
 	public void updateShopCar(int gId, String gName, Double price, int count, Double sum) {
 		goodsTypeMapper.updateShopCar(gId,gName,price,count,sum);
+	}
+
+	//删除商品
+	public void deleteShopCar(int id) {
+		goodsTypeMapper.deleteShopCar(id);
+	}
+
+	//点击侧边栏模块
+	public List<ShopCar> findShopCar(){
+
+		return goodsTypeMapper.findShopCar();
 	}
 }

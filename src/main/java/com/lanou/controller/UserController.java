@@ -35,7 +35,7 @@ public class UserController {
 		System.out.println(users);
 		boolean result=false;
 		if (users!=null){
-			request.setAttribute("users",users);
+			request.getSession().setAttribute("users",users);
 			return true;
 		}
 		System.out.println(result);

@@ -38,8 +38,17 @@ public interface GoodsTypeMapper {
 
 
 	//购物车模块
+	//跟新功能
+	public void updateShopCar1(int cout,Double sum,int Goods_id);
+
 	public ShopCar findShopCargoods_id(Integer goods_id);
 
 	//添加功能
 	public void updateShopCar(Integer gId,String gName,Double price,Integer count,Double sum);
+	//删除功能
+	public void deleteShopCar(int id);
+
+	//点击购物车侧边栏
+	public List<ShopCar> findShopCar();
+
 }

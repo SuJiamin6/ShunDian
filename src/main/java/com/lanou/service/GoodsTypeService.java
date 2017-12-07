@@ -46,8 +46,13 @@ public interface GoodsTypeService {
 
 	//购物车模块
 	//添加商品
+	public void updateShopCar1(int cout,Double sum,int goods_id);
 	public ShopCar findShopCargoods_id(Integer goods_id);
 	public void updateShopCar(int gId,String gName,Double price,int count,Double sum);
+	public void deleteShopCar(int id);
+
+	//侧边栏点击购物车模块
+	public List<ShopCar> findShopCar();
 
 
 }

@@ -25,8 +25,17 @@
 	</select>
 	<!--跟新商品-->
 	<select id="updateShopCar1" resultMap="shopCarResult" >
-		update User SET uPhone=#{uPhone},xName=#{xName},gender=#{gender},uPassword=#{uPassword},
-			birthday=#{birthday},QQ=#{QQ},email=#{email},address=#{address} where uName=#{uName}
+		update ShopCar set goods_count = #{0},goods_sum = #{1} where goods_id = #{2}
+	</select>
+
+	<!--查找ShopCar表中的所有数据-->
+	<select id="findShopCar" resultMap="shopCarResult" >
+		select * from ShopCar;
+	</select>
+
+	<!--删除ShopCar表中的id-->
+	<select id="deleteShopCar" resultMap="shopCarResult" >
+		DELETE FROM ShopCar where shopId = #{0}
 	</select>
 
 </mapper>
