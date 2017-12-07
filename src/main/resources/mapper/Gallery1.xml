@@ -19,4 +19,24 @@
 		select * from Goods where GoodsPrice between #{0} and #{1};
 	</select>
 
+	<select id="ByZonHe" resultMap="findgoodsResult">
+		select * from Goods order by rand() limit 90;
+	</select>
+
+	<select id="ByJiaGeJiang" resultMap="findgoodsResult">
+		select * from Goods order by GoodsPrice desc limit 90;
+	</select>
+
+	<select id="ByJiaGeSheng" resultMap="findgoodsResult">
+		select * from Goods order by GoodsPrice asc limit 90;
+	</select>
+
+	<select id="ByXiaoLiang" resultMap="findgoodsResult">
+		select * from Goods order by hot desc limit 90 ;
+	</select>
+
+	<select id="ByXinPin" resultMap="findgoodsResult">
+		select * from Goods order by hot asc limit 90 ;
+	</select>
+
 </mapper>

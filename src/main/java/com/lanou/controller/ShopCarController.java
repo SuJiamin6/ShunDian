@@ -55,7 +55,7 @@ public class ShopCarController {
 
 
 
-            System.out.println(shopCar);
+//            System.out.println(shopCar);
             FastJson_All.toJson(goods,response);
 
     }
