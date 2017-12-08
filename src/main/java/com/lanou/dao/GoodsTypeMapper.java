@@ -21,6 +21,12 @@ public interface GoodsTypeMapper {
 	public List<GoodsImage> findGoodsImage1(int id);
 	public List<Comments> findComments(int gId);
 	public List<User_Info> findUser_Info(int uId);
+//	查询历史记录
+	public boolean  insert1(String userName,String goodsName,String goodsImage,Double goodsPrice);
+	public List<History> findHistory(String userName);
+//	判断是否有重复
+	public int findNull(String goodsName);
+//
 	//三级联动模块
 	public DiZhi_Info findDiZhicityid(int cityid);
 	public List<DiZhi_Info> selectDiZhiChildrenByParentId(int cityid);

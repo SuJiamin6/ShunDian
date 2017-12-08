@@ -1,7 +1,9 @@
 package com.lanou.controller;
 
 import com.lanou.Util.FastJson_All;
+import com.lanou.entity.History;
 import com.lanou.entity.User;
+import com.lanou.service.GoodsTypeService;
 import com.lanou.service.UserService;
 import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import org.apache.commons.fileupload.servlet.ServletRequestContext;
@@ -25,6 +27,8 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private GoodsTypeService goodsTypeService;
 
 
 	//登录
@@ -33,12 +37,14 @@ public class UserController {
 	public boolean login(User user1, HttpServletRequest request){
 		User users=userService.finduNameAndPwd(user1);
 		System.out.println(users);
-		boolean result=false;
 		if (users!=null){
 			request.getSession().setAttribute("users",users);
+//			调出历史记录放入session中
+		    String username	= user1.getuName();
+			List<History> history = goodsTypeService.findHistory(username);
+			request.getSession().setAttribute("History",history);
 			return true;
 		}
-		System.out.println(result);
 		return false;
 	}
 

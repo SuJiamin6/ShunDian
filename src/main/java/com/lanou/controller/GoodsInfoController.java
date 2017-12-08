@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +33,7 @@ public class GoodsInfoController {
     //==================================商品详情功能=====================================
     @RequestMapping("/product")
     @ResponseBody
-    public void findsId(int id, HttpServletResponse response){//请求点击商品跳转到商品详情页，需要接收商品的id
+    public void findsId(int id, HttpServletResponse response,HttpServletRequest request){//请求点击商品跳转到商品详情页，需要接收商品的id
 
         //根据id请求找到对应的商品
 
@@ -94,7 +95,15 @@ public class GoodsInfoController {
         diZhi_info.setDiZhi_infos(diZhi_infos);
 
         System.out.println(diZhi_info);
-
+//        添加到历史记录中
+        User user  = (User) request.getSession().getAttribute("users");
+       List<History> history = (ArrayList < History> )request.getSession().getAttribute("History");
+        System.out.println(history);
+        String uName = user.getuName();
+        System.out.println("userName"+uName);
+        inHistory(goodsList,uName);
+        System.out.println("dasd"+inHistory(goodsList,uName));
+//
         map.put("content",comments_infos);
         map.put("main",goodsList);
         map.put("xiao",goodsImages);
@@ -106,6 +115,22 @@ public class GoodsInfoController {
         //return map;
 
     }
+    //        添加到历史记录中
+    public boolean inHistory(List<Goods> goodsList ,String uName){
+       if(uName != null){
+            String goodsName =   goodsList.get(0).getgName();
+            int findNull = goodsTypeService.findNull(goodsName);
+            while(findNull == 0){
+                Double goodsPrice =  goodsList.get(0).getgPrice();
+                String goodsUrl = goodsList.get(0).getgUrl();
+                boolean result = goodsTypeService.insert1(uName,goodsName,goodsUrl,goodsPrice);
+                return  result;
+            }
+           return false;
+       }
+        return false;
+    }
+//
     //========================================================================
 
     //=======================三级联动地址功能模块=============================
