@@ -31,8 +31,6 @@
 		birthday=#{birthday},QQ=#{QQ},email=#{email},address=#{address} where uName=#{uName}
 	</update>
 
-
-
 	<select id="finduNameAndPwd" resultMap="UserResult">
 		select * from User where uName=#{uName} and uPassword=#{uPassword}
 	</select>

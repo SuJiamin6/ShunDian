@@ -54,5 +54,12 @@ public interface GoodsTypeService {
 	//侧边栏点击购物车模块
 	public List<ShopCar> findShopCar();
 
+	//添加订单模块
+	public void addOrders(String order_address,String order_goodsName,double order_price,int order_count,int user_id);
+
+	public Orders findOrders(int user_id);
+
+	//删除购物车中的所有数据
+	public void deleteShopCarAll();
 
 }

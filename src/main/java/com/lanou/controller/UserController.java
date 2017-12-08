@@ -91,7 +91,6 @@ public class UserController {
 	}
 	//修改密码
 	@RequestMapping("updatePwdByuName.do")
-	@ResponseBody
 	public boolean updatePwdByuName(User user,HttpServletRequest request){
 		boolean result=false;
 

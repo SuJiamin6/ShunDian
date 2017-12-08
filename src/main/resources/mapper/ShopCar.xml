@@ -35,7 +35,12 @@
 
 	<!--删除ShopCar表中的id-->
 	<select id="deleteShopCar" resultMap="shopCarResult" >
-		DELETE FROM ShopCar where shopId = #{0}
+		DELETE FROM ShopCar where goods_id = #{0}
+	</select>
+
+	<!--删除ShopCar表中的数据-->
+	<select id="deleteShopCarAll" resultMap="shopCarResult" >
+		DELETE FROM ShopCar;
 	</select>
 
 </mapper>

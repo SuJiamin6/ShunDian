@@ -117,4 +117,18 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 
 		return goodsTypeMapper.findShopCar();
 	}
+
+	//添加订单模块
+
+	public void addOrders(String order_address, String order_goodsName, double order_price, int order_count, int user_id) {
+		goodsTypeMapper.addOrders(order_address,order_goodsName,order_price,order_count,user_id);
+	}
+
+	public Orders findOrders(int user_id) {
+		return goodsTypeMapper.findOrders(user_id);
+	}
+
+	public void deleteShopCarAll(){
+		goodsTypeMapper.deleteShopCarAll();
+	}
 }

@@ -3,16 +3,18 @@ package com.lanou.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.lanou.Util.FastJson_All;
-import com.lanou.entity.Goods;
-import com.lanou.entity.ShopCar;
-import com.lanou.entity.User;
+import com.lanou.entity.*;
 import com.lanou.service.GoodsTypeService;
+import com.lanou.service.ShouDiZhiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -26,6 +28,9 @@ public class ShopCarController {
 
     @Autowired
     private GoodsTypeService goodsTypeService;
+
+    @Autowired
+    private ShouDiZhiService shouDiZhiService;
 
     //=====================加入购物车功能模块================
     /*
@@ -101,7 +106,7 @@ public class ShopCarController {
 
     }
 
-    //===================侧边栏点击购物车模块=====================
+    //====================侧边栏点击购物车模块=====================
     /*
     * 点击侧边栏购物车模块的时候，查找ShopCar表中的数据，把所有的数据给前端
     * */
@@ -138,24 +143,78 @@ public class ShopCarController {
     * */
     //先查询提交的商品goods_id为一件的时候
     @RequestMapping("/account")
-    public void account(Integer id,HttpServletResponse response,HttpSession session){
+    public void account(String aId, HttpServletResponse response, HttpSession session, HttpServletRequest request){
 
         //先接收到session中用户的id
         User user = (User) session.getAttribute("users");
         int uId = user.getuId();
+        List<ShouDiZhi> shouDiZhi = shouDiZhiService.findShouDiZhi(uId);
 
+        String[] ss=aId.split("\\-");
+
+        List<ShopCar> shopCars = new ArrayList<ShopCar>();
+        for(int i=0;i<ss.length;i++){
+            ShopCar shopCar = goodsTypeService.findShopCargoods_id(Integer.parseInt(ss[i]));
+            shopCars.add(shopCar);
+        }
 
         Map<String,Object> map = new HashMap<String,Object>();
         //把他们返回给前端
-        ShopCar shopCar = goodsTypeService.findShopCargoods_id(id);
-
         int count = 0;
         double price = 0;
+        String Goods_name = "";
+        String Goods_name1 = "";
+        for(int i=0;i<shopCars.size();i++){
+            count += shopCars.get(i).getGoods_count();
+            price += shopCars.get(i).getGoods_sum();
+            Goods_name1 += shopCars.get(i).getGoods_name();
+            Goods_name1 += " ";
+        }
+        String address = shouDiZhi.get(0).getsName()+" "+shouDiZhi.get(0).getsArea()+" "+shouDiZhi.get(0).getsAddress()+" "+
+                shouDiZhi.get(0).getsZip()+" "+shouDiZhi.get(0).getsPhone();
+        String address1 = shouDiZhi.get(0).getsName()+":"+shouDiZhi.get(0).getsArea()+":"+shouDiZhi.get(0).getsAddress()+":"+
+                shouDiZhi.get(0).getsZip()+":"+shouDiZhi.get(0).getsPhone();
 
         map.put("count",count);
         map.put("price",price);
+        map.put("data",shopCars);
+        map.put("address",shouDiZhi);
+        request.getSession().setAttribute("count",count);
+        request.getSession().setAttribute("price",price);
+        request.getSession().setAttribute("address",address);
+        request.getSession().setAttribute("address1",address1);
+        request.getSession().setAttribute("goodsName",Goods_name1);
+        FastJson_All.toJson(map,response);
+    }
 
-        map.put("data",shopCar);
+
+    //====================生成订单界面==================
+    @RequestMapping("/order")
+    public void orders(HttpServletResponse response, HttpSession session){
+
+        //先接收到session中用户的id
+        User user = (User) session.getAttribute("users");
+
+        int uId = user.getuId();
+        int count =(Integer) session.getAttribute("count");
+        double price = (Double) session.getAttribute("price");
+        String address = (String) session.getAttribute("address");
+        String address1 = (String) session.getAttribute("address1");
+        String goodsName = (String) session.getAttribute("goodsName");
+
+        goodsTypeService.addOrders(address,goodsName,price,count,uId);
+
+        Orders orders = goodsTypeService.findOrders(uId);
+        int order_id = orders.getOrder_id();
+
+        Map<String,Object> map = new HashMap<String,Object>();
+
+        map.put("order_id",order_id);
+        map.put("count",count);
+        map.put("price",price);
+        map.put("goodsName",goodsName);
+        map.put("address",address1);
+        goodsTypeService.deleteShopCarAll();
         FastJson_All.toJson(map,response);
     }
 
