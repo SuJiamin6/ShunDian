@@ -79,5 +79,25 @@ public class galleryServiceImpl implements GalleryService{
     public List<Goods> findByPrice(Integer firstPrice , Integer secondPrice){
         return  galleryMapper.findByPrice(firstPrice , secondPrice);
     }
+    //    综合查询
+    public  List<Gallery1> ByZonHe(){
+        return  galleryMapper.ByZonHe();
+    }
+    //    价格排序
+    public  List<Gallery1> ByJiaGeJiang(){
+        return   galleryMapper.ByJiaGeJiang();
+    }
+    //    价格升序
+    public  List<Gallery1> ByJiaGeSheng(){
+        return   galleryMapper.ByJiaGeSheng();
+    }
+    //    销量查询
+    public  List<Gallery1> ByXiaoLiang(){
+        return  galleryMapper.ByXiaoLiang();
+    }
+    //    新品查询
+    public  List<Gallery1> ByXinPin(){
+        return  galleryMapper.ByXinPin();
+    }
 
 }

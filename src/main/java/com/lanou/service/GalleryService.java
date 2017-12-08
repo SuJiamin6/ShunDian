@@ -32,4 +32,14 @@ public interface GalleryService {
     //	价格区间
     public List rightPrice();
     public List<Goods> findByPrice(Integer firstPrice , Integer secondPrice);
+//    综合查询
+    public  List<Gallery1> ByZonHe();
+    //    价格排序
+    public  List<Gallery1> ByJiaGeJiang();
+    //    价格升序
+    public  List<Gallery1> ByJiaGeSheng();
+    //    销量查询
+    public  List<Gallery1> ByXiaoLiang();
+    //    新品查询
+    public  List<Gallery1> ByXinPin();
 }

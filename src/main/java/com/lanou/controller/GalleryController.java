@@ -76,6 +76,7 @@ public class GalleryController {
                names.get(1).setGoodsTypes(AllErJi);
             // ==============================================
             List findsan = galleryService.findsan();
+            List findsan1 = galleryService.findsan1(id);
 
             List findAllErJi = galleryService.findsan1(pid);
 
@@ -83,8 +84,8 @@ public class GalleryController {
             for (int i = 0; i < findsan.size(); i++) {
                 List findleftandright = new ArrayList();
                 if (i == 0) {
-                    for (int j = 0; j < findsan.size(); j++) {
-                        rightName = (String) findsan.get(j);
+                    for (int j = 0; j < findsan1.size(); j++) {
+                        rightName = (String) findsan1.get(j);
                         findleftandright.add(rightName);
                     }
                 }
@@ -126,8 +127,10 @@ public class GalleryController {
 //                }
 //            }
 
-            int a = (int) Math.random() + 5;
-            int b = (int) Math.random() + 5;
+            int a = (int) (11+Math.random()*(16-10+1)) ;
+            int b = (int) (11+Math.random()*(16-10+1));
+            System.out.println(a);
+            System.out.println(b);
             List random = galleryService.findFenLeiBiao(a, b);
             for (int i = 0; i < 2; i++) {
                 List findleftandright = new ArrayList();
@@ -169,5 +172,58 @@ public class GalleryController {
 
     }
         // ==============================================================
+        //综合查询
+        @RequestMapping("/zonhe")
+        // @ResponseBody
+        public void ByZonHe (HttpServletResponse response){
+            Map<String, Object> map = new HashMap<String, Object>();
+            List<Gallery1> ZongHe = galleryService.ByZonHe();
+            map.put("ZonHe", ZongHe);
+            FastJson_All.toJson(map,response);
+
+        }
+        // ==============================================================
+        //价格降序
+        @RequestMapping("/jiagejiang")
+        // @ResponseBody
+        public void ByJiaGeJiang (HttpServletResponse response){
+        Map<String, Object> map = new HashMap<String, Object>();
+        List<Gallery1> JiaGeJiang = galleryService.ByJiaGeJiang();
+        map.put("JiaGeJiang", JiaGeJiang);
+        FastJson_All.toJson(map,response);
+
+    }
+    // ==============================================================
+    //价格升序
+    @RequestMapping("/jiagesheng")
+    // @ResponseBody
+    public void ByJiaGeSheng (HttpServletResponse response){
+        Map<String, Object> map = new HashMap<String, Object>();
+        List<Gallery1> JiaGeSheng = galleryService.ByJiaGeSheng();
+        map.put("JiaGeSheng", JiaGeSheng);
+        FastJson_All.toJson(map,response);
+
+    }
+    // ==============================================================
+    //销量查询
+    @RequestMapping("/xiaoliang")
+    // @ResponseBody
+    public void ByXiaoLiang (HttpServletResponse response){
+        Map<String, Object> map = new HashMap<String, Object>();
+        List<Gallery1> XiaoLiang = galleryService.ByXiaoLiang();
+        map.put("XiaoLiang", XiaoLiang);
+        FastJson_All.toJson(map,response);
+    }
+    // ==============================================================
+    //xinpin查询
+    @RequestMapping("/xinpin")
+    // @ResponseBody
+    public void ByXinPin (HttpServletResponse response){
+        Map<String, Object> map = new HashMap<String, Object>();
+        List<Gallery1> XinPin = galleryService.ByXinPin();
+        map.put("XinPin", XinPin);
+        FastJson_All.toJson(map,response);
+    }
+    // ==============================================================
 }
 
