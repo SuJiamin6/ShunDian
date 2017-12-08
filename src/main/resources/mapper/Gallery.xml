@@ -31,6 +31,9 @@
     <select id="finder1" parameterType="int" resultType="String">
         select aName from allGoodsType where parent_id=#{all_id};
     </select>
+	<select id="finder2" parameterType="int" resultType="int">
+		select aId from allGoodsType where parent_id=#{all_id};
+	</select>
 
 
 	<select id="chazhao1" parameterType="int"  resultMap="typeResult">

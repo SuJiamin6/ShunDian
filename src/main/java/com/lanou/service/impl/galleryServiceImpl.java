@@ -22,6 +22,9 @@ public class galleryServiceImpl implements GalleryService{
     public List<GoodsType> finder1(Integer all_id){
         return galleryMapper.finder1(all_id);
     }
+    public List<GoodsType> finder2(Integer all_id){
+        return  galleryMapper.finder2(all_id);
+    }
     public List findsan(){
         return  galleryMapper.findsan();
     }
@@ -49,12 +52,16 @@ public class galleryServiceImpl implements GalleryService{
         return galleryMapper.findright(leftId);
     }
     public List<Gallery1> findGoodss(Integer all_id){
-        return galleryMapper.findGoodss(all_id);
+        return  galleryMapper.findGoodss(all_id);
     }
     public List findFenLeiBiao (Integer a ,Integer b){
         return  galleryMapper.findFenLeiBiao(a , b);
     }
 
+    //    查找小图片
+    public List<GoodSmallImage> SmallImage(Integer gs_id){
+        return  galleryMapper.SmallImage(gs_id);
+    }
     //商品分类
     public List<GoodsType> chazhao1(Integer all_id){
         return  galleryMapper.chazhao1(all_id);

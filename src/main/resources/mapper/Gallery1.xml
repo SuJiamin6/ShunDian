@@ -4,11 +4,12 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lanou.dao.GalleryMapper">
 	<!--=================================================-->
-	<resultMap type="Goods" id="findgoodsResult">
+	<resultMap type="Gallery1" id="findgoodsResult">
 		<id column="GoodsId" property="gId" javaType="int" />
 		<result column="GoodsName" property="gName" jdbcType="VARCHAR" />
 		<result column="GoodsPrice" property="gPrice" jdbcType="DOUBLE" />
 		<result column="GoodsImageUrl" property="gUrl" jdbcType="VARCHAR" />
+		<result column="gs_id" property="gs_id" javaType="int" />
 	</resultMap>
 
 	<select id="findGoodss" resultMap="findgoodsResult" >

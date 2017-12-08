@@ -13,6 +13,7 @@ public interface GalleryMapper {
     public  List<GoodsType> AllYiJi(Integer id);
     public List finder();
     public List<GoodsType> finder1(Integer all_id);
+    public List<GoodsType> finder2(Integer all_id);
     //	 查询二级标题获得信息
     public  List<GoodsType> AllErJi(Integer id,Integer pid);
     public List findsan();
@@ -24,6 +25,10 @@ public interface GalleryMapper {
     public List<Lefts> findleft2(Integer leftId);
     public List<Rights> findright(Integer leftId);
     public List<Gallery1> findGoodss(Integer all_id);
+
+
+//    获取小图片
+    public List<GoodSmallImage> SmallImage(Integer gs_id);
 
 
     //商品分类

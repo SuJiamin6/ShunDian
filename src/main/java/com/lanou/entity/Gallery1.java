@@ -1,5 +1,7 @@
 package com.lanou.entity;
 
+import java.util.List;
+
 /**
  * Created by lanou on 2017/12/2.
  */
@@ -9,6 +11,24 @@ public class Gallery1 {
     private String gName;
     private Double gPrice;
     private String gUrl;
+    private int gs_id;
+    private List<String> gImg ;
+
+    public List<String> getgImg() {
+        return gImg;
+    }
+
+    public void setgImg(List<String> gImg) {
+        this.gImg = gImg;
+    }
+
+    public int getGs_id() {
+        return gs_id;
+    }
+
+    public void setGs_id(int gs_id) {
+        this.gs_id = gs_id;
+    }
 
     public Integer getgId() {
         return gId;
@@ -48,11 +68,13 @@ public class Gallery1 {
 
     @Override
     public String toString() {
-        return "Goods{" +
+        return "Gallery1{" +
                 "gId=" + gId +
                 ", gName='" + gName + '\'' +
                 ", gPrice=" + gPrice +
                 ", gUrl='" + gUrl + '\'' +
+                ", gs_id=" + gs_id +
+                ", gImg=" + gImg +
                 '}';
     }
 }

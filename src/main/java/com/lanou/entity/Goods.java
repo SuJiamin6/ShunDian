@@ -11,6 +11,15 @@ public class Goods {
     private String gDescribe;
     private String gUrl;
     private Integer all_id;
+    private int gs_id;
+
+    public int getGs_id() {
+        return gs_id;
+    }
+
+    public void setGs_id(int gs_id) {
+        this.gs_id = gs_id;
+    }
 
     public Integer getgId() {
         return gId;
@@ -73,6 +82,7 @@ public class Goods {
                 ", gDescribe='" + gDescribe + '\'' +
                 ", gUrl='" + gUrl + '\'' +
                 ", all_id=" + all_id +
+                ", gs_id=" + gs_id +
                 '}';
     }
 }
