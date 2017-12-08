@@ -39,70 +39,70 @@ public class ShopCarController {
     *
     * */
     @RequestMapping("/addCar")
-    public void addShop(Integer id, Integer count,HttpServletResponse response,HttpSession session){
+    public void addShop(Integer id, Integer count, HttpServletResponse response, HttpSession session) {
 
-            Map<String,Object> map = new HashMap<String,Object>();
+        Map<String, Object> map = new HashMap<String, Object>();
 
-            //当前用户加入购物车，如果是在未登录的状态下，先需要让用户在右边栏登录
-            User user = (User) session.getAttribute("users");
-            if(user==null){
-                map.put("data","ERROR");
-            }else{
-                //根据商品的id查找到当前商品
-                Goods goods = goodsTypeService.findGoodsById(id).get(0);
-                //将当前查找到的商品的信息整合
-                //在根据商品的goods_id,查找当前ShopCar表中是否有当前goods_id
-                int goods_id = goods.getgId();
-                ShopCar shopCar1 = goodsTypeService.findShopCargoods_id(goods_id);
-                if(shopCar1!=null){
-                    //1、当前商品存在ShopCar表中
-                    shopCar1.setGoods_count(shopCar1.getGoods_count()+count);
-                    shopCar1.setGoods_sum(shopCar1.getGoods_count()*shopCar1.getGoods_price());
-                    goodsTypeService.updateShopCar1(shopCar1.getGoods_count(),shopCar1.getGoods_sum(),shopCar1.getGoods_id());
-                }else {
-                    //2、当前商品不存在于ShopCar表中
-                    ShopCar shopCar = new ShopCar();
-                    shopCar.setGoods_id(goods.getgId());
-                    shopCar.setGoods_name(goods.getgName());
-                    shopCar.setGoods_price(goods.getgPrice());
-                    shopCar.setGoods_count(count);
-                    shopCar.setGoods_sum(goods.getgPrice() * count);
-                    goodsTypeService.updateShopCar
-                            (shopCar.getGoods_id(), shopCar.getGoods_name(), shopCar.getGoods_price(),
-                                    shopCar.getGoods_count(), shopCar.getGoods_sum());
-                }
-                map.put("data","SUCCESS");
+        //当前用户加入购物车，如果是在未登录的状态下，先需要让用户在右边栏登录
+        User user = (User) session.getAttribute("users");
+        if (user == null) {
+            map.put("data", "ERROR");
+        } else {
+            //根据商品的id查找到当前商品
+            Goods goods = goodsTypeService.findGoodsById(id).get(0);
+            //将当前查找到的商品的信息整合
+            //在根据商品的goods_id,查找当前ShopCar表中是否有当前goods_id
+            int goods_id = goods.getgId();
+            ShopCar shopCar1 = goodsTypeService.findShopCargoods_id(goods_id);
+            if (shopCar1 != null) {
+                //1、当前商品存在ShopCar表中
+                shopCar1.setGoods_count(shopCar1.getGoods_count() + count);
+                shopCar1.setGoods_sum(shopCar1.getGoods_count() * shopCar1.getGoods_price());
+                goodsTypeService.updateShopCar1(shopCar1.getGoods_count(), shopCar1.getGoods_sum(), shopCar1.getGoods_id());
+            } else {
+                //2、当前商品不存在于ShopCar表中
+                ShopCar shopCar = new ShopCar();
+                shopCar.setGoods_id(goods.getgId());
+                shopCar.setGoods_name(goods.getgName());
+                shopCar.setGoods_price(goods.getgPrice());
+                shopCar.setGoods_count(count);
+                shopCar.setGoods_sum(goods.getgPrice() * count);
+                goodsTypeService.updateShopCar
+                        (shopCar.getGoods_id(), shopCar.getGoods_name(), shopCar.getGoods_price(),
+                                shopCar.getGoods_count(), shopCar.getGoods_sum());
             }
+            map.put("data", "SUCCESS");
+        }
 
-            FastJson_All.toJson(map,response);
+        FastJson_All.toJson(map, response);
 
     }
     //============================================================================================
 
     @RequestMapping("/subCar")
-    public void subShop(Integer id, Integer count,HttpServletResponse response){
+    public void subShop(Integer id, Integer count, HttpServletResponse response) {
 
-            Map<String,Object> map = new HashMap<String,Object>();
-            //根据商品的id查找到当前商品
-            Goods goods = goodsTypeService.findGoodsById(id).get(0);
+        Map<String, Object> map = new HashMap<String, Object>();
+        //根据商品的id查找到当前商品
+        Goods goods = goodsTypeService.findGoodsById(id).get(0);
 
-            ShopCar shopCar1 = goodsTypeService.findShopCargoods_id(goods.getgId());
-            shopCar1.setGoods_count(shopCar1.getGoods_count()-count);
-            shopCar1.setGoods_sum(shopCar1.getGoods_count()*shopCar1.getGoods_price());
-            goodsTypeService.updateShopCar1(shopCar1.getGoods_count(),shopCar1.getGoods_sum(),shopCar1.getGoods_id());
+        ShopCar shopCar1 = goodsTypeService.findShopCargoods_id(goods.getgId());
+        shopCar1.setGoods_count(shopCar1.getGoods_count() - count);
+        shopCar1.setGoods_sum(shopCar1.getGoods_count() * shopCar1.getGoods_price());
+        goodsTypeService.updateShopCar1(shopCar1.getGoods_count(), shopCar1.getGoods_sum(), shopCar1.getGoods_id());
 
-            map.put("data","SUCCESS");
-            FastJson_All.toJson(map,response);
+        map.put("data", "SUCCESS");
+        FastJson_All.toJson(map, response);
 
     }
 
     @RequestMapping("/delCar")
-    public void delShop(Integer id,HttpServletResponse response){
+    public void delShop(Integer id, HttpServletResponse response) {
 
-        Map<String,Object> map = new HashMap<String,Object>();
+        Map<String, Object> map = new HashMap<String, Object>();
         goodsTypeService.deleteShopCar(id);
-        map.put("data","SUCCESS");
-        FastJson_All.toJson(map,response);
+        map.put("data", "SUCCESS");
+        FastJson_All.toJson(map, response);
 
     }
 
@@ -111,27 +111,27 @@ public class ShopCarController {
     * 点击侧边栏购物车模块的时候，查找ShopCar表中的数据，把所有的数据给前端
     * */
     @RequestMapping("/lookShopCar")
-    public void lookShopCar(HttpServletResponse response,HttpSession session){
+    public void lookShopCar(HttpServletResponse response, HttpSession session) {
 
-        Map<String,Object> map = new HashMap<String,Object>();
+        Map<String, Object> map = new HashMap<String, Object>();
 
         User user = (User) session.getAttribute("users");
-        if(user==null){
-            map.put("data","ERROR");
-        }else {
+        if (user == null) {
+            map.put("data", "ERROR");
+        } else {
             //将ShopCar表中所有的数据查找出来
             List<ShopCar> shopCars = goodsTypeService.findShopCar();
             int count = 0;
             double price = 0;
-            for(int i=0;i<shopCars.size();i++){
+            for (int i = 0; i < shopCars.size(); i++) {
                 count += shopCars.get(i).getGoods_count();
                 price += shopCars.get(i).getGoods_sum();
             }
             map.put("data", shopCars);
-            map.put("count",count);
-            map.put("price",price);
+            map.put("count", count);
+            map.put("price", price);
         }
-        FastJson_All.toJson(map,response);
+        FastJson_All.toJson(map, response);
 
     }
     //============================================================
@@ -143,7 +143,11 @@ public class ShopCarController {
     * */
     //先查询提交的商品goods_id为一件的时候
     @RequestMapping("/account")
+<<<<<<< HEAD
     public void account(String aId, HttpServletResponse response, HttpSession session, HttpServletRequest request){
+=======
+    public void account(Integer id, HttpServletResponse response, HttpSession session) {
+>>>>>>> 67640d08944961fd3abb05c730ebca5fe8057f2d
 
         //先接收到session中用户的id
         User user = (User) session.getAttribute("users");
@@ -158,7 +162,7 @@ public class ShopCarController {
             shopCars.add(shopCar);
         }
 
-        Map<String,Object> map = new HashMap<String,Object>();
+        Map<String, Object> map = new HashMap<String, Object>();
         //把他们返回给前端
         int count = 0;
         double price = 0;
@@ -175,6 +179,7 @@ public class ShopCarController {
         String address1 = shouDiZhi.get(0).getsName()+":"+shouDiZhi.get(0).getsArea()+":"+shouDiZhi.get(0).getsAddress()+":"+
                 shouDiZhi.get(0).getsZip()+":"+shouDiZhi.get(0).getsPhone();
 
+<<<<<<< HEAD
         map.put("count",count);
         map.put("price",price);
         map.put("data",shopCars);
@@ -216,6 +221,15 @@ public class ShopCarController {
         map.put("address",address1);
         goodsTypeService.deleteShopCarAll();
         FastJson_All.toJson(map,response);
+=======
+//            System.out.println(shopCar);
+//        FastJson_All.toJson(goods, response);
+        map.put("count", count);
+        map.put("price", price);
+
+        map.put("data", shopCar);
+        FastJson_All.toJson(map, response);
+>>>>>>> 67640d08944961fd3abb05c730ebca5fe8057f2d
     }
 
 }
