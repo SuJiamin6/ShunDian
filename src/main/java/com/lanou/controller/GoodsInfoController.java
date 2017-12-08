@@ -110,12 +110,23 @@ public class GoodsInfoController {
 
     //=======================三级联动地址功能模块=============================
     @RequestMapping("/select")
-    public void selectDiZhiAndChildren(Integer cityid,HttpServletResponse response){
+    public void selectDiZhiAndChildren(Integer cityid,Integer type,HttpServletResponse response){
+
+        //如果type为0则表示取到的是头部，需要遍历的是同级标签
+        //如果type为1则表示取到的是身体部分，需要遍历的是下级标签
+        List<DiZhi_Info> diZhi_infos = new ArrayList<DiZhi_Info>();
         //先查找到对应id的所有信息
         DiZhi_Info diZhi_info = goodsTypeService.findDiZhicityid(cityid);
-        System.out.println(diZhi_info);
-        diZhi_info.setDiZhi_infos(findChildDiZhi_Info(diZhi_info,cityid));
-        FastJson_All.toJson(diZhi_info,response);
+        if(type==0){
+            //再查找到所有parent_id同属于这一层的
+           diZhi_infos = goodsTypeService.selectDiZhiChildrenByParentId(diZhi_info.getParentid());
+            FastJson_All.toJson(diZhi_infos,response);
+        }else if(type==1){
+            diZhi_info.setDiZhi_infos(goodsTypeService.selectDiZhiChildrenByParentId(cityid));
+            FastJson_All.toJson(diZhi_info,response);
+        }
+
+
     }
 
     private List<DiZhi_Info> findChildDiZhi_Info(DiZhi_Info diZhi_info,int cityid){

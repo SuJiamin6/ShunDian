@@ -18,6 +18,11 @@
 			SELECT  * FROM  Address where  user_id=#{uId}
 		</select>
 
+		<!--根据地址主键，查找当前用户勾选的收货地址-->
+		<select id="findShouDiZhiBysId" resultMap="ShouDiZhiResult">
+			SELECT  * FROM  Address where  sId=#{sId};
+		</select>
+
 		<!--添加收获地址-->
 		<!--需要传过来姓名等信息user_id自己从session中取-->
 		<insert id="addShouDiZhi" >

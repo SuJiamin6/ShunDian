@@ -9,5 +9,6 @@ public interface DiZhiService {
 
 
 	public  List<DiZhi> findDiZhi(DiZhi diZhi);
+	public String findSXQ(Integer cityid);
 //	public DiZhi findDiZhicityid(int cityid);
 }

@@ -11,7 +11,9 @@
 	<select id="findDiZhi" resultMap="DiZhiResult" parameterType="DiZhi">
 		SELECT * FROM  DiZhi where parentid=#{parentid} or parentid=#{cityid}
 	</select>
-
+	<select id="findSXQ" parameterType="Integer" resultType="String">
+		SELECT  cityname from DiZhi where cityid=#{0}
+	</select>
 	<!--//先查找当前主键cityid的对象-->
 	<!--<select id="findDiZhicityid" resultMap="DiZhiResult">-->
 		<!--select * from DiZhi where cityid = #{cityid};-->

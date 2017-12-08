@@ -28,4 +28,8 @@ public class ShouDiZhiServiceImpl implements ShouDiZhiService{
     public  boolean deleteShouDiZhi(Integer sId,Integer user_id){
         return shouDiZhiMapper.deleteShouDiZhi(sId,user_id);
     }
+
+    public ShouDiZhi findShouDiZhiBysId(int sId) {
+        return shouDiZhiMapper.findShouDiZhiBysId(sId);
+    }
 }

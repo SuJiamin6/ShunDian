@@ -19,7 +19,9 @@ public class DiZhiServiceImpl  implements DiZhiService{
     public List<DiZhi> findDiZhi(DiZhi diZhi){
         return diZhiMapper.findDiZhi(diZhi);
     }
-
+    public String findSXQ(Integer cityid){
+        return diZhiMapper.findSXQ( cityid);
+    }
 //    //三级联动功能模块
 //    public DiZhi findDiZhicityid(int cityid) {
 //        return diZhiMapper.findDiZhicityid(cityid);

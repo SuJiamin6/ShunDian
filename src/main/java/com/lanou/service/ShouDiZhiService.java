@@ -10,4 +10,7 @@ public interface ShouDiZhiService {
 	public  List<ShouDiZhi> findShouDiZhi(Integer uId);
 	public boolean addShouDiZhi(String sName,String sArea,String sAddress,String sZip,String sPhone,Integer user_id);
 	public  boolean deleteShouDiZhi(Integer sId,Integer user_id);
+
+	//根据用户勾选的地址id查找
+	public ShouDiZhi findShouDiZhiBysId(int sId);
 }
