@@ -11,6 +11,7 @@ public interface GalleryService {
     public  List<GoodsType> AllYiJi(Integer id);
     public List finder();
     public List<GoodsType> finder1(Integer all_id);
+    public List<GoodsType> finder2(Integer all_id);
     //	查询二级标题
     public  List<GoodsType> AllErJi(Integer id,Integer pid);
     public List findsan();
@@ -29,9 +30,12 @@ public interface GalleryService {
     public List<GoodsType> chazhao3(Integer pid , Integer id);
     public List<GoodsType> chazhao4(Integer ppid,Integer pid,Integer id);
 
+
+//    查找小图片
+    public List<GoodSmallImage> SmallImage(Integer gs_id);
     //	价格区间
     public List rightPrice();
-    public List<Goods> findByPrice(Integer firstPrice , Integer secondPrice);
+    public List<Gallery1> findByPrice(Integer firstPrice , Integer secondPrice);
 //    综合查询
     public  List<Gallery1> ByZonHe();
     //    价格排序

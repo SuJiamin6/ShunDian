@@ -17,8 +17,8 @@
 	</resultMap>
 
 	<!--查找用户所有信息-->
-	<select id="findUser" parameterType="User" resultMap="UserResult">
-		SELECT * FROM  USER where uName=#{uName}
+	<select id="findUser"  resultMap="UserResult">
+		SELECT * FROM  User where uName=#{uName}
 	</select>
 	<!--//根据用户名查找密码-->
 	<select id="finduPasswordByuName" parameterType="User" resultMap="UserResult">
@@ -30,7 +30,10 @@
 		update User SET uPhone=#{uPhone},xName=#{xName},gender=#{gender},uPassword=#{uPassword},
 		birthday=#{birthday},QQ=#{QQ},email=#{email},address=#{address} where uName=#{uName}
 	</update>
-
+	<!--修改密码-->
+	<update id="updatePwd" parameterType="User">
+		UPDATE User set uPassword=#{uPassword} where uName=#{uName}
+	</update>
 	<select id="finduNameAndPwd" resultMap="UserResult">
 		select * from User where uName=#{uName} and uPassword=#{uPassword}
 	</select>

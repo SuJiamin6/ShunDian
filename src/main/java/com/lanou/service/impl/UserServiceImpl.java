@@ -35,7 +35,10 @@ public class UserServiceImpl implements UserService{
 
 		return userMapper.finduPasswordByuName(user);
 	}
-	public  List<User> findUser(User user){
-		return userMapper.findUser(user);
+	public  List<User> findUser(String uName){
+		return userMapper.findUser(uName);
+	}
+	public  boolean updatePwd(User user){
+		return userMapper.updatePwd(user);
 	}
 }

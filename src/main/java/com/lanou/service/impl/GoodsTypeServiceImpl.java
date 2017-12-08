@@ -64,6 +64,18 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 	public List<User_Info> findUser_Info(int uId) {
 		return goodsTypeMapper.findUser_Info(uId);
 	}
+	//	添加历史记录
+	public boolean  insert1(String userName,String goodsName,String goodsImage,Double goodsPrice){
+		return  goodsTypeMapper.insert1(userName,goodsName,goodsImage,goodsPrice);
+	}
+//	调出历史记录
+      public List<History> findHistory(String userName){
+		return  goodsTypeMapper.findHistory(userName);
+	  }
+//    判断有无
+	  public int findNull(String goodsName){
+      	return  goodsTypeMapper.findNull(goodsName);
+	  }
 
 	//地址三级联动模块
 	public DiZhi_Info findDiZhicityid(int cityid) {

@@ -13,6 +13,7 @@ public interface GalleryMapper {
     public  List<GoodsType> AllYiJi(Integer id);
     public List finder();
     public List<GoodsType> finder1(Integer all_id);
+    public List<GoodsType> finder2(Integer all_id);
     //	 查询二级标题获得信息
     public  List<GoodsType> AllErJi(Integer id,Integer pid);
     public List findsan();
@@ -26,6 +27,10 @@ public interface GalleryMapper {
     public List<Gallery1> findGoodss(Integer all_id);
 
 
+//    获取小图片
+    public List<GoodSmallImage> SmallImage(Integer gs_id);
+
+
     //商品分类
     public List<GoodsType> chazhao1(Integer all_id);
     public int chazhao2(Integer all_id);
@@ -34,7 +39,7 @@ public interface GalleryMapper {
 
     //	价格区间
     public List rightPrice();
-    public List<Goods> findByPrice(Integer firstPrice , Integer secondPrice);
+    public List<Gallery1> findByPrice(Integer firstPrice , Integer secondPrice);
 //    综合分类*（随机）
     public  List<Gallery1> ByZonHe();
 //    价格排序

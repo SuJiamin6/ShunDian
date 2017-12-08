@@ -73,6 +73,7 @@ public class GoodsTypeController {
 		}
 		return goods;
 	}
+	// =============================================================猜你喜欢
 
 
 }

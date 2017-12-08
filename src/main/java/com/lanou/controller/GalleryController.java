@@ -31,6 +31,7 @@ public class GalleryController {
         //请求商品分类页部分数据
         String leftName = null;
         String rightName = null;
+        int aId =0;
         int type = galleryService.Judge(id);
         List price = galleryService.rightPrice();
         if (type == 1) {
@@ -38,16 +39,41 @@ public class GalleryController {
             List<GoodsType> OneName = galleryService.chazhao1(id);
             // ==============================================
             List<GoodsType> allYiJi = galleryService.AllYiJi(id);
-            List finder = galleryService.finder();
+            List finder =  galleryService.finder();
             List finder1 = galleryService.finder1(id);
+            List finder2 = galleryService.finder2(id);
             OneName.get(0).setGoodsTypes(allYiJi);
             List<Gallery1> findgoodss = galleryService.findGoodss(6);
+            for (int i = 0;i<findgoodss.size();i++){
+               String gUrl =  findgoodss.get(i).getgUrl();
+               List<String> AllUrl = new ArrayList();
+               AllUrl.add(gUrl);
+               int gs_id = findgoodss.get(i).getGs_id();
+               List<GoodSmallImage> listgoodsmall =  galleryService.SmallImage(gs_id);
+                   if(listgoodsmall.get(0).getSmallUrl1() != null){
+                       AllUrl.add(listgoodsmall.get(0).getSmallUrl1());
+                   }
+                   if(listgoodsmall.get(0).getSmallUrl2() != null){
+                       AllUrl.add(listgoodsmall.get(0).getSmallUrl2());
+                   }
+                   if(listgoodsmall.get(0).getSmallUrl3() != null){
+                       AllUrl.add(listgoodsmall.get(0).getSmallUrl3());
+                   }
+                   findgoodss.get(i).setgImg(AllUrl);
+            }
+
             for (int i = 0; i < finder.size(); i++) {
                 List findleftandright = new ArrayList();
                 if (i == 0) {
                     for (int j = 0; j < finder1.size(); j++) {
                         rightName = (String) finder1.get(j);
-                        findleftandright.add(rightName);
+                        aId = (Integer) finder2.get(j);
+                        List OneBiao00 =new ArrayList();
+                        OneBiao00.add(rightName);
+                        OneBiao00.add(aId);
+                        findleftandright.add(OneBiao00);
+
+
                     }
                 }
                 if (i == 1) {
@@ -77,16 +103,37 @@ public class GalleryController {
             // ==============================================
             List findsan = galleryService.findsan();
             List findsan1 = galleryService.findsan1(id);
-
+            List finder2 = galleryService.finder2(id);
             List findAllErJi = galleryService.findsan1(pid);
 
             List<Gallery1> findgoodss = galleryService.findGoodss(6);
+            for (int i = 0;i<findgoodss.size();i++){
+                String gUrl =  findgoodss.get(i).getgUrl();
+                List<String> AllUrl = new ArrayList();
+                AllUrl.add(gUrl);
+                int gs_id = findgoodss.get(i).getGs_id();
+                List<GoodSmallImage> listgoodsmall =  galleryService.SmallImage(gs_id);
+                if(listgoodsmall.get(0).getSmallUrl1() != null){
+                    AllUrl.add(listgoodsmall.get(0).getSmallUrl1());
+                }
+                if(listgoodsmall.get(0).getSmallUrl2() != null){
+                    AllUrl.add(listgoodsmall.get(0).getSmallUrl2());
+                }
+                if(listgoodsmall.get(0).getSmallUrl3() != null){
+                    AllUrl.add(listgoodsmall.get(0).getSmallUrl3());
+                }
+                findgoodss.get(i).setgImg(AllUrl);
+            }
             for (int i = 0; i < findsan.size(); i++) {
                 List findleftandright = new ArrayList();
                 if (i == 0) {
                     for (int j = 0; j < findsan1.size(); j++) {
                         rightName = (String) findsan1.get(j);
-                        findleftandright.add(rightName);
+                        aId = (Integer) finder2.get(j);
+                        List OneBiao00 =new ArrayList();
+                        OneBiao00.add(rightName);
+                        OneBiao00.add(aId);
+                        findleftandright.add(OneBiao00);
                     }
                 }
                 if (i == 1) {
@@ -117,6 +164,23 @@ public class GalleryController {
             namess.get(2).setGoodsTypes(AllSanJi);
             // ==============================================
             List<Gallery1> findgoodss = galleryService.findGoodss(id);
+            for (int i = 0;i<findgoodss.size();i++){
+                String gUrl =  findgoodss.get(i).getgUrl();
+                List<String> AllUrl = new ArrayList();
+                AllUrl.add(gUrl);
+                int gs_id = findgoodss.get(i).getGs_id();
+                List<GoodSmallImage> listgoodsmall =  galleryService.SmallImage(gs_id);
+                if(listgoodsmall.get(0).getSmallUrl1() != null){
+                    AllUrl.add(listgoodsmall.get(0).getSmallUrl1());
+                }
+                if(listgoodsmall.get(0).getSmallUrl2() != null){
+                    AllUrl.add(listgoodsmall.get(0).getSmallUrl2());
+                }
+                if(listgoodsmall.get(0).getSmallUrl3() != null){
+                    AllUrl.add(listgoodsmall.get(0).getSmallUrl3());
+                }
+                findgoodss.get(i).setgImg(AllUrl);
+            }
 //            for (int i = 0; i < findAllLeft.size(); i++) {
 //                leftId = findAllLeft.get(i).getLeft_id();
 //                for (int j = 0; j < galleryService.findright(leftId).size(); j++) {
@@ -126,18 +190,23 @@ public class GalleryController {
 //
 //                }
 //            }
-
+            List finder2 = galleryService.finder2(2);
             int a = (int) (11+Math.random()*(16-10+1)) ;
             int b = (int) (11+Math.random()*(16-10+1));
             System.out.println(a);
             System.out.println(b);
+
             List random = galleryService.findFenLeiBiao(a, b);
             for (int i = 0; i < 2; i++) {
                 List findleftandright = new ArrayList();
                 if (i == 0) {
                     for (int j = 0; j < random.size(); j++) {
                         rightName = (String) random.get(j);
-                        findleftandright.add(rightName);
+                        aId = (Integer) finder2.get(j);
+                        List OneBiao00 =new ArrayList();
+                        OneBiao00.add(rightName);
+                        OneBiao00.add(aId);
+                        findleftandright.add(OneBiao00);
                     }
                 }
                 if (i == 1) {
@@ -164,7 +233,24 @@ public class GalleryController {
        // @ResponseBody
         public void findPrice (Integer firstPrice, Integer secondPrice,HttpServletResponse response){
             Map<String, Object> map = new HashMap<String, Object>();
-            List<Goods> findByPrice = galleryService.findByPrice(firstPrice, secondPrice);
+            List<Gallery1> findByPrice = galleryService.findByPrice(firstPrice, secondPrice);
+            for (int i = 0;i<findByPrice.size();i++){
+                String gUrl =  findByPrice.get(i).getgUrl();
+                List<String> AllUrl = new ArrayList();
+                AllUrl.add(gUrl);
+                int gs_id = findByPrice.get(i).getGs_id();
+                List<GoodSmallImage> listgoodsmall =  galleryService.SmallImage(gs_id);
+                if(listgoodsmall.get(0).getSmallUrl1() != null){
+                    AllUrl.add(listgoodsmall.get(0).getSmallUrl1());
+                }
+                if(listgoodsmall.get(0).getSmallUrl2() != null){
+                    AllUrl.add(listgoodsmall.get(0).getSmallUrl2());
+                }
+                if(listgoodsmall.get(0).getSmallUrl3() != null){
+                    AllUrl.add(listgoodsmall.get(0).getSmallUrl3());
+                }
+                findByPrice.get(i).setgImg(AllUrl);
+            }
             map.put("ByPrice", findByPrice);
 
             FastJson_All.toJson(map,response);
@@ -178,6 +264,23 @@ public class GalleryController {
         public void ByZonHe (HttpServletResponse response){
             Map<String, Object> map = new HashMap<String, Object>();
             List<Gallery1> ZongHe = galleryService.ByZonHe();
+            for (int i = 0;i<ZongHe.size();i++){
+                String gUrl =  ZongHe.get(i).getgUrl();
+                List<String> AllUrl = new ArrayList();
+                AllUrl.add(gUrl);
+                int gs_id = ZongHe.get(i).getGs_id();
+                List<GoodSmallImage> listgoodsmall =  galleryService.SmallImage(gs_id);
+                if(listgoodsmall.get(0).getSmallUrl1() != null){
+                    AllUrl.add(listgoodsmall.get(0).getSmallUrl1());
+                }
+                if(listgoodsmall.get(0).getSmallUrl2() != null){
+                    AllUrl.add(listgoodsmall.get(0).getSmallUrl2());
+                }
+                if(listgoodsmall.get(0).getSmallUrl3() != null){
+                    AllUrl.add(listgoodsmall.get(0).getSmallUrl3());
+                }
+                ZongHe.get(i).setgImg(AllUrl);
+            }
             map.put("ZonHe", ZongHe);
             FastJson_All.toJson(map,response);
 
@@ -189,6 +292,23 @@ public class GalleryController {
         public void ByJiaGeJiang (HttpServletResponse response){
         Map<String, Object> map = new HashMap<String, Object>();
         List<Gallery1> JiaGeJiang = galleryService.ByJiaGeJiang();
+            for (int i = 0;i<JiaGeJiang.size();i++){
+                String gUrl =  JiaGeJiang.get(i).getgUrl();
+                List<String> AllUrl = new ArrayList();
+                AllUrl.add(gUrl);
+                int gs_id = JiaGeJiang.get(i).getGs_id();
+                List<GoodSmallImage> listgoodsmall =  galleryService.SmallImage(gs_id);
+                if(listgoodsmall.get(0).getSmallUrl1() != null){
+                    AllUrl.add(listgoodsmall.get(0).getSmallUrl1());
+                }
+                if(listgoodsmall.get(0).getSmallUrl2() != null){
+                    AllUrl.add(listgoodsmall.get(0).getSmallUrl2());
+                }
+                if(listgoodsmall.get(0).getSmallUrl3() != null){
+                    AllUrl.add(listgoodsmall.get(0).getSmallUrl3());
+                }
+                JiaGeJiang.get(i).setgImg(AllUrl);
+            }
         map.put("JiaGeJiang", JiaGeJiang);
         FastJson_All.toJson(map,response);
 
@@ -200,6 +320,23 @@ public class GalleryController {
     public void ByJiaGeSheng (HttpServletResponse response){
         Map<String, Object> map = new HashMap<String, Object>();
         List<Gallery1> JiaGeSheng = galleryService.ByJiaGeSheng();
+        for (int i = 0;i<JiaGeSheng.size();i++){
+            String gUrl =  JiaGeSheng.get(i).getgUrl();
+            List<String> AllUrl = new ArrayList();
+            AllUrl.add(gUrl);
+            int gs_id = JiaGeSheng.get(i).getGs_id();
+            List<GoodSmallImage> listgoodsmall =  galleryService.SmallImage(gs_id);
+            if(listgoodsmall.get(0).getSmallUrl1() != null){
+                AllUrl.add(listgoodsmall.get(0).getSmallUrl1());
+            }
+            if(listgoodsmall.get(0).getSmallUrl2() != null){
+                AllUrl.add(listgoodsmall.get(0).getSmallUrl2());
+            }
+            if(listgoodsmall.get(0).getSmallUrl3() != null){
+                AllUrl.add(listgoodsmall.get(0).getSmallUrl3());
+            }
+            JiaGeSheng.get(i).setgImg(AllUrl);
+        }
         map.put("JiaGeSheng", JiaGeSheng);
         FastJson_All.toJson(map,response);
 
@@ -211,6 +348,23 @@ public class GalleryController {
     public void ByXiaoLiang (HttpServletResponse response){
         Map<String, Object> map = new HashMap<String, Object>();
         List<Gallery1> XiaoLiang = galleryService.ByXiaoLiang();
+        for (int i = 0;i<XiaoLiang.size();i++){
+            String gUrl =  XiaoLiang.get(i).getgUrl();
+            List<String> AllUrl = new ArrayList();
+            AllUrl.add(gUrl);
+            int gs_id = XiaoLiang.get(i).getGs_id();
+            List<GoodSmallImage> listgoodsmall =  galleryService.SmallImage(gs_id);
+            if(listgoodsmall.get(0).getSmallUrl1() != null){
+                AllUrl.add(listgoodsmall.get(0).getSmallUrl1());
+            }
+            if(listgoodsmall.get(0).getSmallUrl2() != null){
+                AllUrl.add(listgoodsmall.get(0).getSmallUrl2());
+            }
+            if(listgoodsmall.get(0).getSmallUrl3() != null){
+                AllUrl.add(listgoodsmall.get(0).getSmallUrl3());
+            }
+            XiaoLiang.get(i).setgImg(AllUrl);
+        }
         map.put("XiaoLiang", XiaoLiang);
         FastJson_All.toJson(map,response);
     }
@@ -221,6 +375,23 @@ public class GalleryController {
     public void ByXinPin (HttpServletResponse response){
         Map<String, Object> map = new HashMap<String, Object>();
         List<Gallery1> XinPin = galleryService.ByXinPin();
+        for (int i = 0;i<XinPin.size();i++){
+            String gUrl =  XinPin.get(i).getgUrl();
+            List<String> AllUrl = new ArrayList();
+            AllUrl.add(gUrl);
+            int gs_id = XinPin.get(i).getGs_id();
+            List<GoodSmallImage> listgoodsmall =  galleryService.SmallImage(gs_id);
+            if(listgoodsmall.get(0).getSmallUrl1() != null){
+                AllUrl.add(listgoodsmall.get(0).getSmallUrl1());
+            }
+            if(listgoodsmall.get(0).getSmallUrl2() != null){
+                AllUrl.add(listgoodsmall.get(0).getSmallUrl2());
+            }
+            if(listgoodsmall.get(0).getSmallUrl3() != null){
+                AllUrl.add(listgoodsmall.get(0).getSmallUrl3());
+            }
+            XinPin.get(i).setgImg(AllUrl);
+        }
         map.put("XinPin", XinPin);
         FastJson_All.toJson(map,response);
     }

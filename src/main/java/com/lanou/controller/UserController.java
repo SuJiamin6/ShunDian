@@ -1,8 +1,10 @@
 package com.lanou.controller;
 
 import com.lanou.Util.FastJson_All;
+import com.lanou.entity.History;
 import com.lanou.entity.User;
 import com.lanou.service.DiZhiService;
+import com.lanou.service.GoodsTypeService;
 import com.lanou.service.UserService;
 import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import org.apache.commons.fileupload.servlet.ServletRequestContext;
@@ -21,7 +23,8 @@ import javax.servlet.http.HttpSession;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Map;
+import java.util.HashMap;
 @Controller
 @RequestMapping("/")
 public class UserController {
@@ -30,6 +33,8 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private DiZhiService diZhiService;
+	@Autowired
+	private GoodsTypeService goodsTypeService;
 
 	//登录
 	@RequestMapping("/login.do")
@@ -40,8 +45,12 @@ public class UserController {
 		boolean result=false;
 		if (users!=null){
 			request.getSession().setAttribute("users",users);
+			String username	= user1.getuName();
+			List<History> history = goodsTypeService.findHistory(username);
+			request.getSession().setAttribute("History",history);
 			result= true;
 		}
+
 		System.out.println(result);
 		FastJson_All.toJson(result,response);
 	}
@@ -96,9 +105,8 @@ public class UserController {
 		}
 		FastJson_All.toJson(result,response);
 	}
-	//修改密码
+	//输入密码
 	@RequestMapping("/findPwdByuName.do")
-
 	public void findPwdByuNmae(HttpSession session,HttpServletResponse response){
 		User user=(User) session.getAttribute("users");
 		user.getuName();
@@ -111,25 +119,27 @@ public class UserController {
 		 //旧密码输入错误
 		FastJson_All.toJson(result,response);
 	}
-	//修改密码
+	//修改密码  传入密码uPassword
 	@RequestMapping("updatePwdByuName.do")
-	public void updatePwdByuName(User user,HttpServletRequest request,HttpServletResponse response){
+	public void updatePwdByuName(User user,HttpServletRequest request,HttpServletResponse response,HttpSession session){
+		User user1=(User)session.getAttribute("users");
+		user.setuName(user1.getuName());
 		boolean result=false;
-
-		if (userService.updateUser(user)){
+		if (userService.updatePwd(user)){
 			result= true; //新密码修改密码成功
 		}
 		  //新密码修改失败
 		FastJson_All.toJson(result,response);
 	}
-	//查询用户所有信息
+	//查询用户所有信息 登陆后直接访问查询
 	@RequestMapping("/findUser.do")
 	//@ResponseBody
 	public void findUser(HttpSession session,HttpServletResponse response){
+		Map<String,Object> map=new HashMap<String, Object>();
 		User user=(User)session.getAttribute("users");
-		user.getuName();
-		List<User> user1= userService.findUser(user);
-		//return user1;
-		FastJson_All.toJson(user1,response);
+		String result= user.getuName();
+		List<User> user1= userService.findUser(result);
+		map.put("user",user1);
+		FastJson_All.toJson(map,response);
 	}
 }

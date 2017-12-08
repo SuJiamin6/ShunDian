@@ -11,7 +11,7 @@
 
 	</resultMap>
 		<!--把用户的id传过来查找收藏-->
-		<select id="findCollection" resultMap="shouCangResult" parameterType="Integer">
+		<select id="findCollection" resultMap="shouCangResult" >
 			SELECT GoodsId,GoodsName,GoodsPrice from Goods where  GoodsId in (SELECT goods_id from Collection where user_id =#{uId})
 		</select>
 

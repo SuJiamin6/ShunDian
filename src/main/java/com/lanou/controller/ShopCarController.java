@@ -168,11 +168,10 @@ public class ShopCarController {
             price += shopCars.get(i).getGoods_sum();
             Goods_name1 += shopCars.get(i).getGoods_name();
             Goods_name1 += " ";
+
+            Goods_name += shopCars.get(i).getGoods_name();
+            Goods_name += "/";
         }
-//        String address = shouDiZhi.get(0).getsName()+" "+shouDiZhi.get(0).getsArea()+" "+shouDiZhi.get(0).getsAddress()+" "+
-//                shouDiZhi.get(0).getsZip()+" "+shouDiZhi.get(0).getsPhone();
-//        String address1 = shouDiZhi.get(0).getsName()+":"+shouDiZhi.get(0).getsArea()+":"+shouDiZhi.get(0).getsAddress()+":"+
-//                shouDiZhi.get(0).getsZip()+":"+shouDiZhi.get(0).getsPhone();
 
         map.put("count",count);
         map.put("price",price);
@@ -201,6 +200,8 @@ public class ShopCarController {
             ShouDiZhi shouDiZhi = shouDiZhiService.findShouDiZhiBysId(sId);
             String address = shouDiZhi.getsName()+" "+shouDiZhi.getsArea()+" "+shouDiZhi.getsAddress()+" "+
                                     shouDiZhi.getsZip()+" "+shouDiZhi.getsPhone();
+            String address1 = shouDiZhi.getsName()+"/"+shouDiZhi.getsArea()+"/"+shouDiZhi.getsAddress()+"/"+
+                shouDiZhi.getsZip()+"/"+shouDiZhi.getsPhone();
 //            String address = (String) session.getAttribute("address");
 //            String address1 = (String) session.getAttribute("address1");
             String goodsName = (String) session.getAttribute("goodsName");
@@ -216,7 +217,7 @@ public class ShopCarController {
             map.put("count", count);
             map.put("price", price);
             map.put("goodsName", goodsName);
-            map.put("address", address);
+            map.put("address", address1);
             goodsTypeService.deleteShopCarAll();
             FastJson_All.toJson(map, response);
 

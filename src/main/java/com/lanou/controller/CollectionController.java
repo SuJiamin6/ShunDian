@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-
+import java.util.Map;
+import java.util.HashMap;
 /**
  * Created by lanou on 2017/12/5.
  */
@@ -24,30 +25,31 @@ public class CollectionController {
 
    @Autowired
    private CollectionService collectionService;
-    //收藏夹
+    //收藏夹 登陆后直接访问
    @RequestMapping("/findCollGoods.do")
-   @ResponseBody
-   public List<Goods> findCollection(Integer user_id,HttpSession session){
+   public void findCollection(HttpSession session,HttpServletResponse response){
+       Map<String,Object> map=new HashMap<String, Object>();
        User user=(User)session.getAttribute("users");
-       user_id= user.getuId();
+      Integer user_id= user.getuId();
       List<Goods> result= collectionService.findCollection(user_id);
       System.out.println(result);
-      return result;
+      map.put("result",result);
+      FastJson_All.toJson(map,response);
    }
-   //添加收藏
+   //添加收藏 需要传进来goods_id
    @RequestMapping("finduser_id.do")
-   public void finduser_id(Integer user_id, Integer goods_id, HttpServletResponse response,HttpSession session){
+   public void finduser_id( Integer goods_id, HttpServletResponse response,HttpSession session){
        User user=(User)session.getAttribute("users");
-       user_id= user.getuId();
-
+      Integer user_id= user.getuId();
       Integer result= collectionService.finduser_id(user_id,goods_id);
        System.out.println("aaa:"+result);
       Number num=0;
       if (result!=null){
         num=1;   //可以查找到，已经收藏过了
+      }else {
+          collectionService.addCollGoods(user_id,goods_id);
+          //返回0 ，收藏成功
       }
-       collectionService.addCollGoods(user_id,goods_id);
-        //返回0 ，收藏成功
        FastJson_All.toJson(num,response);
    }
 
@@ -62,18 +64,7 @@ public class CollectionController {
        }
         FastJson_All.toJson(name,response);
     }
-//    //添加收藏
-//    @RequestMapping("addCollGoods.do")
-//    public  void  addCollGoods(Integer user_id,Integer goods_id,HttpServletResponse response){
-//        boolean result=false;
-//        System.out.println(collectionService.addCollGoods(user_id,goods_id));
-//        if (collectionService.addCollGoods(user_id,goods_id)){
-//            result=true;  //收藏成功返回true
-//        }
-//        //收藏失败 false
-//        FastJson_All.toJson(result,response);
-//    }
-    //删除收藏
+
     @RequestMapping("/deleteCollection.do")
     public void deleteCollection(HttpSession session,Integer user_id,Integer goods_id,HttpServletResponse response){
         User user=(User)session.getAttribute("users");

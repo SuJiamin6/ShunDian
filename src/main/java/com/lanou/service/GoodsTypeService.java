@@ -28,6 +28,12 @@ public interface GoodsTypeService {
 	public List<Comments> findComments(int gId);
 	//第六部分
 	public List<User_Info> findUser_Info(int uId);
+	//	添加历史记录
+	public boolean  insert1(String userName,String goodsName,String goodsImage,Double goodsPrice);
+	//调出历史记录
+	public List<History> findHistory(String userName);
+//	 判断有无
+   public int findNull(String goodsName);
 
 
 	//地址三级联动模块
