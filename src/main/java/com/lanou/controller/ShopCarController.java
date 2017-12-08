@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
+
 /**
  * Created by lanou on 2017/12/7.
  */
@@ -143,12 +144,7 @@ public class ShopCarController {
     * */
     //先查询提交的商品goods_id为一件的时候
     @RequestMapping("/account")
-<<<<<<< HEAD
     public void account(String aId, HttpServletResponse response, HttpSession session, HttpServletRequest request){
-=======
-    public void account(Integer id, HttpServletResponse response, HttpSession session) {
->>>>>>> 67640d08944961fd3abb05c730ebca5fe8057f2d
-
         //先接收到session中用户的id
         User user = (User) session.getAttribute("users");
         int uId = user.getuId();
@@ -178,8 +174,6 @@ public class ShopCarController {
                 shouDiZhi.get(0).getsZip()+" "+shouDiZhi.get(0).getsPhone();
         String address1 = shouDiZhi.get(0).getsName()+":"+shouDiZhi.get(0).getsArea()+":"+shouDiZhi.get(0).getsAddress()+":"+
                 shouDiZhi.get(0).getsZip()+":"+shouDiZhi.get(0).getsPhone();
-
-<<<<<<< HEAD
         map.put("count",count);
         map.put("price",price);
         map.put("data",shopCars);
@@ -221,15 +215,6 @@ public class ShopCarController {
         map.put("address",address1);
         goodsTypeService.deleteShopCarAll();
         FastJson_All.toJson(map,response);
-=======
-//            System.out.println(shopCar);
-//        FastJson_All.toJson(goods, response);
-        map.put("count", count);
-        map.put("price", price);
-
-        map.put("data", shopCar);
-        FastJson_All.toJson(map, response);
->>>>>>> 67640d08944961fd3abb05c730ebca5fe8057f2d
     }
 
 }
