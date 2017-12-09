@@ -23,7 +23,7 @@ public class DiZhiController {
    private DiZhiService diZhiService;
     //查询地址
    @RequestMapping("/findDiZhi.do")
-   public void findDiZhi(DiZhi diZhi, HttpServletResponse response){
+   public void findDiZhi(DiZhi diZhi,HttpServletResponse response){
 
       List<DiZhi> result= diZhiService.findDiZhi(diZhi);
       System.out.println(result);
