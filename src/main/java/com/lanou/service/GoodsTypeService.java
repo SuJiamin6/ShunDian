@@ -54,7 +54,7 @@ public interface GoodsTypeService {
 	//添加商品
 	public void updateShopCar1(int cout,Double sum,int goods_id);
 	public ShopCar findShopCargoods_id(Integer goods_id);
-	public void updateShopCar(int gId,String gName,Double price,int count,Double sum);
+	public void updateShopCar(int gId,String gName,Double price,int count,Double sum,String goods_url);
 	public void deleteShopCar(int id);
 
 	//侧边栏点击购物车模块
@@ -63,7 +63,7 @@ public interface GoodsTypeService {
 	//添加订单模块
 	public void addOrders(String order_address,String order_goodsName,double order_price,int order_count,int user_id);
 
-	public Orders findOrders(int user_id);
+	public List<Orders> findOrders(int user_id);
 
 	//删除购物车中的所有数据
 	public void deleteShopCarAll();

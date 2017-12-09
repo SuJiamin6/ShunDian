@@ -12,6 +12,7 @@
 		<result column="order_count" property="order_count" javaType="int"  />
 		<result column="user_id" property="user_id" javaType="int" />
 	</resultMap>
+
 	<select id="addOrders" resultMap="ordersResult" >
 		insert into Orders (order_address,order_goodsName,order_price,order_count,user_id) VALUES(#{0},#{1},#{2},#{3},#{4});
 	</select>

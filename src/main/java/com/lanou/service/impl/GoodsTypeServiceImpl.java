@@ -115,8 +115,8 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 	}
 
 	//添加商品
-	public void updateShopCar(int gId, String gName, Double price, int count, Double sum) {
-		goodsTypeMapper.updateShopCar(gId,gName,price,count,sum);
+	public void updateShopCar(int gId, String gName, Double price, int count, Double sum,String goods_url) {
+		goodsTypeMapper.updateShopCar(gId,gName,price,count,sum,goods_url);
 	}
 
 	//删除商品
@@ -136,7 +136,7 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 		goodsTypeMapper.addOrders(order_address,order_goodsName,order_price,order_count,user_id);
 	}
 
-	public Orders findOrders(int user_id) {
+	public List<Orders> findOrders(int user_id) {
 		return goodsTypeMapper.findOrders(user_id);
 	}
 

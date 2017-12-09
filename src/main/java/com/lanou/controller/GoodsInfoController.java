@@ -97,12 +97,14 @@ public class GoodsInfoController {
         System.out.println(diZhi_info);
 //        添加到历史记录中
         User user  = (User) request.getSession().getAttribute("users");
-       List<History> history = (ArrayList < History> )request.getSession().getAttribute("History");
-        System.out.println(history);
-        String uName = user.getuName();
-        System.out.println("userName"+uName);
-        inHistory(goodsList,uName);
-        System.out.println("dasd"+inHistory(goodsList,uName));
+        if(user != null){
+            List<History> history = (ArrayList < History> )request.getSession().getAttribute("History");
+            System.out.println(history);
+            String uName = user.getuName();
+            System.out.println("userName"+uName);
+            inHistory(goodsList,uName);
+            System.out.println("dasd"+inHistory(goodsList,uName));
+        }
 //
         map.put("content",comments_infos);
         map.put("main",goodsList);

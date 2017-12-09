@@ -67,9 +67,10 @@ public class ShopCarController {
                 shopCar.setGoods_price(goods.getgPrice());
                 shopCar.setGoods_count(count);
                 shopCar.setGoods_sum(goods.getgPrice() * count);
+                shopCar.setGoods_url(goods.getgUrl());
                 goodsTypeService.updateShopCar
                         (shopCar.getGoods_id(), shopCar.getGoods_name(), shopCar.getGoods_price(),
-                                shopCar.getGoods_count(), shopCar.getGoods_sum());
+                                shopCar.getGoods_count(), shopCar.getGoods_sum(),shopCar.getGoods_url());
             }
             map.put("data", "SUCCESS");
         }
@@ -197,7 +198,7 @@ public class ShopCarController {
             int count = (Integer) session.getAttribute("count");
             double price = (Double) session.getAttribute("price");
 
-            ShouDiZhi shouDiZhi = shouDiZhiService.findShouDiZhiBysId(sId);
+            ShouDiZhi shouDiZhi = shouDiZhiService.findShouDiZhiBysId(sId,uId);
             String address = shouDiZhi.getsName()+" "+shouDiZhi.getsArea()+" "+shouDiZhi.getsAddress()+" "+
                                     shouDiZhi.getsZip()+" "+shouDiZhi.getsPhone();
             String address1 = shouDiZhi.getsName()+"/"+shouDiZhi.getsArea()+"/"+shouDiZhi.getsAddress()+"/"+
@@ -208,8 +209,14 @@ public class ShopCarController {
 
             goodsTypeService.addOrders(address, goodsName, price, count, uId);
 
-            Orders orders = goodsTypeService.findOrders(uId);
-            int order_id = orders.getOrder_id();
+            //在这里要完成的是先查找到该用户的所有sId
+            //然后把最后一个sId拿出来
+            List<Orders> orsers = goodsTypeService.findOrders(uId);
+            int order_id = 0;
+            for(int i=0;i<orsers.size();i++){
+                order_id = orsers.get(i).getOrder_id();
+            }
+            //int order_id = orders.getOrder_id();
 
             Map<String, Object> map = new HashMap<String, Object>();
 

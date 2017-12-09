@@ -50,7 +50,7 @@ public interface GoodsTypeMapper {
 	public ShopCar findShopCargoods_id(Integer goods_id);
 
 	//添加功能
-	public void updateShopCar(Integer gId,String gName,Double price,Integer count,Double sum);
+	public void updateShopCar(Integer gId,String gName,Double price,Integer count,Double sum,String goods_id);
 	//删除功能
 	public void deleteShopCar(int id);
 
@@ -61,7 +61,7 @@ public interface GoodsTypeMapper {
 	public void addOrders(String order_address,String order_goodsName,double order_price,int order_count,int user_id);
 
 
-	public Orders findOrders(int user_id);
+	public List<Orders> findOrders(int user_id);
 
 	public void deleteShopCarAll();
 }

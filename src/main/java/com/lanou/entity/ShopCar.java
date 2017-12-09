@@ -11,7 +11,16 @@ public class ShopCar {
     private Double goods_price;
     private Integer goods_count;
     private Double goods_sum;
+    private String goods_url;
     private Integer delete_id;
+
+    public String getGoods_url() {
+        return goods_url;
+    }
+
+    public void setGoods_url(String goods_url) {
+        this.goods_url = goods_url;
+    }
 
     public Integer getShopId() {
         return shopId;
@@ -82,8 +91,8 @@ public class ShopCar {
                 ", goods_price=" + goods_price +
                 ", goods_count=" + goods_count +
                 ", goods_sum=" + goods_sum +
+                ", goods_url='" + goods_url + '\'' +
                 ", delete_id=" + delete_id +
                 '}';
     }
-
 }

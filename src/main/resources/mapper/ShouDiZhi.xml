@@ -20,13 +20,13 @@
 
 		<!--根据地址主键，查找当前用户勾选的收货地址-->
 		<select id="findShouDiZhiBysId" resultMap="ShouDiZhiResult">
-			SELECT  * FROM  Address where  sId=#{sId};
+			SELECT  * FROM  Address where  sId=#{0} and user_id=#{1};
 		</select>
 
 		<!--添加收获地址-->
 		<!--需要传过来姓名等信息user_id自己从session中取-->
 		<insert id="addShouDiZhi" >
-			INSERT INTO Address(sName,sArea,sAddress,sZip,sPhone,user_id) VALUES (#{0},#{1},#{2},#{3},#{4},#{5})
+			INSERT INTO Address(sName,sArea,sAddress,sZip,sPhone,user_id) VALUES (#{sName},#{sArea},#{sAddress},#{sZip},#{sPhone},#{user_id})
 		</insert>
 
 		<!--删除收货地址-->
