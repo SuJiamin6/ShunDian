@@ -45,7 +45,9 @@ public class CollectionController {
        System.out.println("aaa:"+result);
       Number num=0;
       if (result!=null){
+          collectionService.deleteCollection(user_id,goods_id);
         num=1;   //可以查找到，已经收藏过了
+
       }else {
           collectionService.addCollGoods(user_id,goods_id);
           //返回0 ，收藏成功
@@ -53,17 +55,7 @@ public class CollectionController {
        FastJson_All.toJson(num,response);
    }
 
-   //判断是否是登录状态
-    @RequestMapping("pandaun.do")
-    public  void panduan (HttpServletResponse response,HttpSession session){
 
-      User user=  (User) session.getAttribute("users");
-      String name="YES";
-       if (user==null){
-           name="NO";
-       }
-        FastJson_All.toJson(name,response);
-    }
 
     @RequestMapping("/deleteCollection.do")
     public void deleteCollection(HttpSession session,Integer user_id,Integer goods_id,HttpServletResponse response){
