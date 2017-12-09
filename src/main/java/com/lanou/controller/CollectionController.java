@@ -55,7 +55,7 @@ public class CollectionController {
    }
 
 
-
+    //删除收藏
     @RequestMapping("/deleteCollection.do")
     public void deleteCollection(HttpSession session,Integer user_id,Integer goods_id,HttpServletResponse response){
         User user=(User)session.getAttribute("users");

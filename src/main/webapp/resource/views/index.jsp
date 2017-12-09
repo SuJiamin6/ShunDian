@@ -7,6 +7,22 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>indexhahaha,${teachers}</h1>
+	<h1 class="p1">点击</h1>
 </body>
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<script>
+
+
+    $('.p1').click(function(){
+        $.ajax({
+            type:"get",
+            url:"http://139.199.79.192:8081/ShunDian/findCollGoods.do",
+            success:function(data){
+                console.log(data);
+
+            }
+        })
+
+    })
+</script>
 </html>
