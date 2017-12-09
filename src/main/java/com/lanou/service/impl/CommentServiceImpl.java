@@ -1,5 +1,6 @@
 package com.lanou.service.impl;
 
+import com.lanou.dao.CommentMapper;
 import com.lanou.dao.DiZhiMapper;
 import com.lanou.entity.Comments;
 import com.lanou.entity.DiZhi;
@@ -16,8 +17,9 @@ import java.util.List;
 @Service("commentService")
 public class CommentServiceImpl implements CommentService{
     @Autowired
-   private CommentService commentService;
-    public boolean addComment(Comments comments){
-        return commentService.addComment(comments);
+   private CommentMapper commentMapper;
+
+    public void addComment(Comments comments){
+        commentMapper.addComment(comments);
     }
 }

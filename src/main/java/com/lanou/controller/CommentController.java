@@ -26,14 +26,12 @@ public class CommentController {
 
    @RequestMapping("addComment.do")
    public void addComment(Comments comments, HttpServletResponse response, HttpSession session){
-//      User user=(User) session.getAttribute("users");
-//     Integer user_id= user.getuId();
-//      System.out.println(user_id);
-//     comments.setUser_id(user_id);
-     boolean result=false;
-     if (commentService.addComment(comments)){
-        result=true;
-     }
+      User user=(User) session.getAttribute("users");
+     Integer user_id= user.getuId();
+      System.out.println(user_id);
+     comments.setUser_id(user_id);
+     commentService.addComment(comments);
+      Boolean result=true;
       FastJson_All.toJson(result,response);
    }
 }

@@ -42,42 +42,59 @@ public class ShouDiZhiController {
        FastJson_All.toJson(result,response);
    }
 
-   //添加收获地址
-   //<!--需要传过来姓名等信息user_id自己从session中取-->
+//   //添加收获地址
+//   //<!--需要传过来姓名等信息user_id自己从session中取-->
+//    @RequestMapping("addShouDiZhi.do")
+//   public  void addShouDiZhi(@RequestParam("cityid") Integer[] param,ShouDiZhi shouDiZhi, HttpServletResponse response, HttpSession session){
+//        User user=(User)session.getAttribute("users");
+//      Integer user_id=  user.getuId();
+//
+//        List diZhis=new ArrayList();
+//        String diZhi=null;
+//
+//        for(int i=0;i<param.length;i++){
+//
+//            System.out.println(param[i]);
+//            diZhi=diZhiService.findSXQ(param[i]);
+//            diZhis.add(diZhi);
+//        }
+//
+//        String strResult="";
+//        for (int i=0;i<diZhis.size();i++){
+//            strResult+=diZhis.get(i)+"/";
+//        }
+//        strResult=strResult.substring(0,strResult.length()-1);
+//        System.out.println("返回："+strResult);
+//        System.out.println(shouDiZhi.getsZip());
+//
+//        shouDiZhi.setUser_id(user_id);
+//        shouDiZhi.setsArea(strResult);
+//        System.out.println(shouDiZhi.getsArea());
+//       boolean result=false;
+//      if (shouDiZhiService.addShouDiZhi(shouDiZhi)){
+//          result=true;  //添加成功返回true
+//      }
+//        System.out.println(result);
+//        //添加失败返回false
+//        FastJson_All.toJson(result,response);
+//   }
+
+
     @RequestMapping("addShouDiZhi.do")
-   public  void addShouDiZhi(@RequestParam("cityid") Integer[] param,ShouDiZhi shouDiZhi, HttpServletResponse response, HttpSession session){
+    public  void addShouDiZhi(ShouDiZhi shouDiZhi, HttpServletResponse response, HttpSession session){
         User user=(User)session.getAttribute("users");
-      Integer user_id=  user.getuId();
-
-        List diZhis=new ArrayList();
-        String diZhi=null;
-
-        for(int i=0;i<param.length;i++){
-
-            System.out.println(param[i]);
-            diZhi=diZhiService.findSXQ(param[i]);
-            diZhis.add(diZhi);
-        }
-
-        String strResult="";
-        for (int i=0;i<diZhis.size();i++){
-            strResult+=diZhis.get(i)+"/";
-        }
-        strResult=strResult.substring(0,strResult.length()-1);
-        System.out.println("返回："+strResult);
-        System.out.println(shouDiZhi.getsZip());
-
+        Integer user_id=  user.getuId();
         shouDiZhi.setUser_id(user_id);
-        shouDiZhi.setsArea(strResult);
         System.out.println(shouDiZhi.getsArea());
-       boolean result=false;
-      if (shouDiZhiService.addShouDiZhi(shouDiZhi)){
-          result=true;  //添加成功返回true
-      }
+        boolean result=false;
+        if (shouDiZhiService.addShouDiZhi(shouDiZhi)){
+            result=true;  //添加成功返回true
+        }
         System.out.println(result);
         //添加失败返回false
         FastJson_All.toJson(result,response);
-   }
+    }
+
 
    //删除收获地址  需要传过来地址的id  user_id我自己从session中取
     @RequestMapping("deleteShouDiZhi.do")

@@ -5,6 +5,6 @@ import com.lanou.entity.Comments;
 
 public interface CommentService {
 
-	public boolean addComment(Comments comments);
+	public void addComment(Comments comments);
 
 }
