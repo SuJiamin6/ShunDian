@@ -109,12 +109,12 @@ public class UserController {
 	}
 	//输入密码
 	@RequestMapping("/findPwdByuName.do")
-	public void findPwdByuNmae(HttpSession session,HttpServletResponse response){
+	public void findPwdByuNmae(String uPassword,HttpSession session,HttpServletResponse response){
 		User user=(User) session.getAttribute("users");
-		user.getuName();
-		User user1= userService.finduPasswordByuName(user);
+		String user1= user.getuName();
+		String password= userService.finduPasswordByuName(user1);
 		String result="NO";
-		if (user1.getuPassword().equals(user.getuPassword())){
+		if (uPassword.equals(password)){
 			result= "OK"; //旧密码输入正确
 		}
 		System.out.println(user1);
@@ -123,13 +123,13 @@ public class UserController {
 	}
 	//修改密码  传入密码uPassword
 	@RequestMapping("updatePwdByuName.do")
-	public void updatePwdByuName(User user,HttpServletRequest request,HttpServletResponse response,HttpSession session){
+	public void updatePwdByuName(String uPassword,HttpServletRequest request,HttpServletResponse response,HttpSession session){
 		User user1=(User)session.getAttribute("users");
-		user.setuName(user1.getuName());
-		boolean result=false;
-		if (userService.updatePwd(user)){
-			result= true; //新密码修改密码成功
-		}
+		String uName= user1.getuName();
+		userService.updatePwd(uPassword,uName);
+		String result="true";
+			 //新密码修改密码成功
+
 		  //新密码修改失败
 		FastJson_All.toJson(result,response);
 	}

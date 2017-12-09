@@ -31,14 +31,13 @@ public class UserServiceImpl implements UserService{
 
 		return userMapper.updateUser(user);
 	}
-	public User finduPasswordByuName(User user){
-
-		return userMapper.finduPasswordByuName(user);
+	public String finduPasswordByuName(String uPassword){
+		return userMapper.finduPasswordByuName(uPassword);
 	}
 	public  User findUser(String uName){
 		return userMapper.findUser(uName);
 	}
-	public  boolean updatePwd(User user){
-		return userMapper.updatePwd(user);
+	public  void updatePwd(String uPassword,String uName){
+		 userMapper.updatePwd(uPassword,uName);
 	}
 }
