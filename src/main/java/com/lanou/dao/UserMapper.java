@@ -13,6 +13,6 @@ public interface UserMapper {
 	public  boolean adduNameAndPwd(User user);
 	public  boolean updateUser(User user);
 	public User finduPasswordByuName(User user);
-	public  List<User> findUser(String uName);
+	public  User findUser(String uName);
 	public  boolean updatePwd(User user);
 }

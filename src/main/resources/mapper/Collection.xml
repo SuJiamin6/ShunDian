@@ -8,11 +8,11 @@
 		<id column="GoodsId" property="gId" javaType="integer"></id>
 		<result column="GoodsName" property="gName" jdbcType="VARCHAR"></result>
 		<result column="GoodsPrice" property="gPrice" jdbcType="DOUBLE"></result>
-
+		<result column="GoodsImageUrl" property="gUrl" jdbcType="VARCHAR"></result>
 	</resultMap>
 		<!--把用户的id传过来查找收藏-->
 		<select id="findCollection" resultMap="shouCangResult" >
-			SELECT GoodsId,GoodsName,GoodsPrice from Goods where  GoodsId in (SELECT goods_id from Collection where user_id =#{uId})
+			SELECT GoodsId,GoodsName,GoodsPrice ,GoodsImageUrl from Goods where  GoodsId in (SELECT goods_id from Collection where user_id =#{uId})
 		</select>
 
 		<!--查找有没有收藏过商品-->

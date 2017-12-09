@@ -80,7 +80,8 @@ public class UserController {
 	}
 	//根据用户名修改个人信息
 	@RequestMapping("/update.do")
-	public void updateUser(@RequestParam("cityid") Integer[] param, User user, HttpServletResponse response){
+	public void updateUser(@RequestParam("cityid") Integer[] param, User user, HttpServletResponse response,HttpSession session){
+		session.setAttribute("cityid",param);
 		List diZhis=new ArrayList();
 		String diZhi=null;
 
@@ -138,9 +139,15 @@ public class UserController {
 	public void findUser(HttpSession session,HttpServletResponse response){
 		Map<String,Object> map=new HashMap<String, Object>();
 		User user=(User)session.getAttribute("users");
+
 		String result= user.getuName();
-		List<User> user1= userService.findUser(result);
+		//Integer[] cityid=(Integer[]) session.getAttribute("cityid");
+
+		//System.out.println(cityid);
+		User user1= userService.findUser(result);
+
 		map.put("user",user1);
+		//map.put("cityid",cityid);
 		FastJson_All.toJson(map,response);
 	}
 }
