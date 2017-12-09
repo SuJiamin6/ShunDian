@@ -51,8 +51,12 @@ public class galleryServiceImpl implements GalleryService{
     public List<Rights> findright(Integer leftId){
         return galleryMapper.findright(leftId);
     }
-    public List<Gallery1> findGoodss(Integer all_id){
-        return  galleryMapper.findGoodss(all_id);
+    public Double AllfindGoodss(Integer all_id){
+        return galleryMapper.AllfindGoodss(all_id);
+    }
+    public List<Gallery1> findGoodss(Integer all_id,Integer page){
+        page=(page-1)*45;
+        return  galleryMapper.findGoodss(all_id,page);
     }
     public List findFenLeiBiao (Integer a ,Integer b){
         return  galleryMapper.findFenLeiBiao(a , b);
@@ -83,28 +87,46 @@ public class galleryServiceImpl implements GalleryService{
     public List rightPrice(){
         return galleryMapper.rightPrice();
     }
-    public List<Gallery1> findByPrice(Integer firstPrice , Integer secondPrice){
-        return  galleryMapper.findByPrice(firstPrice , secondPrice);
+    public Double AllfindByPrice(Integer firstPrice , Integer secondPrice){ return  galleryMapper.AllfindByPrice(firstPrice , secondPrice);}
+    public List<Gallery1> findByPrice(Integer firstPrice , Integer secondPrice,Integer page){
+        page=(page-1)*45;
+        return  galleryMapper.findByPrice(firstPrice , secondPrice,page);
     }
     //    综合查询
-    public  List<Gallery1> ByZonHe(){
-        return  galleryMapper.ByZonHe();
+    public  Double AllByZonHe(){
+        return  galleryMapper.AllByZonHe();
+    }
+    public  List<Gallery1> ByZonHe(Integer page){
+        page=(page-1)*45;
+        return  galleryMapper.ByZonHe(page);
     }
     //    价格排序
-    public  List<Gallery1> ByJiaGeJiang(){
-        return   galleryMapper.ByJiaGeJiang();
+    public  Double AllByJiaGeJiang(){
+        return  galleryMapper.AllByJiaGeJiang();
+    }
+    public  List<Gallery1> ByJiaGeJiang(Integer page){
+        return   galleryMapper.ByJiaGeJiang(page);
     }
     //    价格升序
-    public  List<Gallery1> ByJiaGeSheng(){
-        return   galleryMapper.ByJiaGeSheng();
+    public  Double AllByJiaGeSheng(){
+        return  galleryMapper.AllByJiaGeSheng();
+    }
+    public  List<Gallery1> ByJiaGeSheng(Integer page){
+        return   galleryMapper.ByJiaGeSheng(page);
     }
     //    销量查询
-    public  List<Gallery1> ByXiaoLiang(){
-        return  galleryMapper.ByXiaoLiang();
+    public  Double AllByXiaoLiang(){
+        return  galleryMapper.AllByXiaoLiang();
+    }
+    public  List<Gallery1> ByXiaoLiang(Integer page){
+        return  galleryMapper.ByXiaoLiang(page);
     }
     //    新品查询
-    public  List<Gallery1> ByXinPin(){
-        return  galleryMapper.ByXinPin();
+    public  Double AllByXinPin(){
+        return  galleryMapper.AllByXinPin();
+    }
+    public  List<Gallery1> ByXinPin(Integer page){
+        return  galleryMapper.ByXinPin(page);
     }
 
 }

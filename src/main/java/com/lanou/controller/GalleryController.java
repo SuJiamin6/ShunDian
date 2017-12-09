@@ -24,7 +24,7 @@ public class GalleryController {
     // gallery
     @RequestMapping("/gallery")
     //@ResponseBody
-    public void findss(Integer id, HttpServletResponse response) {
+    public void findss(Integer id, HttpServletResponse response,Integer page) {
 
         Map<String, Object> map = new HashMap<String, Object>();
         int leftId = 0;
@@ -43,7 +43,14 @@ public class GalleryController {
             List finder1 = galleryService.finder1(id);
             List finder2 = galleryService.finder2(id);
             OneName.get(0).setGoodsTypes(allYiJi);
-            List<Gallery1> findgoodss = galleryService.findGoodss(6);
+            if (page==null){
+                page =1;
+            }
+            List<Gallery1> findgoodss = galleryService.findGoodss(6,page);
+            Double All = galleryService.AllfindGoodss(6);
+            Double page1 =  All/45;
+            Double page2 = Math.ceil(page1);
+            int page3 = (new   Double(page2)).intValue();
             for (int i = 0;i<findgoodss.size();i++){
                String gUrl =  findgoodss.get(i).getgUrl();
                List<String> AllUrl = new ArrayList();
@@ -85,6 +92,7 @@ public class GalleryController {
                 map.put("One" + i, findleftandright);
 
             }
+            map.put("page",page3);
             map.put("OneBiao", OneName);
             map.put("goods", findgoodss);
             map.put("price", price);
@@ -105,8 +113,14 @@ public class GalleryController {
             List findsan1 = galleryService.findsan1(id);
             List finder2 = galleryService.finder2(id);
             List findAllErJi = galleryService.findsan1(pid);
-
-            List<Gallery1> findgoodss = galleryService.findGoodss(6);
+            if (page==null){
+                page =1;
+            }
+            List<Gallery1> findgoodss = galleryService.findGoodss(6,page);
+            Double All = galleryService.AllfindGoodss(6);
+            Double page1 =  All/45;
+            Double page2 = Math.ceil(page1);
+            int page3 = (new   Double(page2)).intValue();
             for (int i = 0;i<findgoodss.size();i++){
                 String gUrl =  findgoodss.get(i).getgUrl();
                 List<String> AllUrl = new ArrayList();
@@ -144,6 +158,7 @@ public class GalleryController {
                 }
                 map.put("One" + i, findleftandright);
             }
+            map.put("page",page3);
             map.put("OneBiao", names);
             map.put("goods", findgoodss);
             map.put("price", price);
@@ -163,7 +178,14 @@ public class GalleryController {
             namess.get(1).setGoodsTypes(AllErJi);
             namess.get(2).setGoodsTypes(AllSanJi);
             // ==============================================
-            List<Gallery1> findgoodss = galleryService.findGoodss(id);
+            if (page==null){
+                page =1;
+            }
+            List<Gallery1> findgoodss = galleryService.findGoodss(id,page);
+            Double All = galleryService.AllfindGoodss(id);
+            Double page1 =  All/45;
+            Double page2 = Math.ceil(page1);
+            int page3 = (new   Double(page2)).intValue();
             for (int i = 0;i<findgoodss.size();i++){
                 String gUrl =  findgoodss.get(i).getgUrl();
                 List<String> AllUrl = new ArrayList();
@@ -218,6 +240,7 @@ public class GalleryController {
                 map.put("One" + i, findleftandright);
 
             }
+            map.put("page",page3);
             map.put("OneBiao", namess);
             map.put("goods", findgoodss);
             map.put("price", price);
@@ -228,12 +251,19 @@ public class GalleryController {
     }
 
         //    ==============================================================
-//    查找价格区间
+//    查找价格区间 1
         @RequestMapping("/price")
        // @ResponseBody
-        public void findPrice (Integer firstPrice, Integer secondPrice,HttpServletResponse response){
+        public void findPrice (Integer firstPrice, Integer secondPrice,HttpServletResponse response,Integer page){
             Map<String, Object> map = new HashMap<String, Object>();
-            List<Gallery1> findByPrice = galleryService.findByPrice(firstPrice, secondPrice);
+            if (page==null){
+                page =1;
+            }
+            Double All = galleryService.AllfindByPrice(firstPrice, secondPrice);
+            Double page1 =  All/45;
+            Double page2 = Math.ceil(page1);
+            int page3 = (new   Double(page2)).intValue();
+            List<Gallery1> findByPrice = galleryService.findByPrice(firstPrice, secondPrice,page);
             for (int i = 0;i<findByPrice.size();i++){
                 String gUrl =  findByPrice.get(i).getgUrl();
                 List<String> AllUrl = new ArrayList();
@@ -251,6 +281,7 @@ public class GalleryController {
                 }
                 findByPrice.get(i).setgImg(AllUrl);
             }
+            map.put("page:",page3);
             map.put("ByPrice", findByPrice);
 
             FastJson_All.toJson(map,response);
@@ -258,12 +289,19 @@ public class GalleryController {
 
     }
         // ==============================================================
-        //综合查询
+        //综合查询 1
         @RequestMapping("/zonhe")
         // @ResponseBody
-        public void ByZonHe (HttpServletResponse response){
+        public void ByZonHe(HttpServletResponse response,Integer page){
             Map<String, Object> map = new HashMap<String, Object>();
-            List<Gallery1> ZongHe = galleryService.ByZonHe();
+            if (page==null){
+                page =1;
+            }
+            Double All = galleryService.AllByZonHe();
+            Double page1 =  All/45;
+            Double page2 = Math.ceil(page1);
+            int page3 = (new   Double(page2)).intValue();
+            List<Gallery1> ZongHe = galleryService.ByZonHe(page);
             for (int i = 0;i<ZongHe.size();i++){
                 String gUrl =  ZongHe.get(i).getgUrl();
                 List<String> AllUrl = new ArrayList();
@@ -281,17 +319,25 @@ public class GalleryController {
                 }
                 ZongHe.get(i).setgImg(AllUrl);
             }
+            map.put("page:",page3);
             map.put("ZonHe", ZongHe);
             FastJson_All.toJson(map,response);
 
         }
         // ==============================================================
-        //价格降序
+        //价格降序 1
         @RequestMapping("/jiagejiang")
         // @ResponseBody
-        public void ByJiaGeJiang (HttpServletResponse response){
+        public void ByJiaGeJiang (HttpServletResponse response,Integer page){
         Map<String, Object> map = new HashMap<String, Object>();
-        List<Gallery1> JiaGeJiang = galleryService.ByJiaGeJiang();
+            if (page==null){
+                page =1;
+            }
+            Double All = galleryService.AllByJiaGeJiang();
+            Double page1 =  All/45;
+            Double page2 = Math.ceil(page1);
+            int page3 = (new   Double(page2)).intValue();
+        List<Gallery1> JiaGeJiang = galleryService.ByJiaGeJiang(page);
             for (int i = 0;i<JiaGeJiang.size();i++){
                 String gUrl =  JiaGeJiang.get(i).getgUrl();
                 List<String> AllUrl = new ArrayList();
@@ -309,17 +355,25 @@ public class GalleryController {
                 }
                 JiaGeJiang.get(i).setgImg(AllUrl);
             }
+            map.put("page",page3);
         map.put("JiaGeJiang", JiaGeJiang);
         FastJson_All.toJson(map,response);
 
     }
     // ==============================================================
-    //价格升序
+    //价格升序 1
     @RequestMapping("/jiagesheng")
     // @ResponseBody
-    public void ByJiaGeSheng (HttpServletResponse response){
+    public void ByJiaGeSheng (HttpServletResponse response,Integer page){
         Map<String, Object> map = new HashMap<String, Object>();
-        List<Gallery1> JiaGeSheng = galleryService.ByJiaGeSheng();
+        if (page==null){
+            page =1;
+        }
+        Double All = galleryService.AllByJiaGeSheng();
+        Double page1 =  All/45;
+        Double page2 = Math.ceil(page1);
+        int page3 = (new   Double(page2)).intValue();
+        List<Gallery1> JiaGeSheng = galleryService.ByJiaGeSheng(page);
         for (int i = 0;i<JiaGeSheng.size();i++){
             String gUrl =  JiaGeSheng.get(i).getgUrl();
             List<String> AllUrl = new ArrayList();
@@ -337,17 +391,25 @@ public class GalleryController {
             }
             JiaGeSheng.get(i).setgImg(AllUrl);
         }
+        map.put("page",page3);
         map.put("JiaGeSheng", JiaGeSheng);
         FastJson_All.toJson(map,response);
 
     }
     // ==============================================================
-    //销量查询
+    //销量查询 1
     @RequestMapping("/xiaoliang")
     // @ResponseBody
-    public void ByXiaoLiang (HttpServletResponse response){
+    public void ByXiaoLiang (HttpServletResponse response,Integer page){
         Map<String, Object> map = new HashMap<String, Object>();
-        List<Gallery1> XiaoLiang = galleryService.ByXiaoLiang();
+        if (page==null){
+            page =1;
+        }
+        Double All = galleryService.AllByXiaoLiang();
+        Double page1 =  All/45;
+        Double page2 = Math.ceil(page1);
+        int page3 = (new   Double(page2)).intValue();
+        List<Gallery1> XiaoLiang = galleryService.ByXiaoLiang(page);
         for (int i = 0;i<XiaoLiang.size();i++){
             String gUrl =  XiaoLiang.get(i).getgUrl();
             List<String> AllUrl = new ArrayList();
@@ -365,16 +427,24 @@ public class GalleryController {
             }
             XiaoLiang.get(i).setgImg(AllUrl);
         }
+        map.put("page",page3);
         map.put("XiaoLiang", XiaoLiang);
         FastJson_All.toJson(map,response);
     }
     // ==============================================================
-    //xinpin查询
+    //xinpin查询 1
     @RequestMapping("/xinpin")
     // @ResponseBody
-    public void ByXinPin (HttpServletResponse response){
+    public void ByXinPin (HttpServletResponse response,Integer page){
         Map<String, Object> map = new HashMap<String, Object>();
-        List<Gallery1> XinPin = galleryService.ByXinPin();
+        if (page==null){
+            page =1;
+        }
+        Double All = galleryService.AllByXinPin();
+        Double page1 =  All/45;
+        Double page2 = Math.ceil(page1);
+        int page3 = (new   Double(page2)).intValue();
+        List<Gallery1> XinPin = galleryService.ByXinPin(page);
         for (int i = 0;i<XinPin.size();i++){
             String gUrl =  XinPin.get(i).getgUrl();
             List<String> AllUrl = new ArrayList();
@@ -392,6 +462,7 @@ public class GalleryController {
             }
             XinPin.get(i).setgImg(AllUrl);
         }
+        map.put("page",page3);
         map.put("XinPin", XinPin);
         FastJson_All.toJson(map,response);
     }
