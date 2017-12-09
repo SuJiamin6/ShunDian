@@ -42,13 +42,14 @@ public class UserController {
 	public void login(User user1, HttpServletRequest request,HttpServletResponse response){
 		User users=userService.finduNameAndPwd(user1);
 		System.out.println(users);
-		boolean result=false;
+		String result="false";
 		if (users!=null){
 			request.getSession().setAttribute("users",users);
 			String username	= user1.getuName();
 			List<History> history = goodsTypeService.findHistory(username);
 			request.getSession().setAttribute("History",history);
-			result= true;
+			result= "true";
+			result=username;
 		}
 
 		System.out.println(result);
