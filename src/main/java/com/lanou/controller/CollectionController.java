@@ -28,13 +28,13 @@ public class CollectionController {
     //收藏夹 登陆后直接访问
    @RequestMapping("/findCollGoods.do")
    public void findCollection(HttpSession session,HttpServletResponse response){
-
+        Map<String,Object> map=new HashMap<String, Object>();
        User user=(User)session.getAttribute("users");
       Integer user_id= user.getuId();
       List<Goods> result= collectionService.findCollection(user_id);
       System.out.println(result);
-
-      FastJson_All.toJson(result,response);
+        map.put("result",result);
+      FastJson_All.toJson(map,response);
    }
    //添加收藏 需要传进来goods_id
    @RequestMapping("finduser_id.do")
