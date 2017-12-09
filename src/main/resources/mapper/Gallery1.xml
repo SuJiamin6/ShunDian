@@ -12,32 +12,54 @@
 		<result column="gs_id" property="gs_id" javaType="int" />
 	</resultMap>
 
+	<select id="AllfindGoodss" resultType="Double" >
+		select count(*) from Goods where All_id = #{id} ;
+	</select>
+
 	<select id="findGoodss" resultMap="findgoodsResult" >
-		select * from Goods where All_id = #{all_id}
+		select * from Goods where All_id = #{0} limit #{1},45;
 	</select>
 
+
+	<select id="AllfindByPrice" resultType="Double">
+		select count(*) from Goods where GoodsPrice between #{0} and #{1} ;
+	</select>
 	<select id="findByPrice" resultMap="findgoodsResult">
-		select * from Goods where GoodsPrice between #{0} and #{1};
+		select * from Goods where GoodsPrice between #{0} and #{1} limit #{2},45;
 	</select>
-
+	<select id="AllByZonHe" resultType="Double">
+		select count(*) from Goods order by rand() ;
+	</select>
 	<select id="ByZonHe" resultMap="findgoodsResult">
-		select * from Goods order by rand() limit 90;
+		select * from Goods order by rand() limit #{page},45;
 	</select>
 
+	<select id="AllByJiaGeJiang" resultType="Double">
+		select count(*) from Goods order by GoodsPrice desc;
+	</select>
 	<select id="ByJiaGeJiang" resultMap="findgoodsResult">
-		select * from Goods order by GoodsPrice desc limit 90;
+		select * from Goods order by GoodsPrice desc limit #{page}, 90;
 	</select>
 
+	<select id="AllByJiaGeSheng" resultType="Double">
+		select count(*) from Goods order by GoodsPrice asc;
+	</select>
 	<select id="ByJiaGeSheng" resultMap="findgoodsResult">
-		select * from Goods order by GoodsPrice asc limit 90;
+		select * from Goods order by GoodsPrice asc limit #{page},90;
 	</select>
 
+	<select id="AllByXiaoLiang" resultType="Double">
+		select count(*) from Goods order by hot desc;
+	</select>
 	<select id="ByXiaoLiang" resultMap="findgoodsResult">
-		select * from Goods order by hot desc limit 90 ;
+		select * from Goods order by hot desc limit #{page},90 ;
 	</select>
 
+	<select id="AllByXinPin" resultType="Double">
+		select count(*) from Goods order by hot asc;
+	</select>
 	<select id="ByXinPin" resultMap="findgoodsResult">
-		select * from Goods order by hot asc limit 90 ;
+		select * from Goods order by hot asc limit #{page},90 ;
 	</select>
 
 </mapper>

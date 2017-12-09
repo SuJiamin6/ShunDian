@@ -22,7 +22,8 @@ public interface GalleryService {
     public List<All_Left> findleft1(Integer all_id);
     public List<Lefts> findleft2(Integer leftId);
     public List<Rights> findright(Integer leftId);
-    public List<Gallery1> findGoodss(Integer all_id);
+    public Double AllfindGoodss(Integer all_id);
+    public List<Gallery1> findGoodss(Integer all_id,Integer page);
 
     //商品分类
     public List<GoodsType> chazhao1(Integer all_id);
@@ -35,15 +36,21 @@ public interface GalleryService {
     public List<GoodSmallImage> SmallImage(Integer gs_id);
     //	价格区间
     public List rightPrice();
-    public List<Gallery1> findByPrice(Integer firstPrice , Integer secondPrice);
+    public Double AllfindByPrice(Integer firstPrice , Integer secondPrice);
+    public List<Gallery1> findByPrice(Integer firstPrice , Integer secondPrice,Integer page);
 //    综合查询
-    public  List<Gallery1> ByZonHe();
+    public  Double AllByZonHe();
+    public  List<Gallery1> ByZonHe(Integer page);
     //    价格排序
-    public  List<Gallery1> ByJiaGeJiang();
+    public  Double AllByJiaGeJiang();
+    public  List<Gallery1> ByJiaGeJiang(Integer page);
     //    价格升序
-    public  List<Gallery1> ByJiaGeSheng();
+    public  Double AllByJiaGeSheng();
+    public  List<Gallery1> ByJiaGeSheng(Integer page);
     //    销量查询
-    public  List<Gallery1> ByXiaoLiang();
+    public  Double AllByXiaoLiang();
+    public  List<Gallery1> ByXiaoLiang(Integer page);
     //    新品查询
-    public  List<Gallery1> ByXinPin();
+    public  Double AllByXinPin();
+    public  List<Gallery1> ByXinPin(Integer page);
 }
