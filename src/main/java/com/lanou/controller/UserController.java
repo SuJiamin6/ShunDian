@@ -48,7 +48,7 @@ public class UserController {
 			String username	= user1.getuName();
 			List<History> history = goodsTypeService.findHistory(username);
 			request.getSession().setAttribute("History",history);
-			result= "true";
+
 			result=username;
 		}
 

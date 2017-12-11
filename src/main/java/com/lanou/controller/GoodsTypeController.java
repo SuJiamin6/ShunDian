@@ -62,6 +62,17 @@ public class GoodsTypeController {
 //		随机取出五个商品====
 		List<Goods> find5Goods = this.goodsTypeService.find5Goods();
 
+//		获取
+		User users = (User)request.getSession().getAttribute("users");
+		if (users == null){
+			map.put("login","false");
+		} else {
+			String name = users.getuName();
+			map.put("login",name);
+		}
+
+//
+
 		map.put("yi", goodsTypeList);
 		map.put("san", floorList);
 		map.put("si", goodsList);

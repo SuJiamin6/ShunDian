@@ -58,14 +58,16 @@ public class CollectionController {
 
     //删除收藏
     @RequestMapping("/deleteCollection.do")
-    public void deleteCollection(HttpSession session,Integer user_id,Integer goods_id,HttpServletResponse response){
+    public void deleteCollection(HttpSession session,Integer[] goods_id,HttpServletResponse response){
         User user=(User)session.getAttribute("users");
-        user_id= user.getuId();
+       Integer user_id= user.getuId();
+        Map<String,Object> map=new HashMap<String,Object>();
+        for (int i=0;i<goods_id.length;i++){
 
-        boolean result=false;
-        if (collectionService.deleteCollection(user_id,goods_id)){
-            result =true;
+            collectionService.deleteCollection(user_id,goods_id[i]);
+            map.put("true","true");
         }
-        FastJson_All.toJson(result,response);
+        map.put("false","false");
+        FastJson_All.toJson(map,response);
     }
 }
