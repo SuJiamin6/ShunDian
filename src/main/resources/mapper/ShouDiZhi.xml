@@ -26,7 +26,7 @@
 		<!--添加收获地址-->
 		<!--需要传过来姓名等信息user_id自己从session中取-->
 		<insert id="addShouDiZhi" >
-			INSERT INTO Address(sName,sArea,sAddress,sZip,sPhone,user_id) VALUES (#{sName},#{sArea},#{sAddress},#{sZip},#{sPhone},#{user_id})
+			INSERT INTO Address(sName,sArea,sAddress,sZip,sPhone,user_id) VALUES (#{0},#{1},#{2},#{3},#{4},#{5})
 		</insert>
 
 		<!--删除收货地址-->

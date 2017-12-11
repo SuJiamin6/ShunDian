@@ -22,8 +22,8 @@ public class ShouDiZhiServiceImpl implements ShouDiZhiService{
        return shouDiZhiMapper.findShouDiZhi(uId);
     }
 
-    public boolean addShouDiZhi(ShouDiZhi shouDiZhi){
-        return shouDiZhiMapper.addShouDiZhi(shouDiZhi);
+    public boolean addShouDiZhi(String sName,String sArea, String sAddress,String sZip,String sPhone,Integer user_id){
+        return shouDiZhiMapper.addShouDiZhi(sName,sArea, sAddress,sZip,sPhone,user_id);
     }
     public  boolean deleteShouDiZhi(Integer sId,Integer user_id){
         return shouDiZhiMapper.deleteShouDiZhi(sId,user_id);

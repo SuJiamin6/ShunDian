@@ -8,7 +8,7 @@ import java.util.List;
 public interface ShouDiZhiMapper {
 
 	public  List<ShouDiZhi> findShouDiZhi(Integer uId);
-	public boolean addShouDiZhi(ShouDiZhi shouDiZhi);
+	public boolean addShouDiZhi(String sName,String sArea, String sAddress,String sZip,String sPhone,Integer user_id);
 	public  boolean deleteShouDiZhi(Integer sId,Integer user_id);
 
 

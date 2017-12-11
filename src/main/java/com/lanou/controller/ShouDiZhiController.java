@@ -85,15 +85,14 @@ public class ShouDiZhiController {
 
 
     @RequestMapping("addShouDiZhi.do")
-    public  void addShouDiZhi(ShouDiZhi shouDiZhi, HttpServletResponse response, HttpSession session){
+    public  void addShouDiZhi(String sName,String sArea, String sAddress,String sZip,String sPhone, HttpServletResponse response, HttpSession session){
         User user=(User)session.getAttribute("users");
         Integer user_id=  user.getuId();
-        shouDiZhi.setUser_id(user_id);
-        System.out.println(shouDiZhi.getsArea());
         boolean result=false;
-        if (shouDiZhiService.addShouDiZhi(shouDiZhi)){
+        if (shouDiZhiService.addShouDiZhi(sName,sArea, sAddress,sZip,sPhone,user_id)){
             result=true;  //添加成功返回true
         }
+
         System.out.println(result);
         //添加失败返回false
         FastJson_All.toJson(result,response);
