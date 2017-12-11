@@ -128,5 +128,13 @@ public class galleryServiceImpl implements GalleryService{
     public  List<Gallery1> ByXinPin(Integer page){
         return  galleryMapper.ByXinPin(page);
     }
-
+    //   模糊查询
+    public  Double AllByLike(){
+        return galleryMapper.AllByLike();
+    }
+    public  List<Gallery1> ByLike(String like ,Integer page){
+        like="%"+like+"%";
+        page=(page-1)*45;
+        return  galleryMapper.ByLike(like,page);
+    }
 }

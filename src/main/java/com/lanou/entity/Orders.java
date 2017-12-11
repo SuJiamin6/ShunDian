@@ -10,7 +10,7 @@ public class Orders {
     private String order_goodsName;
     private Double order_price;
     private Integer order_count;
-    private Integer uesr_id;
+    private Integer user_id;
 
     public Integer getOrder_id() {
         return order_id;
@@ -52,12 +52,12 @@ public class Orders {
         this.order_count = order_count;
     }
 
-    public Integer getUesr_id() {
-        return uesr_id;
+    public Integer getUser_id() {
+        return user_id;
     }
 
-    public void setUesr_id(Integer uesr_id) {
-        this.uesr_id = uesr_id;
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 
     public Orders() {
@@ -72,7 +72,7 @@ public class Orders {
                 ", order_goodsName='" + order_goodsName + '\'' +
                 ", order_price=" + order_price +
                 ", order_count=" + order_count +
-                ", uesr_id=" + uesr_id +
+                ", user_id=" + user_id +
                 '}';
     }
 }

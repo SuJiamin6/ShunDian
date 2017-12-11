@@ -38,28 +38,35 @@
 		select count(*) from Goods order by GoodsPrice desc;
 	</select>
 	<select id="ByJiaGeJiang" resultMap="findgoodsResult">
-		select * from Goods order by GoodsPrice desc limit #{page}, 90;
+		select * from Goods order by GoodsPrice desc limit #{page}, 45;
 	</select>
 
 	<select id="AllByJiaGeSheng" resultType="Double">
 		select count(*) from Goods order by GoodsPrice asc;
 	</select>
 	<select id="ByJiaGeSheng" resultMap="findgoodsResult">
-		select * from Goods order by GoodsPrice asc limit #{page},90;
+		select * from Goods order by GoodsPrice asc limit #{page},45;
 	</select>
 
 	<select id="AllByXiaoLiang" resultType="Double">
 		select count(*) from Goods order by hot desc;
 	</select>
 	<select id="ByXiaoLiang" resultMap="findgoodsResult">
-		select * from Goods order by hot desc limit #{page},90 ;
+		select * from Goods order by hot desc limit #{page},45 ;
 	</select>
 
 	<select id="AllByXinPin" resultType="Double">
 		select count(*) from Goods order by hot asc;
 	</select>
 	<select id="ByXinPin" resultMap="findgoodsResult">
-		select * from Goods order by hot asc limit #{page},90 ;
+		select * from Goods order by hot asc limit #{page},45 ;
+	</select>
+
+	<select id="AllByLike" resultType="Double">
+		select count(*) from Goods where  GoodsName LIKE #{like};
+	</select>
+	<select id="ByLike" resultMap="findgoodsResult">
+		select * from Goods where  GoodsName LIKE #{0} limit #{1},45 ;
 	</select>
 
 </mapper>

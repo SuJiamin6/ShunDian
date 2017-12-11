@@ -153,7 +153,6 @@ public class GoodsInfoController {
             FastJson_All.toJson(diZhi_info,response);
         }
 
-
     }
 
     private List<DiZhi_Info> findChildDiZhi_Info(DiZhi_Info diZhi_info,int cityid){

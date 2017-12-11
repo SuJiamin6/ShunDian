@@ -181,7 +181,12 @@ public class GalleryController {
             if (page==null){
                 page =1;
             }
-            List<Gallery1> findgoodss = galleryService.findGoodss(id,page);
+            List<Gallery1> findgoodss = new ArrayList();
+            if(id!=6&&id!=26){
+                findgoodss = galleryService.findGoodss(6,page);
+            }else{
+                findgoodss = galleryService.findGoodss(id,page);
+            }
             Double All = galleryService.AllfindGoodss(id);
             Double page1 =  All/45;
             Double page2 = Math.ceil(page1);
@@ -281,7 +286,7 @@ public class GalleryController {
                 }
                 findByPrice.get(i).setgImg(AllUrl);
             }
-            map.put("page:",page3);
+            map.put("page",page3);
             map.put("ByPrice", findByPrice);
 
             FastJson_All.toJson(map,response);
@@ -319,7 +324,7 @@ public class GalleryController {
                 }
                 ZongHe.get(i).setgImg(AllUrl);
             }
-            map.put("page:",page3);
+            map.put("page",page3);
             map.put("ZonHe", ZongHe);
             FastJson_All.toJson(map,response);
 
@@ -467,5 +472,38 @@ public class GalleryController {
         FastJson_All.toJson(map,response);
     }
     // ==============================================================
+    @RequestMapping("/LikeSearch")
+    // @ResponseBody
+    public void ByLike (HttpServletResponse response,String like,Integer page){
+        Map<String, Object> map = new HashMap<String, Object>();
+        if (page==null){
+            page =1;
+        }
+        Double All = galleryService.AllByLike();
+        Double page1 =  All/45;
+        Double page2 = Math.ceil(page1);
+        int page3 = (new   Double(page2)).intValue();
+        List<Gallery1> SelectByLike = galleryService.ByLike(like,page);
+        for (int i = 0;i<SelectByLike.size();i++){
+            String gUrl = SelectByLike.get(i).getgUrl();
+            List<String> AllUrl = new ArrayList();
+            AllUrl.add(gUrl);
+            int gs_id = SelectByLike.get(i).getGs_id();
+            List<GoodSmallImage> listgoodsmall =  galleryService.SmallImage(gs_id);
+            if(listgoodsmall.get(0).getSmallUrl1() != null){
+                AllUrl.add(listgoodsmall.get(0).getSmallUrl1());
+            }
+            if(listgoodsmall.get(0).getSmallUrl2() != null){
+                AllUrl.add(listgoodsmall.get(0).getSmallUrl2());
+            }
+            if(listgoodsmall.get(0).getSmallUrl3() != null){
+                AllUrl.add(listgoodsmall.get(0).getSmallUrl3());
+            }
+            SelectByLike.get(i).setgImg(AllUrl);
+        }
+        map.put("page",page3);
+        map.put("XinPin", SelectByLike);
+        FastJson_All.toJson(map,response);
+    }
 }
 

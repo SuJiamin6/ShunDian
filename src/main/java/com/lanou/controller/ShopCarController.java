@@ -6,6 +6,7 @@ import com.lanou.Util.FastJson_All;
 import com.lanou.entity.*;
 import com.lanou.service.GoodsTypeService;
 import com.lanou.service.ShouDiZhiService;
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
@@ -45,6 +46,7 @@ public class ShopCarController {
 
         //当前用户加入购物车，如果是在未登录的状态下，先需要让用户在右边栏登录
         User user = (User) session.getAttribute("users");
+        System.out.println("当前User中的值为："+user);
         if (user == null) {
             map.put("data", "ERROR");
         } else {

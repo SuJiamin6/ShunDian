@@ -10,6 +10,7 @@ public interface GoodsTypeService {
 	public List<GoodsType> findGoods1Type();
 	public List<Floor> findFloor();
 	public List<Goods> find8Goods();
+	public List<Goods> find5Goods();
 	public List<GoodsType> findGoodsType(int aId);
 
 	//对应楼层的id找到集合FloorImage
@@ -67,5 +68,10 @@ public interface GoodsTypeService {
 
 	//删除购物车中的所有数据
 	public void deleteShopCarAll();
+
+
+	//订单管理模块
+	public List<Orders> findAllOrders();
+
 
 }

@@ -17,6 +17,10 @@
 		select * from Goods order by rand() limit 8;
 	</select>
 
+	<select id="find5Goods" resultMap="goodsResult" >
+		select * from Goods order by rand() limit 5;
+	</select>
+
 	<select id="findGoodsById" resultMap="goodsResult" >
 		select * from Goods where GoodsId = #{GoodsId};
 	</select>
@@ -25,6 +29,5 @@
 	<select id="findGoodsByAll_id" resultMap="goodsResult" >
 		select * from Goods where All_id = #{All_id};
 	</select>
-
 
 </mapper>

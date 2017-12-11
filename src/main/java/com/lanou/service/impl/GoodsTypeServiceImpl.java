@@ -30,6 +30,10 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 		return goodsTypeMapper.find8Goods();
 	}
 
+	public List<Goods> find5Goods(){
+		return  goodsTypeMapper.find5Goods();
+	}
+
 	public List<GoodsType> findGoodsType(int aId) {
 		return goodsTypeMapper.findGoodsType(aId);
 	}
@@ -142,5 +146,11 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 
 	public void deleteShopCarAll(){
 		goodsTypeMapper.deleteShopCarAll();
+	}
+
+	//订单管理模块
+
+	public List<Orders> findAllOrders() {
+		return goodsTypeMapper.findAllOrders();
 	}
 }

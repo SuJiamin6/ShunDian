@@ -22,5 +22,9 @@
 	</select>
 
 
+	<!--查询所有的订单-->
+	<select id="findAllOrders" resultMap="ordersResult" >
+		select * FROM Orders;
+	</select>
   
 </mapper>

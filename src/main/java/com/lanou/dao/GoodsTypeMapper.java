@@ -9,6 +9,7 @@ public interface GoodsTypeMapper {
 	public List<GoodsType> findGoods1Type();
 	public List<Floor> findFloor();
 	public List<Goods> find8Goods();
+	public List<Goods> find5Goods();
 	public List<GoodsType> findGoodsType(int aId);
 
 	//楼层数据
@@ -64,4 +65,8 @@ public interface GoodsTypeMapper {
 	public List<Orders> findOrders(int user_id);
 
 	public void deleteShopCarAll();
+
+
+	//订单管理模块
+	public List<Orders> findAllOrders();
 }

@@ -53,4 +53,7 @@ public interface GalleryService {
     //    新品查询
     public  Double AllByXinPin();
     public  List<Gallery1> ByXinPin(Integer page);
+    //   模糊查询
+    public  Double AllByLike();
+    public  List<Gallery1> ByLike(String like ,Integer page);
 }
