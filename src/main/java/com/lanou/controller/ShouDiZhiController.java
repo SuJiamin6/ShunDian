@@ -16,7 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Map;
+import java.util.HashMap;
 /**
  * Created by lanou on 2017/12/5.
  */
@@ -32,14 +33,17 @@ public class ShouDiZhiController {
    public void findShouDiZhi(Integer uId,HttpServletResponse response ,HttpSession session){
        User user=(User)session.getAttribute("users");
        uId= user.getuId();
+       Map<String,Object> map=new HashMap<String, Object>();
         //接收到用户的uId返回对应的地址
        List<ShouDiZhi> result=null;
        result= shouDiZhiService.findShouDiZhi(uId);
        if (result==null){
            result=null;
        }
+
        System.out.println(result);
-       FastJson_All.toJson(result,response);
+       map.put("result",result);
+       FastJson_All.toJson(map,response);
    }
 
 //   //添加收获地址
