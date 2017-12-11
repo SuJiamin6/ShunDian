@@ -61,13 +61,13 @@ public class CollectionController {
     public void deleteCollection(HttpSession session,Integer[] goods_id,HttpServletResponse response){
         User user=(User)session.getAttribute("users");
        Integer user_id= user.getuId();
-        Map<String,Object> map=new HashMap<String,Object>();
+        
         for (int i=0;i<goods_id.length;i++){
 
             collectionService.deleteCollection(user_id,goods_id[i]);
-            map.put("true","true");
+
         }
-        map.put("false","false");
-        FastJson_All.toJson(map,response);
+        boolean result=true;
+        FastJson_All.toJson(result,response);
     }
 }
