@@ -32,14 +32,7 @@ public class CommentController {
        System.out.println(user_id);
        comments.setUser_id(user_id);
        Boolean result=true;
-     if(user==null){
-         result=false;
-     }else {
-
          commentService.addComment(comments);
-     }
-
-
       FastJson_All.toJson(result,response);
    }
 }
