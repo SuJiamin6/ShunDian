@@ -42,7 +42,7 @@ public class CollectionController {
    public void finduser_id( Integer goods_id, HttpServletResponse response,HttpSession session){
        User user=(User)session.getAttribute("users");
       Integer user_id= user.getuId();
-      Integer result= collectionService.finduser_id(user_id,goods_id);
+      Integer result= collectionService.finduser_id(goods_id,user_id);
        System.out.println("aaa:"+result);
       Number num=0;
       if (result!=null){
@@ -66,8 +66,6 @@ public class CollectionController {
                     result=true;
                 }
             FastJson_All.toJson(result,response);
-
-
 
     }
 }

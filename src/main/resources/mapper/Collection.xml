@@ -16,8 +16,8 @@
 		</select>
 
 		<!--查找有没有收藏过商品-->
-		<select id="finduser_id"  resultType="Integer" parameterType="Integer">
-			SELECT user_id FROM Collection WHERE goods_id=#{0} and user_id=#{1}
+		<select id="finduser_id" resultType="Integer" parameterType="Integer">
+			SELECT sId FROM Collection WHERE goods_id=#{0} and user_id=#{1}
 		</select>
 		<!--添加收藏-->
 		<insert id="addCollGoods" parameterType="Integer" >
