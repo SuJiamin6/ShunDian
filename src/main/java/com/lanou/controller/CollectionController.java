@@ -30,29 +30,41 @@ public class CollectionController {
    public void findCollection(String a,HttpSession session,HttpServletResponse response){
         Map<String,Object> map=new HashMap<String, Object>();
        User user=(User)session.getAttribute("users");
-      Integer user_id= user.getuId();
-      List<Goods> result= collectionService.findCollection(user_id);
-      System.out.println(result);
+       if (user!=null){
+           Integer user_id= user.getuId();
+           List<Goods> result= collectionService.findCollection(user_id);
+           map.put("result",result);
+       }else {
+           map.put("result","error");
+       }
 
-        map.put("result",result);
+
       FastJson_All.toJson(map,response);
    }
    //添加收藏 需要传进来goods_id
    @RequestMapping("finduser_id.do")
    public void finduser_id( Integer goods_id, HttpServletResponse response,HttpSession session){
        User user=(User)session.getAttribute("users");
-      Integer user_id= user.getuId();
-      Integer result= collectionService.finduser_id(goods_id,user_id);
-       System.out.println("aaa:"+result);
-      Number num=0;
-      if (result!=null){
-        num=1;   //可以查找到，已经收藏过了
 
-      }else {
-          collectionService.addCollGoods(user_id,goods_id);
-          //返回0 ，收藏成功
-      }
-       FastJson_All.toJson(num,response);
+       Map<String,Object> map=new HashMap<String, Object>();
+       if (user!=null){
+           Integer user_id= user.getuId();
+           Integer result= collectionService.finduser_id(goods_id,user_id);
+           System.out.println("aaa:"+result);
+
+           if (result!=null){
+               map.put("result","1") ;  //可以查找到，已经收藏过了
+
+           }else {
+               collectionService.addCollGoods(user_id,goods_id);
+              map.put("result","0");
+               //返回0 ，收藏成功
+           }
+       }else {
+           map.put("result","error");
+       }
+
+       FastJson_All.toJson(map,response);
    }
 
 

@@ -14,6 +14,8 @@ import sun.font.TrueTypeFont;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Created by lanou on 2017/12/5.
@@ -26,13 +28,18 @@ public class CommentController {
    private CommentService commentService;
 
    @RequestMapping("addComment.do")
-   public void addComment(Comments comments, HttpServletResponse response, HttpSession session){
+   public void addComment(Integer goods_id,String content, HttpServletResponse response, HttpSession session){
       User user=(User) session.getAttribute("users");
      Integer user_id= user.getuId();
-       System.out.println(user_id);
-       comments.setUser_id(user_id);
-       Boolean result=true;
-         commentService.addComment(comments);
-      FastJson_All.toJson(result,response);
+       Map<String,Object> map=new HashMap<String, Object>();
+     Integer result= commentService.findGoods_id(goods_id,user_id);
+       System.out.println("sssssss"+result);
+     if (result==null){
+         commentService.addComment(goods_id,user_id,content);
+         map.put("result","true");
+     }else {
+         map.put("result","false");
+     }
+      FastJson_All.toJson(map,response);
    }
 }

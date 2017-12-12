@@ -19,7 +19,10 @@ public class CommentServiceImpl implements CommentService{
     @Autowired
    private CommentMapper commentMapper;
 
-    public void addComment(Comments comments){
-        commentMapper.addComment(comments);
+    public void addComment(Integer good_id,Integer user_id,String content){
+        commentMapper.addComment(good_id,user_id,content);
+    }
+    public Integer findGoods_id(Integer goods_id,Integer user_id){
+        return commentMapper.findGoods_id(goods_id,user_id);
     }
 }
