@@ -13,7 +13,7 @@ public class Orders {
     private Integer orderId;//订单主键
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String order_time;//下单时间
-    private int order_state;//订单是否评论，默认0:订单为评论 1：订单已评论
+    private int order_state;//订单逻辑删除，默认0:订单存在 1：订单已逻辑删除
     private int address_sId;//订单的收货地址
     private Double totalMoney;//订单的总价
     private Integer user_id;//用户的id

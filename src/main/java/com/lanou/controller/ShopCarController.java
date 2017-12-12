@@ -275,7 +275,7 @@ public class ShopCarController {
         User user = (User) session.getAttribute("users");
 
         int uId = user.getuId();
-        
+
         //查询当前用户的所有订单
         List<Orders> ordersList = goodsTypeService.findAllOrdersByUser_id(uId);
         //先根据当前用户的所有订单的主键跟Order_goods表中的外键匹配，查找到所有的Order_goods集合
@@ -292,11 +292,14 @@ public class ShopCarController {
                 //得到当前商品的数量
                 int goods_num = orders_goodss.get(j).getGoods_num();
                 Goods goods = goodsTypeService.findGoodsById(goods_id).get(0);
+                //得到当前商品的单价
+                Double price = goods.getgPrice();
                 Goods_info goods_info = new Goods_info();
                 goods_info.setGoodsId(goods.getgId());
                 goods_info.setGoodsName(goods.getgName());
                 goods_info.setImageUrl(goods.getgUrl());
                 goods_info.setNum(goods_num);
+                goods_info.setPrice(price);
                 goods_infos.add(goods_info);
             }
             lookOrder.setOrder_id(orders_id);

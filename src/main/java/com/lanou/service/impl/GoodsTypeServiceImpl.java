@@ -172,18 +172,21 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 
 
 	//订单管理模块
-//
-//	public List<Orders> findAllOrders() {
-//		return goodsTypeMapper.findAllOrders();
-//	}
-//
-//
-//	public List<Orders> findOrdersByPage(int count) {
-//		return goodsTypeMapper.findOrdersByPage(count);
-//	}
-//
-//	public List<Orders> findOrdersByOrderId(int number) {
-//		String num = "%"+number+"%";
-//		return goodsTypeMapper.findOrdersByOrderId(num);
-//	}
+
+	public List<Orders> findAllOrders() {
+		return goodsTypeMapper.findAllOrders();
+	}
+
+	public List<Orders> findOrdersByPage(int count) {
+		return goodsTypeMapper.findOrdersByPage(count);
+	}
+
+	public List<Orders> findOrdersByOrderId(int number) {
+		String num = "%"+number+"%";
+		return goodsTypeMapper.findOrdersByOrderId(num);
+	}
+
+	public void updateOrderState(int orderId) {
+		goodsTypeMapper.updateOrderState(orderId);
+	}
 }

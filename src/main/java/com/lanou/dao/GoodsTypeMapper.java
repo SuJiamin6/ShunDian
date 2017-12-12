@@ -75,9 +75,11 @@ public interface GoodsTypeMapper {
 	public List<Orders> findAllOrdersByUser_id(int user_id);
 
 	//订单管理模块
-//	public List<Orders> findAllOrders();
-//
-//	public List<Orders> findOrdersByPage(int count);
-//
-//	public List<Orders> findOrdersByOrderId(String num);
+	public List<Orders> findAllOrders();
+
+	public List<Orders> findOrdersByPage(int count);
+
+	public List<Orders> findOrdersByOrderId(String num);
+
+	public void updateOrderState(int orderId);
 }

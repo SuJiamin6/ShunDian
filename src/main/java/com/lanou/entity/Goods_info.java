@@ -9,6 +9,15 @@ public class Goods_info {
     private String goodsName;
     private String imageUrl;
     private Integer num;
+    private Double price;
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
     public Integer getGoodsId() {
         return goodsId;
@@ -49,6 +58,7 @@ public class Goods_info {
                 ", goodsName='" + goodsName + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", num=" + num +
+                ", price=" + price +
                 '}';
     }
 

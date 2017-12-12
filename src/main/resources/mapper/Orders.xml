@@ -20,7 +20,7 @@
 
 	<!--&lt;!&ndash;查找当前order表中最大的主键&ndash;&gt;-->
 	<select id="findMaxOrders" resultType="int">
-		select max(orderId) FROM Orders;
+		select max(orderId) FROM Orders where order_state = 0;
 	</select>
 
 	<!--查询当前订单记录-->
@@ -30,7 +30,7 @@
 
 	<!--查询当前用户的所有订单-->
 	<select id="findAllOrdersByUser_id" resultMap="ordersResult">
-		select * FROM Orders where user_id = #{user_id};
+		select * FROM Orders where user_id = #{user_id} and order_state = 0;
 	</select>
 
 	<!--&lt;!&ndash;<select id="addOrders" resultMap="ordersResult" >&ndash;&gt;-->
@@ -42,19 +42,24 @@
 	<!--</select>-->
 
 
-	<!--&lt;!&ndash;查询所有的订单&ndash;&gt;-->
-	<!--<select id="findAllOrders" resultMap="ordersResult" >-->
-		<!--select * FROM Orders;-->
-	<!--</select>-->
+	<!--查询所有的订单-->
+	<select id="findAllOrders" resultMap="ordersResult" >
+		select * FROM Orders where order_state = 0;
+	</select>
 
-	<!--&lt;!&ndash;查询当前页的订单&ndash;&gt;-->
-	<!--<select id="findOrdersByPage" resultMap="ordersResult" >-->
-		<!--select * FROM Orders limit #{0},6;-->
-	<!--</select>-->
+	<!--查询当前页的订单-->
+	<select id="findOrdersByPage" resultMap="ordersResult" >
+		select * FROM Orders where order_state = 0 limit #{0},6;
+	</select>
 
 	<!--&lt;!&ndash;模糊查询订单号&ndash;&gt;-->
-	<!--<select id="findOrdersByOrderId" resultMap="ordersResult" >-->
-		<!--select * FROM Orders where order_id like #{num};-->
-	<!--</select>-->
+	<select id="findOrdersByOrderId" resultMap="ordersResult" >
+		select * FROM Orders where orderId like #{num} and order_state = 0;
+	</select>
+
+	<!--逻辑删除订单-->
+	<update id="updateOrderState">
+		update Orders set order_state = 1 where orderId = #{orderId};
+	</update>
   
 </mapper>
