@@ -62,9 +62,9 @@ public class CollectionController {
         User user=(User)session.getAttribute("users");
        Integer user_id= user.getuId();
 
-       if(collectionService.deleteCollection(goods_id,user_id)){
+       collectionService.deleteCollection(goods_id,user_id);
 
-                }
+
             boolean result=true;
             FastJson_All.toJson(result,response);
 
