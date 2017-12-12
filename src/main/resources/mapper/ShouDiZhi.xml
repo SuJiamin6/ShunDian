@@ -33,4 +33,9 @@
 		<delete id="deleteShouDiZhi" parameterType="Integer">
 			DELETE  from Address WHERE sId=#{0} and user_id=#{1}
 		</delete>
+
+		<!--根据地址主键查找本条记录-->
+		<select id="findAddressBysId" resultMap="ShouDiZhiResult">
+			SELECT * FROM Address where sId = #{sId};
+		</select>
 </mapper>

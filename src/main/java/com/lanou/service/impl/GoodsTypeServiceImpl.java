@@ -136,21 +136,54 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 
 	//添加订单模块
 
-	public void addOrders(String order_address, String order_goodsName, double order_price, int order_count, int user_id) {
-		goodsTypeMapper.addOrders(order_address,order_goodsName,order_price,order_count,user_id);
+
+	public void addOrders(String order_time, int address_sId, double totalMoney, int user_id) {
+		goodsTypeMapper.addOrders(order_time,address_sId,totalMoney,user_id);
 	}
 
-	public List<Orders> findOrders(int user_id) {
-		return goodsTypeMapper.findOrders(user_id);
+	public Integer findMaxOrders() {
+		return goodsTypeMapper.findMaxOrders();
+	}
+
+	public void addOrdersGoods(int goods_id, int goods_num, int orders_id) {
+		goodsTypeMapper.addOrdersGoods(goods_id,goods_num,orders_id);
+	}
+
+	//查询订单模块
+
+
+	public Orders findOrdersByMaxId(int maxId) {
+		return goodsTypeMapper.findOrdersByMaxId(maxId);
+	}
+
+	public List<Orders_goods> findOrdersGoodsByorders_id(int orders_id) {
+		return goodsTypeMapper.findOrdersGoodsByorders_id(orders_id);
 	}
 
 	public void deleteShopCarAll(){
 		goodsTypeMapper.deleteShopCarAll();
 	}
 
-	//订单管理模块
+	//查询当前用户的所有订单
 
-	public List<Orders> findAllOrders() {
-		return goodsTypeMapper.findAllOrders();
+	public List<Orders> findAllOrdersByUser_id(int user_id) {
+		return goodsTypeMapper.findAllOrdersByUser_id(user_id);
 	}
+
+
+	//订单管理模块
+//
+//	public List<Orders> findAllOrders() {
+//		return goodsTypeMapper.findAllOrders();
+//	}
+//
+//
+//	public List<Orders> findOrdersByPage(int count) {
+//		return goodsTypeMapper.findOrdersByPage(count);
+//	}
+//
+//	public List<Orders> findOrdersByOrderId(int number) {
+//		String num = "%"+number+"%";
+//		return goodsTypeMapper.findOrdersByOrderId(num);
+//	}
 }

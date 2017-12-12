@@ -13,4 +13,7 @@ public interface ShouDiZhiService {
 
 	//根据用户勾选的地址id查找
 	public ShouDiZhi findShouDiZhiBysId(int sId,int user_id);
+
+	//根据地址主键
+	public ShouDiZhi findAddressBysId(int sId);
 }

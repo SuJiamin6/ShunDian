@@ -89,6 +89,7 @@ public class ShouDiZhiController {
         User user=(User)session.getAttribute("users");
         Integer user_id=  user.getuId();
         boolean result=false;
+        System.out.println(sName+sArea+sAddress);
         if (shouDiZhiService.addShouDiZhi(sName,sArea, sAddress,sZip,sPhone,user_id)){
             result=true;  //添加成功返回true
         }

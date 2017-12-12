@@ -1,56 +1,22 @@
 package com.lanou.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
+
 /**
  * Created by lanou on 2017/12/7.
  */
 public class Orders {
 
-    private Integer order_id;
-    private String order_address;
-    private String order_goodsName;
-    private Double order_price;
-    private Integer order_count;
-    private Integer user_id;
-
-    public Integer getOrder_id() {
-        return order_id;
-    }
-
-    public void setOrder_id(Integer order_id) {
-        this.order_id = order_id;
-    }
-
-    public String getOrder_address() {
-        return order_address;
-    }
-
-    public void setOrder_address(String order_address) {
-        this.order_address = order_address;
-    }
-
-    public String getOrder_goodsName() {
-        return order_goodsName;
-    }
-
-    public void setOrder_goodsName(String order_goodsName) {
-        this.order_goodsName = order_goodsName;
-    }
-
-    public Double getOrder_price() {
-        return order_price;
-    }
-
-    public void setOrder_price(Double order_price) {
-        this.order_price = order_price;
-    }
-
-    public Integer getOrder_count() {
-        return order_count;
-    }
-
-    public void setOrder_count(Integer order_count) {
-        this.order_count = order_count;
-    }
+    private Integer orderId;//订单主键
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private String order_time;//下单时间
+    private int order_state;//订单是否评论，默认0:订单为评论 1：订单已评论
+    private int address_sId;//订单的收货地址
+    private Double totalMoney;//订单的总价
+    private Integer user_id;//用户的id
 
     public Integer getUser_id() {
         return user_id;
@@ -60,6 +26,47 @@ public class Orders {
         this.user_id = user_id;
     }
 
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    public String getOrder_time() {
+        return order_time;
+    }
+
+    public void setOrder_time(String order_time) {
+        this.order_time = order_time;
+    }
+
+    public int getOrder_state() {
+        return order_state;
+    }
+
+    public void setOrder_state(int order_state) {
+        this.order_state = order_state;
+    }
+
+    public int getAddress_sId() {
+        return address_sId;
+    }
+
+    public void setAddress_sId(int address_sId) {
+        this.address_sId = address_sId;
+    }
+
+    public Double getTotalMoney() {
+        return totalMoney;
+    }
+
+    public void setTotalMoney(Double totalMoney) {
+        this.totalMoney = totalMoney;
+    }
+
     public Orders() {
         super();
     }
@@ -67,11 +74,11 @@ public class Orders {
     @Override
     public String toString() {
         return "Orders{" +
-                "order_id=" + order_id +
-                ", order_address='" + order_address + '\'' +
-                ", order_goodsName='" + order_goodsName + '\'' +
-                ", order_price=" + order_price +
-                ", order_count=" + order_count +
+                "orderId=" + orderId +
+                ", order_time='" + order_time + '\'' +
+                ", order_state=" + order_state +
+                ", address_sId=" + address_sId +
+                ", totalMoney=" + totalMoney +
                 ", user_id=" + user_id +
                 '}';
     }

@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by lanou on 2017/12/7.
@@ -46,7 +44,7 @@ public class ShopCarController {
 
         //当前用户加入购物车，如果是在未登录的状态下，先需要让用户在右边栏登录
         User user = (User) session.getAttribute("users");
-        System.out.println("当前User中的值为："+user);
+        System.out.println("当前User中的值为：" + user);
         if (user == null) {
             map.put("data", "ERROR");
         } else {
@@ -72,7 +70,7 @@ public class ShopCarController {
                 shopCar.setGoods_url(goods.getgUrl());
                 goodsTypeService.updateShopCar
                         (shopCar.getGoods_id(), shopCar.getGoods_name(), shopCar.getGoods_price(),
-                                shopCar.getGoods_count(), shopCar.getGoods_sum(),shopCar.getGoods_url());
+                                shopCar.getGoods_count(), shopCar.getGoods_sum(), shopCar.getGoods_url());
             }
             map.put("data", "SUCCESS");
         }
@@ -145,17 +143,17 @@ public class ShopCarController {
     * {"aId":1-2-5}
     * */
     @RequestMapping("/account")
-    public void account(String aId, HttpServletResponse response, HttpSession session, HttpServletRequest request){
+    public void account(String aId, HttpServletResponse response, HttpSession session, HttpServletRequest request) {
 
         //先接收到session中用户的id
         User user = (User) session.getAttribute("users");
         int uId = user.getuId();
         List<ShouDiZhi> shouDiZhi = shouDiZhiService.findShouDiZhi(uId);
 
-        String[] ss=aId.split("\\-");
+        String[] ss = aId.split("\\-");
 
         List<ShopCar> shopCars = new ArrayList<ShopCar>();
-        for(int i=0;i<ss.length;i++){
+        for (int i = 0; i < ss.length; i++) {
             ShopCar shopCar = goodsTypeService.findShopCargoods_id(Integer.parseInt(ss[i]));
             shopCars.add(shopCar);
         }
@@ -166,70 +164,152 @@ public class ShopCarController {
         double price = 0;
         String Goods_name = "";
         String Goods_name1 = "";
-        for(int i=0;i<shopCars.size();i++){
+        for (int i = 0; i < shopCars.size(); i++) {
             count += shopCars.get(i).getGoods_count();
             price += shopCars.get(i).getGoods_sum();
-            Goods_name1 += shopCars.get(i).getGoods_name();
-            Goods_name1 += " ";
-
-            Goods_name += shopCars.get(i).getGoods_name();
-            Goods_name += "/";
+//            Goods_name1 += shopCars.get(i).getGoods_name();
+//            Goods_name1 += "\\";
+//
+//            Goods_name += shopCars.get(i).getGoods_name();
+//            Goods_name += "/";
         }
 
-        map.put("count",count);
-        map.put("price",price);
-        map.put("data",shopCars);
-        map.put("address",shouDiZhi);
-        request.getSession().setAttribute("count",count);
-        request.getSession().setAttribute("price",price);
+        map.put("count", count);
+        map.put("price", price);
+        map.put("data", shopCars);
+        map.put("address", shouDiZhi);
+        request.getSession().setAttribute("count", count);
+        request.getSession().setAttribute("price", price);
 //        request.getSession().setAttribute("address",address);
 //        request.getSession().setAttribute("address1",address1);
-        request.getSession().setAttribute("goodsName",Goods_name1);
-        FastJson_All.toJson(map,response);
+        request.getSession().setAttribute("shopList",shopCars);
+        FastJson_All.toJson(map, response);
     }
 
 
     //====================生成订单界面==================
     @RequestMapping("/order")
-    public void orders(Integer sId,HttpServletResponse response, HttpSession session){
+    public void orders(Integer sId, HttpServletResponse response, HttpSession session) {
 
-            //先接收到session中用户的id
-            User user = (User) session.getAttribute("users");
+        //先接收到session中用户的id
+        User user = (User) session.getAttribute("users");
 
-            int uId = user.getuId();
-            int count = (Integer) session.getAttribute("count");
-            double price = (Double) session.getAttribute("price");
+        int uId = user.getuId();
+        int count = (Integer) session.getAttribute("count");
+        double price = (Double) session.getAttribute("price");
 
-            ShouDiZhi shouDiZhi = shouDiZhiService.findShouDiZhiBysId(sId,uId);
-            String address = shouDiZhi.getsName()+" "+shouDiZhi.getsArea()+" "+shouDiZhi.getsAddress()+" "+
-                                    shouDiZhi.getsZip()+" "+shouDiZhi.getsPhone();
-            String address1 = shouDiZhi.getsName()+"/"+shouDiZhi.getsArea()+"/"+shouDiZhi.getsAddress()+"/"+
-                shouDiZhi.getsZip()+"/"+shouDiZhi.getsPhone();
-//            String address = (String) session.getAttribute("address");
-//            String address1 = (String) session.getAttribute("address1");
-            String goodsName = (String) session.getAttribute("goodsName");
+        //ShouDiZhi shouDiZhi = shouDiZhiService.findShouDiZhiBysId(sId,uId);
 
-            goodsTypeService.addOrders(address, goodsName, price, count, uId);
+        //获取当前时间
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String order_time = dateFormat.format(date);
+        //获取收货地址sId
+        //获取totalMoney
 
-            //在这里要完成的是先查找到该用户的所有sId
-            //然后把最后一个sId拿出来
-            List<Orders> orsers = goodsTypeService.findOrders(uId);
-            int order_id = 0;
-            for(int i=0;i<orsers.size();i++){
-                order_id = orsers.get(i).getOrder_id();
-            }
-            //int order_id = orders.getOrder_id();
+        //将数据插入order表中
+        goodsTypeService.addOrders(order_time, sId, price, uId);
 
-            Map<String, Object> map = new HashMap<String, Object>();
+        //查找当前orderId表中最大的主键
+        Integer maxId = goodsTypeService.findMaxOrders();
+        System.out.println("当前最大主键为："+maxId);
 
-            map.put("order_id", order_id);
-            map.put("count", count);
-            map.put("price", price);
-            map.put("goodsName", goodsName);
-            map.put("address", address1);
-            goodsTypeService.deleteShopCarAll();
-            FastJson_All.toJson(map, response);
-
+        //先获取所有商品的goods_id
+        List<ShopCar> shopCars = (List<ShopCar>) session.getAttribute("shopList");
+        for (int i = 0; i < shopCars.size(); i++) {
+            //获取商品的goods_id
+            int goods_id = shopCars.get(i).getGoods_id();
+            int goods_num = shopCars.get(i).getGoods_count();
+            goodsTypeService.addOrdersGoods(goods_id, goods_num, maxId);
         }
 
+
+        //查询当前的订单表，根据maxId
+        Orders orders = goodsTypeService.findOrdersByMaxId(maxId);
+        //取到当前订单的地址id
+        int address_id = orders.getAddress_sId();
+        ShouDiZhi address = shouDiZhiService.findAddressBysId(address_id);
+        //根据订单的主键maxId，查找Orders_goods表中的记录
+        List<Orders_goods> orders_goodss = goodsTypeService.findOrdersGoodsByorders_id(maxId);
+        List<Goods> goodsList = new ArrayList<Goods>();
+        String[] goodsName = new String[orders_goodss.size()];
+        for(int i=0;i<orders_goodss.size();i++){
+
+            //得到当前商品id
+            int goods_id = orders_goodss.get(i).getGoods_id();
+            //得到当前商品的数量
+            int goods_num = orders_goodss.get(i).getGoods_num();
+            //根据商品的id查找到当前商品的名字
+            Goods goods = goodsTypeService.findGoodsById(goods_id).get(0);
+            goodsList.add(goods);
+            goodsName[i]=goods.getgName();
+        }
+
+        order_info order_info = new order_info();
+        order_info.setCount(count);
+        order_info.setGoodsName(goodsName);
+        order_info.setOrder_id(maxId);
+        order_info.setShouDiZhi(address);
+        order_info.setPrice(price);
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("data",order_info);
+
+//        map.put("address",address);
+//        map.put("count", count);
+//        map.put("price", price);
+//        map.put("goods_name",goodsList);
+//        map.put("orderId",maxId);
+
+        //删除购物车中的内容
+        goodsTypeService.deleteShopCarAll();
+        FastJson_All.toJson(map, response);
+
+    }
+
+    //====================展示订单界面==================
+    @RequestMapping("/views.do")
+    public void lookOrders(HttpServletResponse response, HttpSession session) {
+
+        //先接收到session中用户的id
+        User user = (User) session.getAttribute("users");
+
+        int uId = user.getuId();
+        
+        //查询当前用户的所有订单
+        List<Orders> ordersList = goodsTypeService.findAllOrdersByUser_id(uId);
+        //先根据当前用户的所有订单的主键跟Order_goods表中的外键匹配，查找到所有的Order_goods集合
+        List<lookOrder> lookOrders = new ArrayList<lookOrder>();
+        for(int i=0;i<ordersList.size();i++){
+            lookOrder lookOrder = new lookOrder();
+            //先取到当前订单的主键
+            int orders_id = ordersList.get(i).getOrderId();
+            List<Orders_goods> orders_goodss = goodsTypeService.findOrdersGoodsByorders_id(orders_id);
+            List<Goods_info> goods_infos = new ArrayList<Goods_info>();
+            for(int j=0;j<orders_goodss.size();j++){
+                //得到当前商品id
+                int goods_id = orders_goodss.get(j).getGoods_id();
+                //得到当前商品的数量
+                int goods_num = orders_goodss.get(j).getGoods_num();
+                Goods goods = goodsTypeService.findGoodsById(goods_id).get(0);
+                Goods_info goods_info = new Goods_info();
+                goods_info.setGoodsId(goods.getgId());
+                goods_info.setGoodsName(goods.getgName());
+                goods_info.setImageUrl(goods.getgUrl());
+                goods_info.setNum(goods_num);
+                goods_infos.add(goods_info);
+            }
+            lookOrder.setOrder_id(orders_id);
+            lookOrder.setPrice(ordersList.get(i).getTotalMoney());
+            lookOrder.setOrder_time(ordersList.get(i).getOrder_time());
+            lookOrder.setGoods_infos(goods_infos);
+            lookOrders.add(lookOrder);
+        }
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("data",lookOrders);
+
+        FastJson_All.toJson(map, response);
+
+    }
 }

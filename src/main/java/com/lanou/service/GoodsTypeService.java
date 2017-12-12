@@ -62,16 +62,29 @@ public interface GoodsTypeService {
 	public List<ShopCar> findShopCar();
 
 	//添加订单模块
-	public void addOrders(String order_address,String order_goodsName,double order_price,int order_count,int user_id);
+	//添加订单模块
+	public void addOrders(String order_time,int address_sId,double totalMoney,int user_id);
+	public Integer findMaxOrders();
+	public void addOrdersGoods(int goods_id,int goods_num,int orders_id);
 
-	public List<Orders> findOrders(int user_id);
+	//查询订单模块
+	public Orders findOrdersByMaxId(int maxId);
+
+	//查询订单商品记录
+	public List<Orders_goods> findOrdersGoodsByorders_id(int orders_id);
+
+//	public List<Orders> findOrders(int user_id);
 
 	//删除购物车中的所有数据
 	public void deleteShopCarAll();
 
 
-	//订单管理模块
-	public List<Orders> findAllOrders();
+	//查询当前用户的所有订单
+	public List<Orders> findAllOrdersByUser_id(int user_id);
 
+	//订单管理模块
+//	public List<Orders> findAllOrders();
+//	public List<Orders> findOrdersByPage(int count);
+//	public List<Orders> findOrdersByOrderId(int number);
 
 }

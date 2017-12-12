@@ -13,4 +13,6 @@ public interface ShouDiZhiMapper {
 
 
 	public ShouDiZhi findShouDiZhiBysId(int sId,int user_id);
+
+	public ShouDiZhi findAddressBysId(int sId);
 }

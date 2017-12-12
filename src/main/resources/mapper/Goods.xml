@@ -27,7 +27,7 @@
 
 	<!--根据All_id查找到他的同类商品-->
 	<select id="findGoodsByAll_id" resultMap="goodsResult" >
-		select * from Goods where All_id = #{All_id};
+		select * from Goods where All_id = #{All_id} limit 0,6;
 	</select>
 
 </mapper>

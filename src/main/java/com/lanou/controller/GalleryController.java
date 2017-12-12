@@ -483,6 +483,9 @@ public class GalleryController {
         Double page1 =  All/45;
         Double page2 = Math.ceil(page1);
         int page3 = (new   Double(page2)).intValue();
+        if (page3==0){
+            page3=1;
+        }
         List<Gallery1> SelectByLike = galleryService.ByLike(like,page);
         for (int i = 0;i<SelectByLike.size();i++){
             String gUrl = SelectByLike.get(i).getgUrl();
@@ -502,7 +505,7 @@ public class GalleryController {
             SelectByLike.get(i).setgImg(AllUrl);
         }
         map.put("page",page3);
-        map.put("XinPin", SelectByLike);
+        map.put("ByLike", SelectByLike);
         FastJson_All.toJson(map,response);
     }
 }

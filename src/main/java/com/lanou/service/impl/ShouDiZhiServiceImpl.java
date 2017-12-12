@@ -32,4 +32,9 @@ public class ShouDiZhiServiceImpl implements ShouDiZhiService{
     public ShouDiZhi findShouDiZhiBysId(int sId,int user_id) {
         return shouDiZhiMapper.findShouDiZhiBysId(sId,user_id);
     }
+
+    //根据地址主键
+    public ShouDiZhi findAddressBysId(int sId) {
+        return shouDiZhiMapper.findAddressBysId(sId);
+    }
 }
