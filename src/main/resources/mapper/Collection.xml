@@ -24,7 +24,11 @@
 			INSERT INTO Collection(user_id,goods_id) VALUES(#{0},#{1})
 		</insert>
 		<!--删除收藏-->
-		<delete id="deleteCollection" parameterType="Integer" >
-			DELETE FROM Collection WHERE user_id=#{0} and goods_id=#{1}
+		<delete id="deleteCollection">
+			DELETE FROM Collection WHERE goods_id IN
+			 <foreach collection="goods_id" item="good_id" separator="," open="(" close=")">
+				 #{good_id}
+			 </foreach>
+			and user_id = #{user_id}
 		</delete>
 </mapper>

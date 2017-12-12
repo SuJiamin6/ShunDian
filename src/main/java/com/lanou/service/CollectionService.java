@@ -10,5 +10,5 @@ public interface CollectionService {
 	public List<Goods> findCollection(Integer user_id);
 	public  Integer finduser_id(Integer goods_id,Integer user_id);
 	public  boolean addCollGoods(Integer goods_id,Integer user_id);
-	public  boolean deleteCollection(Integer goods_id,Integer user_id);
+	public  boolean deleteCollection(Integer[] goods_id,Integer user_id);
 }
