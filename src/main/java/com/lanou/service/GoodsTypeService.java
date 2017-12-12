@@ -86,5 +86,5 @@ public interface GoodsTypeService {
 	public List<Orders> findAllOrders();
 	public List<Orders> findOrdersByPage(int count);
 	public List<Orders> findOrdersByOrderId(int number);
-	public void updateOrderState(int orderId);
+	public int updateOrderState(int orderId);
 }

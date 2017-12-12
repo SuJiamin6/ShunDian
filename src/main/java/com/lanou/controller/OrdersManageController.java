@@ -63,8 +63,13 @@ public class OrdersManageController {
     public void delOrder(int orderId,HttpServletResponse response){
 
         Map<String,Object> maps = new HashMap<String,Object>();
-        goodsTypeService.updateOrderState(orderId);
-        maps.put("data","SUCCESS");
+        int count = goodsTypeService.updateOrderState(orderId);
+        if(count==1){
+            maps.put("data","SUCCESS");
+        }else{
+            maps.put("data","ERROR");
+        }
+
         FastJson_All.toJson(maps,response);
 
     }

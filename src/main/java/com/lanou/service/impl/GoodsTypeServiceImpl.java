@@ -186,7 +186,7 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 		return goodsTypeMapper.findOrdersByOrderId(num);
 	}
 
-	public void updateOrderState(int orderId) {
-		goodsTypeMapper.updateOrderState(orderId);
+	public int updateOrderState(int orderId) {
+		return goodsTypeMapper.updateOrderState(orderId);
 	}
 }

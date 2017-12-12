@@ -81,5 +81,5 @@ public interface GoodsTypeMapper {
 
 	public List<Orders> findOrdersByOrderId(String num);
 
-	public void updateOrderState(int orderId);
+	public int updateOrderState(int orderId);
 }
