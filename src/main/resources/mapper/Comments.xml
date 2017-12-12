@@ -12,4 +12,7 @@
 	<insert id="addComment" parameterType="Comments">
 		INSERT  INTO  Comment(goods_id,user_id,content) VALUES(#{goods_id},#{user_id},#{content})
 	</insert>
+	<!--<select id="findGoods_id" parameterType="Integer">-->
+		<!--SELECT goods_id FROM Comment where user_id=#{0}-->
+	<!--</select>-->
 </mapper>

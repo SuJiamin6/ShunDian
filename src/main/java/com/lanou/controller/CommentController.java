@@ -9,6 +9,7 @@ import com.lanou.service.DiZhiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import sun.font.TrueTypeFont;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,10 +29,17 @@ public class CommentController {
    public void addComment(Comments comments, HttpServletResponse response, HttpSession session){
       User user=(User) session.getAttribute("users");
      Integer user_id= user.getuId();
-      System.out.println(user_id);
-     comments.setUser_id(user_id);
-     commentService.addComment(comments);
-      Boolean result=true;
+       System.out.println(user_id);
+       comments.setUser_id(user_id);
+       Boolean result=true;
+     if(user==null){
+         result=false;
+     }else {
+
+         commentService.addComment(comments);
+     }
+
+
       FastJson_All.toJson(result,response);
    }
 }
