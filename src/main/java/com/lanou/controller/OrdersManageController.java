@@ -2,16 +2,16 @@ package com.lanou.controller;
 
 import com.lanou.Util.FastJson_All;
 import com.lanou.entity.Orders;
+import com.lanou.entity.OrdersInfo;
+import com.lanou.entity.ShouDiZhi;
 import com.lanou.service.GoodsTypeService;
+import com.lanou.service.ShouDiZhiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Observable;
+import java.util.*;
 
 /**
  * Created by lanou on 2017/12/11.
@@ -22,6 +22,10 @@ public class OrdersManageController {
 
     @Autowired
     private GoodsTypeService goodsTypeService;
+
+
+    @Autowired
+    private ShouDiZhiService shouDiZhiService;
 
     /*
     * 订单管理模块
@@ -42,7 +46,23 @@ public class OrdersManageController {
 
         List<Orders> ordersList1 = goodsTypeService.findOrdersByPage((pages-1)*6);
 
-        maps.put("ordersList",ordersList1);
+        List<OrdersInfo> ordersInfos = new ArrayList<OrdersInfo>();
+        for(int i=0;i<ordersList.size();i++){
+
+            ShouDiZhi shouDiZhi = shouDiZhiService.findAddressBysId(ordersList.get(i).getAddress_sId());
+            String name = "";
+            if(shouDiZhi!=null){
+                name = shouDiZhi.getsName();
+            }
+            OrdersInfo ordersInfo = new OrdersInfo();
+            ordersInfo.setOrder_time(ordersList.get(i).getOrder_time());
+            ordersInfo.setOrderId(ordersList.get(i).getOrderId());
+            ordersInfo.setTotalMoney(ordersList.get(i).getTotalMoney());
+            ordersInfo.setAddressName(name);
+            ordersInfos.add(ordersInfo);
+        }
+
+        maps.put("ordersList",ordersInfos);
         maps.put("page",page);
         FastJson_All.toJson(maps,response);
     }
@@ -53,7 +73,24 @@ public class OrdersManageController {
 
         Map<String,Object> maps = new HashMap<String,Object>();
         List<Orders> ordersList = goodsTypeService.findOrdersByOrderId(number);
-        maps.put("ordersList",ordersList);
+
+        List<OrdersInfo> ordersInfos = new ArrayList<OrdersInfo>();
+        for(int i=0;i<ordersList.size();i++){
+
+            ShouDiZhi shouDiZhi = shouDiZhiService.findAddressBysId(ordersList.get(i).getAddress_sId());
+            String name = "";
+            if(shouDiZhi!=null){
+                name = shouDiZhi.getsName();
+            }
+            OrdersInfo ordersInfo = new OrdersInfo();
+            ordersInfo.setOrder_time(ordersList.get(i).getOrder_time());
+            ordersInfo.setOrderId(ordersList.get(i).getOrderId());
+            ordersInfo.setTotalMoney(ordersList.get(i).getTotalMoney());
+            ordersInfo.setAddressName(name);
+            ordersInfos.add(ordersInfo);
+        }
+
+        maps.put("ordersList",ordersInfos);
         FastJson_All.toJson(maps,response);
 
     }

@@ -13,6 +13,15 @@ public class Gallery1 {
     private String gUrl;
     private int gs_id;
     private List<String> gImg ;
+    private Integer All_id;
+
+    public Integer getAll_id() {
+        return All_id;
+    }
+
+    public void setAll_id(Integer all_id) {
+        All_id = all_id;
+    }
 
     public List<String> getgImg() {
         return gImg;
@@ -75,6 +84,7 @@ public class Gallery1 {
                 ", gUrl='" + gUrl + '\'' +
                 ", gs_id=" + gs_id +
                 ", gImg=" + gImg +
+                ", All_id=" + All_id +
                 '}';
     }
 }

@@ -159,4 +159,19 @@ public class UserController {
 		//map.put("cityid",cityid);
 		FastJson_All.toJson(map,response);
 	}
+	//	退出
+	@RequestMapping("/quit")
+
+	public void login(HttpServletRequest request,HttpServletResponse response){
+		Boolean	result = false;
+		User users=null;
+		request.getSession().setAttribute("users",users);
+		User user1 = (User)request.getSession().getAttribute("users");
+		if (user1==null){
+			result = true;
+
+		}
+		FastJson_All.toJson(result,response);
+
+	}
 }

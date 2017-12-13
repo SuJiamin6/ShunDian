@@ -472,6 +472,43 @@ public class GalleryController {
         FastJson_All.toJson(map,response);
     }
     // ==============================================================
+//    @RequestMapping("/LikeSearch")
+//    // @ResponseBody
+//    public void ByLike (HttpServletResponse response,String like,Integer page){
+//        Map<String, Object> map = new HashMap<String, Object>();
+//        if (page==null){
+//            page =1;
+//        }
+//        Double All = galleryService.AllByLike();
+//        Double page1 =  All/45;
+//        Double page2 = Math.ceil(page1);
+//        int page3 = (new   Double(page2)).intValue();
+//        if (page3==0){
+//            page3=1;
+//        }
+//        List<Gallery1> SelectByLike = galleryService.ByLike(like,page);
+//        for (int i = 0;i<SelectByLike.size();i++){
+//            String gUrl = SelectByLike.get(i).getgUrl();
+//            List<String> AllUrl = new ArrayList();
+//            AllUrl.add(gUrl);
+//            int gs_id = SelectByLike.get(i).getGs_id();
+//            List<GoodSmallImage> listgoodsmall =  galleryService.SmallImage(gs_id);
+//            if(listgoodsmall.get(0).getSmallUrl1() != null){
+//                AllUrl.add(listgoodsmall.get(0).getSmallUrl1());
+//            }
+//            if(listgoodsmall.get(0).getSmallUrl2() != null){
+//                AllUrl.add(listgoodsmall.get(0).getSmallUrl2());
+//            }
+//            if(listgoodsmall.get(0).getSmallUrl3() != null){
+//                AllUrl.add(listgoodsmall.get(0).getSmallUrl3());
+//            }
+//            SelectByLike.get(i).setgImg(AllUrl);
+//        }
+//        map.put("page",page3);
+//        map.put("ByLike", SelectByLike);
+//        FastJson_All.toJson(map,response);
+//    }
+    // ==============================================================
     @RequestMapping("/LikeSearch")
     // @ResponseBody
     public void ByLike (HttpServletResponse response,String like,Integer page){
@@ -504,8 +541,12 @@ public class GalleryController {
             }
             SelectByLike.get(i).setgImg(AllUrl);
         }
-        map.put("page",page3);
-        map.put("ByLike", SelectByLike);
+        List<GoodsType> list1 = new ArrayList<GoodsType>();
+        for (int i=0;i<SelectByLike.size();i++){
+            list1  = galleryService.chazhao3(SelectByLike.get(i).getAll_id(),1);
+        }
+        System.out.println(list1);
+        map.put("Like",list1);
         FastJson_All.toJson(map,response);
     }
 }

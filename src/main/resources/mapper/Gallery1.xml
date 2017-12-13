@@ -10,6 +10,7 @@
 		<result column="GoodsPrice" property="gPrice" jdbcType="DOUBLE" />
 		<result column="GoodsImageUrl" property="gUrl" jdbcType="VARCHAR" />
 		<result column="gs_id" property="gs_id" javaType="int" />
+		<result column="All_id" property="All_id" javaType="int" />
 	</resultMap>
 
 	<select id="AllfindGoodss" resultType="Double" >
