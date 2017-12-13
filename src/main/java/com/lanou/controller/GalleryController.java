@@ -46,8 +46,8 @@ public class GalleryController {
             if (page==null){
                 page =1;
             }
-            List<Gallery1> findgoodss = galleryService.findGoodss(6,page);
-            Double All = galleryService.AllfindGoodss(6);
+            List<Gallery1> findgoodss = galleryService.findGoodss(26,page);
+            Double All = galleryService.AllfindGoodss(26);
             Double page1 =  All/45;
             Double page2 = Math.ceil(page1);
             int page3 = (new   Double(page2)).intValue();
@@ -116,8 +116,8 @@ public class GalleryController {
             if (page==null){
                 page =1;
             }
-            List<Gallery1> findgoodss = galleryService.findGoodss(6,page);
-            Double All = galleryService.AllfindGoodss(6);
+            List<Gallery1> findgoodss = galleryService.findGoodss(26,page);
+            Double All = galleryService.AllfindGoodss(26);
             Double page1 =  All/45;
             Double page2 = Math.ceil(page1);
             int page3 = (new   Double(page2)).intValue();

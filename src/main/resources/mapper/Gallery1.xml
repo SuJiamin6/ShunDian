@@ -17,7 +17,7 @@
 	</select>
 
 	<select id="findGoodss" resultMap="findgoodsResult" >
-		select * from Goods where All_id = #{0} limit #{1},45;
+		select * from Goods where All_id = #{0} order by rand() limit #{1},45;
 	</select>
 
 
