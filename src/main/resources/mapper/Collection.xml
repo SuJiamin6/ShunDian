@@ -31,4 +31,7 @@
 			 </foreach>
 			and user_id = #{user_id}
 		</delete>
+	<delete id="deleteCollection1">
+		DELETE FROM Collection WHERE goods_id =#{0} and user_id = #{1}
+	</delete>
 </mapper>

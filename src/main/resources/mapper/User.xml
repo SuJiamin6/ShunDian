@@ -27,7 +27,7 @@
 
 	<!--修改个人信息-->
 	<update id="updateUser" parameterType="User" >
-		update User SET uPhone=#{uPhone},xName=#{xName},gender=#{gender},uPassword=#{uPassword},
+		update User SET uPhone=#{uPhone},xName=#{xName},gender=#{gender},
 		birthday=#{birthday},QQ=#{QQ},email=#{email},address=#{address} where uName=#{uName}
 	</update>
 	<!--修改密码-->

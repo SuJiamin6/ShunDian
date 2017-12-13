@@ -71,17 +71,25 @@ public class UserController {
 
 	@RequestMapping("/reg.do")
 
-	public void reg(User user,HttpServletResponse response){
-		boolean result=false;
+	public void reg(User user,HttpServletResponse response,HttpSession session){
+
+		Map<String,Object> map=new HashMap<String, Object>();
 		if (userService.adduNameAndPwd(user)){
-			result =true;
+			session.setAttribute("users",user);
+			String uName=user.getuName();
+			map.put("result",uName);
+		}else{
+			map.put("result","false");
 		}
-		FastJson_All.toJson(result,response);
+
+		FastJson_All.toJson(map,response);
 	}
 	//根据用户名修改个人信息
 	@RequestMapping("/update.do")
 	public void updateUser(@RequestParam("cityid") Integer[] param, User user, HttpServletResponse response,HttpSession session){
 		session.setAttribute("cityid",param);
+		User user1=(User) session.getAttribute("users");
+		String uName=user1.getuName();
 		List diZhis=new ArrayList();
 		String diZhi=null;
 
@@ -97,11 +105,12 @@ public class UserController {
 			strResult+=diZhis.get(i)+"/";
 		}
 		strResult=strResult.substring(0,strResult.length()-1);
-		System.out.println(strResult);
-
+		System.out.println("地址"+strResult);
+		System.out.println();
 		boolean result=false;
 		String adress = strResult;
 		user.setAddress(adress);
+		user.setuName(uName);
 		if (userService.updateUser(user)){
 			result= true;
 		}

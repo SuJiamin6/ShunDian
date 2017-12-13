@@ -12,5 +12,5 @@ public interface CollectionMapper {
 	public  Integer finduser_id(Integer goods_id,Integer user_id);
 	public  boolean addCollGoods(Integer goods_id,Integer user_id);
 	public  boolean deleteCollection(@Param("goods_id") Integer[] goods_id,@Param("user_id") Integer user_id);
-
+	public void deleteCollection1(Integer goods_id ,Integer user_id);
 }

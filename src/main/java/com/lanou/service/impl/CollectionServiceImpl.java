@@ -34,4 +34,7 @@ public class CollectionServiceImpl implements CollectionService{
 
          return result;
     }
+    public void deleteCollection1(Integer goods_id ,Integer user_id){
+        collectionMapper.deleteCollection1(goods_id,user_id);
+    }
 }

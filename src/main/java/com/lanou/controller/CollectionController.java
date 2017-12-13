@@ -38,7 +38,6 @@ public class CollectionController {
            map.put("result","error");
        }
 
-
       FastJson_All.toJson(map,response);
    }
    //添加收藏 需要传进来goods_id
@@ -54,6 +53,7 @@ public class CollectionController {
 
            if (result!=null){
                map.put("result","1") ;  //可以查找到，已经收藏过了
+             collectionService.deleteCollection1(goods_id,user_id);
 
            }else {
                collectionService.addCollGoods(user_id,goods_id);
@@ -75,8 +75,6 @@ public class CollectionController {
        Integer user_id= user.getuId();
 
        collectionService.deleteCollection(goods_id,user_id);
-
-
             boolean result=true;
             FastJson_All.toJson(result,response);
 
