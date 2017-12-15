@@ -122,12 +122,16 @@ public class GoodsInfoController {
        if(uName != null){
             String goodsName =  goodsList.get(0).getgName();
             int findNull = goodsTypeService.findNull(goodsName);
-            while(findNull == 0){
+            if(findNull == 0){
                 Double goodsPrice =  goodsList.get(0).getgPrice();
                 String goodsUrl = goodsList.get(0).getgUrl();
                 boolean result = goodsTypeService.insert1(uName,goodsName,goodsUrl,goodsPrice);
+                System.out.println(uName);
+                System.out.println(goodsName);
                 return  result;
+
             }
+
            return false;
        }
         return false;

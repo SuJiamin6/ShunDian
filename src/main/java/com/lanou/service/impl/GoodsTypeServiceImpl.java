@@ -189,4 +189,23 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 	public int updateOrderState(int orderId) {
 		return goodsTypeMapper.updateOrderState(orderId);
 	}
+
+	public void updatefloor(String fName , Integer id){
+		goodsTypeMapper.updatefloor(fName,id);
+	}
+	public void insertLun(String url){
+		goodsTypeMapper.insertLun(url);
+	}
+	public String upload(){
+		return  goodsTypeMapper.upload();
+	}
+	public void deletefloor(Integer id){
+		goodsTypeMapper.deletefloor(id);
+	}
+	public void insertFloor(String fName){
+		goodsTypeMapper.insertFloor(fName);
+	}
+	public void deleteLun(String url){
+		goodsTypeMapper.deleteLun(url);
+	}
 }

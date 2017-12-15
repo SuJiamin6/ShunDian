@@ -5,12 +5,20 @@
 <mapper namespace="com.lanou.dao.GoodsTypeMapper">
 
 	 <select id="findLun"  resultType="String">
-        select url from indexFandL where TypeId = 10;
+        select url from indexFandL where TypeId = 10 and deleteId=1;
     </select>
 	<select id="findIndexSan"  resultType="String">
 		select url from indexFandL where TypeId = #{aId};
 	</select>
-
+	<select id="upload"  resultType="String">
+		select   url   from   indexFandL    order   by TypeId = 10 and deleteId=1   desc   limit   1;
+	</select>
+	<insert id="insertLun"  parameterType="String" >
+		INSERT INTO indexFandL(url,TypeId,deleteId) VALUES (#{url},10,1);
+	</insert>
+	<update id="deleteLun">
+		update indexFandL SET deleteId=0 where url=#{url};
+	</update>
 
 
   

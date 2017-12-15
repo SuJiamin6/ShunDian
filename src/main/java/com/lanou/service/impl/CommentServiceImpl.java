@@ -25,4 +25,11 @@ public class CommentServiceImpl implements CommentService{
     public Integer findGoods_id(Integer goods_id,Integer user_id){
         return commentMapper.findGoods_id(goods_id,user_id);
     }
+    public List<Comments>  pinglun(Integer page){
+        page=(page-1)*20;
+        return  commentMapper.pinglun(page);
+    }
+    public void PLdelete(Integer cId){
+       commentMapper.PLdelete(cId);
+    }
 }

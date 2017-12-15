@@ -15,4 +15,10 @@
 	<select id="findGoods_id"  resultType="Integer">
 		SELECT cId FROM Comment where  goods_id=#{0} and user_id=#{1}
 	</select>
+	<select id="pinglun" resultMap="commentsResult" >
+		select * from Comment limit #{page},20;
+	</select>
+	<delete id="PLdelete" parameterType="Integer">
+		DELETE  from Comment WHERE cId=#{cId} ;
+	</delete>
 </mapper>

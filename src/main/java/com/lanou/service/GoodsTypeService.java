@@ -87,4 +87,12 @@ public interface GoodsTypeService {
 	public List<Orders> findOrdersByPage(int count);
 	public List<Orders> findOrdersByOrderId(int number);
 	public int updateOrderState(int orderId);
+
+
+	public void updatefloor(String fName,Integer id);
+	public void insertLun(String url);
+	public String upload();
+	public void deletefloor(Integer id);
+	public void insertFloor(String fName);
+	public void deleteLun(String url);
 }
